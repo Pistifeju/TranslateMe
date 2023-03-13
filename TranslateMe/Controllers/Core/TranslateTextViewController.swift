@@ -21,7 +21,9 @@ class TranslateTextViewController: UIViewController {
     
     // MARK: - Helpers
     private func configureUI() {
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = .systemBackground
+        
+        navigationItem.title = "TranslateMe - Text"
         
         NSLayoutConstraint.activate([
             

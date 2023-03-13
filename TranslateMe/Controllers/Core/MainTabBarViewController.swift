@@ -24,8 +24,13 @@ class MainTabBarViewController: UITabBarController {
     
     // MARK: - Helpers
     private func configureUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBlue
         tabBar.backgroundColor = .systemBackground
+        tabBar.layer.shadowColor = UIColor.label.cgColor
+        tabBar.layer.shadowOffset = CGSize(width: 0, height: -1)
+        tabBar.layer.shadowRadius = 1
+        tabBar.layer.shadowOpacity = 0.5
+        tabBar.layer.shadowPath = UIBezierPath(rect: tabBar.bounds).cgPath
     }
     
     // MARK: - Selectors

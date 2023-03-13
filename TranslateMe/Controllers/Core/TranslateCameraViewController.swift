@@ -21,7 +21,9 @@ class TranslateCameraViewController: UIViewController {
     
     // MARK: - Helpers
     private func configureUI() {
-        view.backgroundColor = .systemRed
+        view.backgroundColor = .systemBackground
+        
+        navigationItem.title = "TranslateMe - Camera"
         
         NSLayoutConstraint.activate([
             

@@ -23,11 +23,11 @@ final class MainTabBarViewControllerViewModel {
         let nav = UINavigationController(rootViewController: rootViewController)
         nav.tabBarItem.image = image
         nav.navigationBar.tintColor = .label
-        nav.navigationBar.isTranslucent = true
+        nav.navigationBar.isTranslucent = false
         nav.navigationBar.isHidden = false
-        nav.navigationBar.prefersLargeTitles = true
-        nav.navigationItem.largeTitleDisplayMode = .always
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.label]
+        nav.navigationBar.backgroundColor = .systemBlue
+        nav.navigationBar.barTintColor = .systemBlue
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white, .font: UIFont.preferredFont(forTextStyle: .callout)]
         nav.navigationBar.largeTitleTextAttributes = textAttributes
         nav.navigationBar.titleTextAttributes = textAttributes
         return nav

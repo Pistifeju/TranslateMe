@@ -12,7 +12,6 @@ class TranslateTextViewController: UIViewController {
     
     // MARK: - Properties
     
-    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {

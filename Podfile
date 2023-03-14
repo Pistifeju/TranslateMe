@@ -7,5 +7,6 @@ target 'TranslateMe' do
 
   # Pods for TranslateMe
   pod 'SwiftLint'
+  pod 'GoogleMLKit/Translate', '3.2.0'
 
 end

@@ -6,17 +6,25 @@
 //
 
 import Foundation
-
 import UIKit
+
+protocol MainLanguageNameLabelViewDelegate: AnyObject {
+    func didPressLanguageLabel(sender: MainLanguageNameLabelView)
+}
 
 class MainLanguageNameLabelView: UIView {
     
     // MARK: - Properties
     
+    weak var delegate: MainLanguageNameLabelViewDelegate?
+    
+    public let left: Bool
+    
     private let languageLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "English"
+        label.textAlignment = .left
         label.textColor = .systemBlue
         label.font = UIFont.preferredFont(forTextStyle: .headline).bold()
         return label
@@ -33,8 +41,9 @@ class MainLanguageNameLabelView: UIView {
     
     // MARK: - Lifecycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(left: Bool) {
+        self.left = left
+        super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -78,6 +87,7 @@ class MainLanguageNameLabelView: UIView {
     
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         simpleTapAnimation()
+        delegate?.didPressLanguageLabel(sender: self)
     }
 }
 

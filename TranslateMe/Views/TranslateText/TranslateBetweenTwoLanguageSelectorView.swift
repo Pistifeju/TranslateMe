@@ -8,9 +8,15 @@
 import Foundation
 import UIKit
 
+protocol TranslateBetweenTwoLanguageSelectorViewDelegate: AnyObject {
+    func didPressSelectLanguage(languageLabel: MainLanguageNameLabelView)
+}
+
 class TranslateBetweenTwoLanguageSelectorView: UIView {
 
     // MARK: - Properties
+        
+    weak var delegate: TranslateBetweenTwoLanguageSelectorViewDelegate?
     
     private let translateItemsStackView: UIStackView = {
         let stackView = UIStackView()
@@ -28,14 +34,19 @@ class TranslateBetweenTwoLanguageSelectorView: UIView {
         return button
     }()
     
-    private let leftLanguageLabelView = MainLanguageNameLabelView()
-    private let rightLanguageLabelView = MainLanguageNameLabelView()
+    private let leftLanguageLabelView = MainLanguageNameLabelView(left: true)
+    private let rightLanguageLabelView = MainLanguageNameLabelView(left: false)
     
     // MARK: - Lifecycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         translatesAutoresizingMaskIntoConstraints = false
+        
+        leftLanguageLabelView.delegate = self
+        rightLanguageLabelView.delegate = self
+        
         configureUI()
     }
     
@@ -73,3 +84,8 @@ class TranslateBetweenTwoLanguageSelectorView: UIView {
     
 }
 
+extension TranslateBetweenTwoLanguageSelectorView: MainLanguageNameLabelViewDelegate {
+    func didPressLanguageLabel(sender: MainLanguageNameLabelView) {
+        delegate?.didPressSelectLanguage(languageLabel: sender)
+    }
+}

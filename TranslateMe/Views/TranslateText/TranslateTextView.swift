@@ -8,21 +8,36 @@
 import Foundation
 import UIKit
 
+protocol TranslateTextViewDelegate: AnyObject {
+    func showPickerViewAlert(pickerView: UIPickerView, alert: UIAlertController)
+}
+
 final class TranslateTextView: UIView {
     
     // MARK: - Properties
     
-    private let viewModel = TranslateTextViewViewModel()
-
+    weak var delegate: TranslateTextViewDelegate?
+    
+    private var viewModel = TranslateTextViewViewModel()
+    
     private let upperTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate from")
     private let bottomTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate to")
     private let translateBetweenTwoLanguageSelectorView = TranslateBetweenTwoLanguageSelectorView()
     
+    private let languagePickerView: UIPickerView = {
+        let pickerView = UIPickerView(frame: .zero)
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
+        return pickerView
+    }()
+    
     // MARK: - Lifecycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
+        translateBetweenTwoLanguageSelectorView.delegate = self
+        languagePickerView.delegate = self
+        languagePickerView.dataSource = self
         configureUI()
     }
     
@@ -57,3 +72,43 @@ final class TranslateTextView: UIView {
     
 }
 
+extension TranslateTextView: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return viewModel.languages.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return viewModel.languages[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 50
+    }
+}
+
+extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
+    func didPressSelectLanguage(languageLabel: MainLanguageNameLabelView) {
+        let alert = UIAlertController(title: "Select Language", message: "", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { action in
+            let selectedIndex = self.languagePickerView.selectedRow(inComponent: 0)
+            let selectedLanguage = self.viewModel.translateLanguages[selectedIndex]
+            let selectedLanguageString = self.viewModel.languages[selectedIndex]
+            languageLabel.configure(withLanguage: selectedLanguageString)
+            if languageLabel.left {
+                self.viewModel.leftSelectedLanguage = selectedLanguage
+                self.viewModel.leftSelectedLanguageString = selectedLanguageString
+            } else {
+                self.viewModel.rightSelectedLanguage = selectedLanguage
+                self.viewModel.rightSelectedLanguageString = selectedLanguageString
+            }
+        }))
+        delegate?.showPickerViewAlert(pickerView: self.languagePickerView, alert: alert)
+    }
+}

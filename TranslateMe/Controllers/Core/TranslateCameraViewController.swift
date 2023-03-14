@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TranslateCameraViewController: UIViewController {
+final class TranslateCameraViewController: UIViewController {
     
     // MARK: - Properties
     

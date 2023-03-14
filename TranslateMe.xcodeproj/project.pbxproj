@@ -17,6 +17,12 @@
 		B70E48F929BFD60F000A9CD7 /* TranslateCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70E48F829BFD60F000A9CD7 /* TranslateCameraViewController.swift */; };
 		B70E48FB29BFD627000A9CD7 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70E48FA29BFD627000A9CD7 /* MainTabBarViewController.swift */; };
 		B70E48FD29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70E48FC29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift */; };
+		B79ED55529C08F5500361DA6 /* TranslateTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79ED55429C08F5500361DA6 /* TranslateTextView.swift */; };
+		B79ED55729C08F6600361DA6 /* TranslateTextViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79ED55629C08F6600361DA6 /* TranslateTextViewViewModel.swift */; };
+		B79ED55A29C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79ED55929C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift */; };
+		B79ED55D29C0945C00361DA6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79ED55C29C0945C00361DA6 /* Extensions.swift */; };
+		B79ED55F29C094F100361DA6 /* MainLanguageNameLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79ED55E29C094F100361DA6 /* MainLanguageNameLabelView.swift */; };
+		B79ED56129C0A99E00361DA6 /* TranslateTextTextViewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79ED56029C0A99E00361DA6 /* TranslateTextTextViewView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +38,12 @@
 		B70E48F829BFD60F000A9CD7 /* TranslateCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateCameraViewController.swift; sourceTree = "<group>"; };
 		B70E48FA29BFD627000A9CD7 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		B70E48FC29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewControllerViewModel.swift; sourceTree = "<group>"; };
+		B79ED55429C08F5500361DA6 /* TranslateTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateTextView.swift; sourceTree = "<group>"; };
+		B79ED55629C08F6600361DA6 /* TranslateTextViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateTextViewViewModel.swift; sourceTree = "<group>"; };
+		B79ED55929C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateBetweenTwoLanguageSelectorView.swift; sourceTree = "<group>"; };
+		B79ED55C29C0945C00361DA6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B79ED55E29C094F100361DA6 /* MainLanguageNameLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLanguageNameLabelView.swift; sourceTree = "<group>"; };
+		B79ED56029C0A99E00361DA6 /* TranslateTextTextViewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateTextTextViewView.swift; sourceTree = "<group>"; };
 		DD18DE1FEBDF5FAAEFE63F13 /* Pods-TranslateMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TranslateMe.release.xcconfig"; path = "Target Support Files/Pods-TranslateMe/Pods-TranslateMe.release.xcconfig"; sourceTree = "<group>"; };
 		FC7CF7DE93DC00F01B5E1E3D /* Pods-TranslateMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TranslateMe.debug.xcconfig"; path = "Target Support Files/Pods-TranslateMe/Pods-TranslateMe.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,6 +98,7 @@
 		B70E48D729BFD557000A9CD7 /* TranslateMe */ = {
 			isa = PBXGroup;
 			children = (
+				B79ED55B29C0945500361DA6 /* Utils */,
 				B70E48F129BFD587000A9CD7 /* Controllers */,
 				B70E48F029BFD585000A9CD7 /* Models */,
 				B70E48EF29BFD582000A9CD7 /* Views */,
@@ -119,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				B70E48FC29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift */,
+				B79ED55629C08F6600361DA6 /* TranslateTextViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -126,6 +140,7 @@
 		B70E48EF29BFD582000A9CD7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B79ED55829C090ED00361DA6 /* TranslateText */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -154,6 +169,25 @@
 				B70E48FA29BFD627000A9CD7 /* MainTabBarViewController.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		B79ED55829C090ED00361DA6 /* TranslateText */ = {
+			isa = PBXGroup;
+			children = (
+				B79ED55929C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift */,
+				B79ED55E29C094F100361DA6 /* MainLanguageNameLabelView.swift */,
+				B79ED55429C08F5500361DA6 /* TranslateTextView.swift */,
+				B79ED56029C0A99E00361DA6 /* TranslateTextTextViewView.swift */,
+			);
+			path = TranslateText;
+			sourceTree = "<group>";
+		};
+		B79ED55B29C0945500361DA6 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				B79ED55C29C0945C00361DA6 /* Extensions.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,12 +304,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B79ED55529C08F5500361DA6 /* TranslateTextView.swift in Sources */,
+				B79ED55729C08F6600361DA6 /* TranslateTextViewViewModel.swift in Sources */,
 				B70E48F729BFD5FE000A9CD7 /* TranslateConversationViewController.swift in Sources */,
 				B70E48F429BFD5E8000A9CD7 /* TranslateTextViewController.swift in Sources */,
 				B70E48F929BFD60F000A9CD7 /* TranslateCameraViewController.swift in Sources */,
 				B70E48D929BFD557000A9CD7 /* AppDelegate.swift in Sources */,
 				B70E48DB29BFD557000A9CD7 /* SceneDelegate.swift in Sources */,
 				B70E48FB29BFD627000A9CD7 /* MainTabBarViewController.swift in Sources */,
+				B79ED55F29C094F100361DA6 /* MainLanguageNameLabelView.swift in Sources */,
+				B79ED55A29C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift in Sources */,
+				B79ED56129C0A99E00361DA6 /* TranslateTextTextViewView.swift in Sources */,
+				B79ED55D29C0945C00361DA6 /* Extensions.swift in Sources */,
 				B70E48FD29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,9 +8,11 @@
 import Foundation
 import UIKit
 
-class TranslateTextViewController: UIViewController {
+final class TranslateTextViewController: UIViewController {
     
     // MARK: - Properties
+    
+    private let translateTextView = TranslateTextView()
     
     // MARK: - LifeCycle
     
@@ -22,11 +24,14 @@ class TranslateTextViewController: UIViewController {
     // MARK: - Helpers
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        
+        view.addSubview(translateTextView)
         navigationItem.title = "TranslateMe - Text"
         
         NSLayoutConstraint.activate([
-            
+            translateTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            translateTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            translateTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            translateTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     

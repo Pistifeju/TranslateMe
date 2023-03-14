@@ -66,10 +66,11 @@ class TranslateTextTextView: UIView {
     
     // MARK: - Lifecycle
     
-    init(translateOrderLabel: String) {
+    init(translateOrderLabel: String, allowEditingTextView: Bool = true) {
         self.translateOrderLabel.text = translateOrderLabel
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
+        translateTextView.isUserInteractionEnabled = allowEditingTextView
         configureUI()
     }
     
@@ -109,6 +110,10 @@ class TranslateTextTextView: UIView {
         
         layoutIfNeeded()
         translateTextView.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: voiceButton.frame.height + 8, right: 5)
+    }
+    
+    public func configure(languageString: String) {
+        languageLabel.text = languageString
     }
     
     // MARK: - Selectors

@@ -77,6 +77,10 @@ class MainLanguageNameLabelView: UIView {
             downArrowImageView.leadingAnchor.constraint(equalToSystemSpacingAfter: languageLabel.trailingAnchor, multiplier: 1),
             downArrowImageView.centerYAnchor.constraint(equalTo: languageLabel.centerYAnchor),
         ])
+        
+        if !left {
+            downArrowImageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        }
     }
     
     public func configure(withLanguage text: String) {

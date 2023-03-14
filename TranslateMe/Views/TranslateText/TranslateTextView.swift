@@ -21,7 +21,7 @@ final class TranslateTextView: UIView {
     private var viewModel = TranslateTextViewViewModel()
     
     private let upperTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate from")
-    private let bottomTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate to")
+    private let bottomTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate to", allowEditingTextView: false)
     private let translateBetweenTwoLanguageSelectorView = TranslateBetweenTwoLanguageSelectorView()
     
     private let languagePickerView: UIPickerView = {
@@ -38,6 +38,7 @@ final class TranslateTextView: UIView {
         translateBetweenTwoLanguageSelectorView.delegate = self
         languagePickerView.delegate = self
         languagePickerView.dataSource = self
+        configureViews()
         configureUI()
     }
     
@@ -68,6 +69,12 @@ final class TranslateTextView: UIView {
         ])
     }
     
+    private func configureViews() {
+        translateBetweenTwoLanguageSelectorView.configure(leftLanguageString: viewModel.leftSelectedLanguageString, rightLanguageString: viewModel.rightSelectedLanguageString)
+        upperTranslateTextTextView.configure(languageString: viewModel.leftSelectedLanguageString)
+        bottomTranslateTextTextView.configure(languageString: viewModel.rightSelectedLanguageString)
+    }
+    
     // MARK: - Selectors
     
 }
@@ -91,6 +98,11 @@ extension TranslateTextView: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
+    func didPressSwapLanguagesButton() {
+        viewModel.switchLanguages()
+        self.configureViews()
+    }
+    
     func didPressSelectLanguage(languageLabel: MainLanguageNameLabelView) {
         let alert = UIAlertController(title: "Select Language", message: "", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
@@ -108,6 +120,7 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
                 self.viewModel.rightSelectedLanguage = selectedLanguage
                 self.viewModel.rightSelectedLanguageString = selectedLanguageString
             }
+            self.configureViews()
         }))
         delegate?.showPickerViewAlert(pickerView: self.languagePickerView, alert: alert)
     }

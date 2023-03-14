@@ -10,6 +10,7 @@ import UIKit
 
 protocol TranslateBetweenTwoLanguageSelectorViewDelegate: AnyObject {
     func didPressSelectLanguage(languageLabel: MainLanguageNameLabelView)
+    func didPressSwapLanguagesButton()
 }
 
 class TranslateBetweenTwoLanguageSelectorView: UIView {
@@ -17,15 +18,6 @@ class TranslateBetweenTwoLanguageSelectorView: UIView {
     // MARK: - Properties
         
     weak var delegate: TranslateBetweenTwoLanguageSelectorViewDelegate?
-    
-    private let translateItemsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .systemBackground
-        stackView.distribution = .equalSpacing
-        stackView.axis = .horizontal
-        return stackView
-    }()
     
     private let centerSwitchLanguagesButton: UIButton = {
         let button = UIButton(type: .system)
@@ -46,6 +38,7 @@ class TranslateBetweenTwoLanguageSelectorView: UIView {
         
         leftLanguageLabelView.delegate = self
         rightLanguageLabelView.delegate = self
+        centerSwitchLanguagesButton.addTarget(self, action: #selector(didTapSwitchLanguagesButton), for: .touchUpInside)
         
         configureUI()
     }
@@ -56,7 +49,7 @@ class TranslateBetweenTwoLanguageSelectorView: UIView {
     
     override var intrinsicContentSize: CGSize {
         layoutIfNeeded()
-        let height = translateItemsStackView.bounds.height + 36 //Added +36 because of the top and bottomAnchor multipler 2-2
+        let height = centerSwitchLanguagesButton.bounds.height + 36 //Added +36 because of the top and bottomAnchor multipler 2 - 2
         return CGSize(width: UIScreen.main.bounds.width, height: height)
     }
     
@@ -67,21 +60,32 @@ class TranslateBetweenTwoLanguageSelectorView: UIView {
         layer.cornerRadius = 8
         addBasicShadow()
         
-        addSubview(translateItemsStackView)
-        translateItemsStackView.addArrangedSubview(leftLanguageLabelView)
-        translateItemsStackView.addArrangedSubview(centerSwitchLanguagesButton)
-        translateItemsStackView.addArrangedSubview(rightLanguageLabelView)
+        addSubview(leftLanguageLabelView)
+        addSubview(centerSwitchLanguagesButton)
+        addSubview(rightLanguageLabelView)
         
         NSLayoutConstraint.activate([
-            translateItemsStackView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
-            translateItemsStackView.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 2),
-            trailingAnchor.constraint(equalToSystemSpacingAfter: translateItemsStackView.trailingAnchor, multiplier: 2),
-            bottomAnchor.constraint(equalToSystemSpacingBelow: translateItemsStackView.bottomAnchor, multiplier: 2),
+            leftLanguageLabelView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
+            leftLanguageLabelView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            centerSwitchLanguagesButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            centerSwitchLanguagesButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            trailingAnchor.constraint(equalToSystemSpacingAfter: rightLanguageLabelView.trailingAnchor, multiplier: 2),
+            rightLanguageLabelView.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
+    }
+    
+    public func configure(leftLanguageString: String, rightLanguageString: String) {
+        leftLanguageLabelView.configure(withLanguage: leftLanguageString)
+        rightLanguageLabelView.configure(withLanguage: rightLanguageString)
     }
     
     // MARK: - Selectors
     
+    @objc private func didTapSwitchLanguagesButton() {
+        delegate?.didPressSwapLanguagesButton()
+    }
 }
 
 extension TranslateBetweenTwoLanguageSelectorView: MainLanguageNameLabelViewDelegate {

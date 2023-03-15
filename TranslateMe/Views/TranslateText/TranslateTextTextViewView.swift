@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol TranslateTextTextViewDelegate: AnyObject {
-    func textViewDidChange(textViewString: String)
+    func textViewDidChange(sourceTextViewString: String)
 }
 
 class TranslateTextTextView: UIView {
@@ -119,8 +119,13 @@ class TranslateTextTextView: UIView {
         translateTextView.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: voiceButton.frame.height + 8, right: 5)
     }
     
-    public func configure(languageString: String) {
-        languageLabel.text = languageString
+    public func configure(languageString: String?, textViewString: String?) {
+        if let languageString {
+            languageLabel.text = languageString
+        }
+        if let textViewString {
+            translateTextView.text = textViewString
+        }
     }
     
     // MARK: - Selectors
@@ -128,6 +133,14 @@ class TranslateTextTextView: UIView {
 
 extension TranslateTextTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        delegate?.textViewDidChange(textViewString: textView.text)
+        delegate?.textViewDidChange(sourceTextViewString: textView.text)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        delegate?.textViewDidChange(sourceTextViewString: textView.text)
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        delegate?.textViewDidChange(sourceTextViewString: textView.text)
     }
 }

@@ -15,7 +15,7 @@ final class TMLanguages {
     private init () {}
     
     private let locale = Locale.current
-    
+        
     var allTranslateLanguages: [TranslateLanguage] {
         TranslateLanguage.allLanguages().sorted {
             return locale.localizedString(forLanguageCode: $0.rawValue)!

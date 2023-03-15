@@ -14,14 +14,14 @@ final class TranslateTextViewController: UIViewController {
     // MARK: - Properties
         
     private lazy var translateTextView = TranslateTextView()
-    
+
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         translateTextView.delegate = self
-        
+
         configureUI()
     }
     

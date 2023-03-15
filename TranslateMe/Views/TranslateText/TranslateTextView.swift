@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import MLKitTranslate
 
 protocol TranslateTextViewDelegate: AnyObject {
     func showPickerViewAlert(pickerView: UIPickerView, alert: UIAlertController)
@@ -23,6 +24,7 @@ final class TranslateTextView: UIView {
     private let sourceTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate from")
     private let targetTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate to", allowEditingTextView: false)
     private let translateBetweenTwoLanguageSelectorView = TranslateBetweenTwoLanguageSelectorView()
+    private let downloadActivityIndicatorView = ActivityLabelIndicatorView(title: "Downloading language")
     
     private let languagePickerView: UIPickerView = {
         let pickerView = UIPickerView(frame: .zero)
@@ -54,6 +56,7 @@ final class TranslateTextView: UIView {
         addSubview(translateBetweenTwoLanguageSelectorView)
         addSubview(sourceTranslateTextTextView)
         addSubview(targetTranslateTextTextView)
+        addSubview(downloadActivityIndicatorView)
         
         NSLayoutConstraint.activate([
             translateBetweenTwoLanguageSelectorView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
@@ -67,17 +70,39 @@ final class TranslateTextView: UIView {
             targetTranslateTextTextView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
             targetTranslateTextTextView.topAnchor.constraint(equalToSystemSpacingBelow: sourceTranslateTextTextView.bottomAnchor, multiplier: 2),
             trailingAnchor.constraint(equalToSystemSpacingAfter: targetTranslateTextTextView.trailingAnchor, multiplier: 2),
+            
+            downloadActivityIndicatorView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            downloadActivityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
     
     private func configureViews() {
         let languagePair = viewModel.languagePair
         translateBetweenTwoLanguageSelectorView.configure(sourceLanguageString: languagePair.sourceLanguageString, targetLanguageString: languagePair.targetLanguageString)
-        sourceTranslateTextTextView.configure(languageString: languagePair.sourceLanguageString)
-        targetTranslateTextTextView.configure(languageString: languagePair.targetLanguageString)
+        sourceTranslateTextTextView.configure(languageString: languagePair.sourceLanguageString, textViewString: languagePair.translationText)
+        targetTranslateTextTextView.configure(languageString: languagePair.targetLanguageString, textViewString: languagePair.translationText)
     }
     
     // MARK: - Selectors
+    
+    public func downloadLanguageIfNeeded(sourceLanguage: TranslateLanguage, targetLanguage: TranslateLanguage, completion: @escaping(Error?) -> Void) {
+        let options = TranslatorOptions(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage)
+        let translator = Translator.translator(options: options)
+        
+        let conditions = ModelDownloadConditions(
+            allowsCellularAccess: false,
+            allowsBackgroundDownloading: true
+        )
+        
+        let task = translator.downloadModelIfNeeded(with: conditions) { error in
+            guard error == nil else {
+                completion(error)
+                return
+            }
+            completion(nil)
+            return
+        }
+    }
     
 }
 
@@ -125,6 +150,18 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
                 self.viewModel.languagePair.targetLanguage = selectedLanguage
             }
             self.configureViews()
+            let languagePair = self.viewModel.languagePair
+            self.downloadActivityIndicatorView.startAnimating()
+            TMLanguageModels.shared.downloadLanguageIfNeeded(sourceLanguage: languagePair.sourceLanguage, targetLanguage: languagePair.targetLanguage) { [weak self] error in
+                guard let strongSelf = self else { return }
+                if let error = error {
+                    print(error.localizedDescription)
+                    // TODO: - SHOW ERROR ALERT HERE
+                    return
+                }
+                
+                strongSelf.downloadActivityIndicatorView.stopAnimating()
+            }
         }))
         delegate?.showPickerViewAlert(pickerView: self.languagePickerView, alert: alert)
     }
@@ -133,7 +170,10 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
 // MARK: - TranslateTextViewDelegate
 
 extension TranslateTextView: TranslateTextTextViewDelegate {
-    func textViewDidChange(textViewString: String) {
-        
+    func textViewDidChange(sourceTextViewString: String) {
+        viewModel.languagePair.translationText = sourceTextViewString
+        viewModel.languagePair.translate { [weak self] in
+            self?.targetTranslateTextTextView.configure(languageString: self?.viewModel.languagePair.targetLanguageString, textViewString: self?.viewModel.languagePair.translatedText)
+        }
     }
 }

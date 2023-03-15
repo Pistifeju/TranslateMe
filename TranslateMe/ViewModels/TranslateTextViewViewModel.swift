@@ -11,6 +11,5 @@ import MLKitTranslate
 final class TranslateTextViewViewModel {
     
     public var languagePair = TMLanguagePair(sourceLanguage: .english, targetLanguage: .hungarian)
-        
-    public private(set) var localModels = ModelManager.modelManager().downloadedTranslateModels
+    
 }

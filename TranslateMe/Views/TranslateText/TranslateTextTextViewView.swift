@@ -8,9 +8,15 @@
 import Foundation
 import UIKit
 
+protocol TranslateTextTextViewDelegate: AnyObject {
+    func textViewDidChange(textViewString: String)
+}
+
 class TranslateTextTextView: UIView {
     
     // MARK: - Properties
+    
+    weak var delegate: TranslateTextTextViewDelegate?
     
     private let translateOrderLabel: UILabel = {
         let label = UILabel()
@@ -71,6 +77,7 @@ class TranslateTextTextView: UIView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         translateTextView.isUserInteractionEnabled = allowEditingTextView
+        translateTextView.delegate = self
         configureUI()
     }
     
@@ -117,6 +124,10 @@ class TranslateTextTextView: UIView {
     }
     
     // MARK: - Selectors
-    
 }
 
+extension TranslateTextTextView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        delegate?.textViewDidChange(textViewString: textView.text)
+    }
+}

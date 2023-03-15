@@ -20,8 +20,8 @@ final class TranslateTextView: UIView {
     
     private var viewModel = TranslateTextViewViewModel()
     
-    private let upperTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate from")
-    private let bottomTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate to", allowEditingTextView: false)
+    private let sourceTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate from")
+    private let targetTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate to", allowEditingTextView: false)
     private let translateBetweenTwoLanguageSelectorView = TranslateBetweenTwoLanguageSelectorView()
     
     private let languagePickerView: UIPickerView = {
@@ -38,6 +38,7 @@ final class TranslateTextView: UIView {
         translateBetweenTwoLanguageSelectorView.delegate = self
         languagePickerView.delegate = self
         languagePickerView.dataSource = self
+        sourceTranslateTextTextView.delegate = self
         configureViews()
         configureUI()
     }
@@ -51,33 +52,36 @@ final class TranslateTextView: UIView {
     private func configureUI() {
         backgroundColor = .systemBackground
         addSubview(translateBetweenTwoLanguageSelectorView)
-        addSubview(upperTranslateTextTextView)
-        addSubview(bottomTranslateTextTextView)
+        addSubview(sourceTranslateTextTextView)
+        addSubview(targetTranslateTextTextView)
         
         NSLayoutConstraint.activate([
             translateBetweenTwoLanguageSelectorView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
             translateBetweenTwoLanguageSelectorView.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 2),
             trailingAnchor.constraint(equalToSystemSpacingAfter: translateBetweenTwoLanguageSelectorView.trailingAnchor, multiplier: 2),
             
-            upperTranslateTextTextView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
-            upperTranslateTextTextView.topAnchor.constraint(equalToSystemSpacingBelow: translateBetweenTwoLanguageSelectorView.bottomAnchor, multiplier: 2),
-            trailingAnchor.constraint(equalToSystemSpacingAfter: upperTranslateTextTextView.trailingAnchor, multiplier: 2),
+            sourceTranslateTextTextView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
+            sourceTranslateTextTextView.topAnchor.constraint(equalToSystemSpacingBelow: translateBetweenTwoLanguageSelectorView.bottomAnchor, multiplier: 2),
+            trailingAnchor.constraint(equalToSystemSpacingAfter: sourceTranslateTextTextView.trailingAnchor, multiplier: 2),
             
-            bottomTranslateTextTextView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
-            bottomTranslateTextTextView.topAnchor.constraint(equalToSystemSpacingBelow: upperTranslateTextTextView.bottomAnchor, multiplier: 2),
-            trailingAnchor.constraint(equalToSystemSpacingAfter: bottomTranslateTextTextView.trailingAnchor, multiplier: 2),
+            targetTranslateTextTextView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
+            targetTranslateTextTextView.topAnchor.constraint(equalToSystemSpacingBelow: sourceTranslateTextTextView.bottomAnchor, multiplier: 2),
+            trailingAnchor.constraint(equalToSystemSpacingAfter: targetTranslateTextTextView.trailingAnchor, multiplier: 2),
         ])
     }
     
     private func configureViews() {
-        translateBetweenTwoLanguageSelectorView.configure(leftLanguageString: viewModel.leftSelectedLanguageString, rightLanguageString: viewModel.rightSelectedLanguageString)
-        upperTranslateTextTextView.configure(languageString: viewModel.leftSelectedLanguageString)
-        bottomTranslateTextTextView.configure(languageString: viewModel.rightSelectedLanguageString)
+        let languagePair = viewModel.languagePair
+        translateBetweenTwoLanguageSelectorView.configure(sourceLanguageString: languagePair.sourceLanguageString, targetLanguageString: languagePair.targetLanguageString)
+        sourceTranslateTextTextView.configure(languageString: languagePair.sourceLanguageString)
+        targetTranslateTextTextView.configure(languageString: languagePair.targetLanguageString)
     }
     
     // MARK: - Selectors
     
 }
+
+// MARK: - UIPickerViewDelegate, UIPickerViewDataSource
 
 extension TranslateTextView: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -85,11 +89,11 @@ extension TranslateTextView: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return viewModel.languages.count
+        return TMLanguages.shared.allTranslateLanguages.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return viewModel.languages[row]
+        return TMLanguages.shared.allLanguages[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
@@ -97,9 +101,11 @@ extension TranslateTextView: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 }
 
+// MARK: - TranslateBetweenTwoLanguageSelectorViewDelegate
+
 extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
     func didPressSwapLanguagesButton() {
-        viewModel.switchLanguages()
+        viewModel.languagePair.switchLanguages()
         self.configureViews()
     }
     
@@ -110,18 +116,24 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
         }))
         alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { action in
             let selectedIndex = self.languagePickerView.selectedRow(inComponent: 0)
-            let selectedLanguage = self.viewModel.translateLanguages[selectedIndex]
-            let selectedLanguageString = self.viewModel.languages[selectedIndex]
+            let selectedLanguage = TMLanguages.shared.allTranslateLanguages[selectedIndex]
+            let selectedLanguageString = TMLanguages.shared.allLanguages[selectedIndex]
             languageLabel.configure(withLanguage: selectedLanguageString)
-            if languageLabel.left {
-                self.viewModel.leftSelectedLanguage = selectedLanguage
-                self.viewModel.leftSelectedLanguageString = selectedLanguageString
+            if languageLabel.source {
+                self.viewModel.languagePair.sourceLanguage = selectedLanguage
             } else {
-                self.viewModel.rightSelectedLanguage = selectedLanguage
-                self.viewModel.rightSelectedLanguageString = selectedLanguageString
+                self.viewModel.languagePair.targetLanguage = selectedLanguage
             }
             self.configureViews()
         }))
         delegate?.showPickerViewAlert(pickerView: self.languagePickerView, alert: alert)
+    }
+}
+
+// MARK: - TranslateTextViewDelegate
+
+extension TranslateTextView: TranslateTextTextViewDelegate {
+    func textViewDidChange(textViewString: String) {
+        
     }
 }

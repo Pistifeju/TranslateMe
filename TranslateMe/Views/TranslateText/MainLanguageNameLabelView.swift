@@ -18,12 +18,11 @@ class MainLanguageNameLabelView: UIView {
     
     weak var delegate: MainLanguageNameLabelViewDelegate?
     
-    public let left: Bool
+    public let source: Bool
     
     private let languageLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "English"
         label.textAlignment = .left
         label.textColor = .systemBlue
         label.font = UIFont.preferredFont(forTextStyle: .headline).bold()
@@ -41,8 +40,8 @@ class MainLanguageNameLabelView: UIView {
     
     // MARK: - Lifecycle
     
-    init(left: Bool) {
-        self.left = left
+    init(source: Bool) {
+        self.source = source
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -78,7 +77,7 @@ class MainLanguageNameLabelView: UIView {
             downArrowImageView.centerYAnchor.constraint(equalTo: languageLabel.centerYAnchor),
         ])
         
-        if !left {
+        if !source {
             downArrowImageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         }
     }

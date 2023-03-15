@@ -26,8 +26,8 @@ class TranslateBetweenTwoLanguageSelectorView: UIView {
         return button
     }()
     
-    private let leftLanguageLabelView = MainLanguageNameLabelView(left: true)
-    private let rightLanguageLabelView = MainLanguageNameLabelView(left: false)
+    private let sourceLanguageLabelView = MainLanguageNameLabelView(source: true)
+    private let targetLanguageLabelView = MainLanguageNameLabelView(source: false)
     
     // MARK: - Lifecycle
     
@@ -36,8 +36,8 @@ class TranslateBetweenTwoLanguageSelectorView: UIView {
         
         translatesAutoresizingMaskIntoConstraints = false
         
-        leftLanguageLabelView.delegate = self
-        rightLanguageLabelView.delegate = self
+        sourceLanguageLabelView.delegate = self
+        targetLanguageLabelView.delegate = self
         centerSwitchLanguagesButton.addTarget(self, action: #selector(didTapSwitchLanguagesButton), for: .touchUpInside)
         
         configureUI()
@@ -60,25 +60,25 @@ class TranslateBetweenTwoLanguageSelectorView: UIView {
         layer.cornerRadius = 8
         addBasicShadow()
         
-        addSubview(leftLanguageLabelView)
+        addSubview(sourceLanguageLabelView)
         addSubview(centerSwitchLanguagesButton)
-        addSubview(rightLanguageLabelView)
+        addSubview(targetLanguageLabelView)
         
         NSLayoutConstraint.activate([
-            leftLanguageLabelView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
-            leftLanguageLabelView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            sourceLanguageLabelView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
+            sourceLanguageLabelView.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             centerSwitchLanguagesButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             centerSwitchLanguagesButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            trailingAnchor.constraint(equalToSystemSpacingAfter: rightLanguageLabelView.trailingAnchor, multiplier: 2),
-            rightLanguageLabelView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            trailingAnchor.constraint(equalToSystemSpacingAfter: targetLanguageLabelView.trailingAnchor, multiplier: 2),
+            targetLanguageLabelView.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
     }
     
-    public func configure(leftLanguageString: String, rightLanguageString: String) {
-        leftLanguageLabelView.configure(withLanguage: leftLanguageString)
-        rightLanguageLabelView.configure(withLanguage: rightLanguageString)
+    public func configure(sourceLanguageString: String, targetLanguageString: String) {
+        sourceLanguageLabelView.configure(withLanguage: sourceLanguageString)
+        targetLanguageLabelView.configure(withLanguage: targetLanguageString)
     }
     
     // MARK: - Selectors

@@ -1,5 +1,5 @@
 //
-//  TMTranslator.swift
+//  TMLanguages.swift
 //  TranslateMe
 //
 //  Created by István Juhász on 2023. 03. 14..
@@ -8,9 +8,9 @@
 import Foundation
 import MLKitTranslate
 
-final class TMTranslator {
+final class TMLanguages {
     
-    public static let shared = TMTranslator()
+    public static let shared = TMLanguages()
     
     private init () {}
     

@@ -10,6 +10,7 @@ import UIKit
 
 protocol TranslateTextTextViewDelegate: AnyObject {
     func textViewDidChange(sourceTextViewString: String)
+    func didTapVoiceButton(sourceTextViewString: String, sourceTextView: Bool)
 }
 
 class TranslateTextTextView: UIView {
@@ -17,6 +18,8 @@ class TranslateTextTextView: UIView {
     // MARK: - Properties
     
     weak var delegate: TranslateTextTextViewDelegate?
+        
+    private let sourceTextView: Bool
     
     private let translateOrderLabel: UILabel = {
         let label = UILabel()
@@ -74,10 +77,12 @@ class TranslateTextTextView: UIView {
     
     init(translateOrderLabel: String, allowEditingTextView: Bool = true) {
         self.translateOrderLabel.text = translateOrderLabel
+        self.sourceTextView = allowEditingTextView
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         translateTextView.isUserInteractionEnabled = allowEditingTextView
         translateTextView.delegate = self
+        voiceButton.addTarget(self, action: #selector(didTapVoiceButton), for: .touchUpInside)
         configureUI()
     }
     
@@ -129,6 +134,10 @@ class TranslateTextTextView: UIView {
     }
     
     // MARK: - Selectors
+    
+    @objc private func didTapVoiceButton() {
+        delegate?.didTapVoiceButton(sourceTextViewString: translateTextView.text, sourceTextView: sourceTextView)
+    }
 }
 
 extension TranslateTextTextView: UITextViewDelegate {

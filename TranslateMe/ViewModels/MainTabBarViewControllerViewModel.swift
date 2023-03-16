@@ -16,7 +16,9 @@ final class MainTabBarViewControllerViewModel {
         
         let translateCameraNav = templateNavigationController(image: UIImage(systemName: "camera.viewfinder")!, rootViewController: TranslateCameraViewController())
         
-        return [translateTextNav, translateConversationNav, translateCameraNav]
+        let profileNav = templateNavigationController(image: UIImage(systemName: "person")!, rootViewController: ProfileViewController())
+        
+        return [translateTextNav, translateConversationNav, translateCameraNav, profileNav]
     }
     
     private func templateNavigationController(image: UIImage, rootViewController: UIViewController) -> UINavigationController {
@@ -27,7 +29,9 @@ final class MainTabBarViewControllerViewModel {
         nav.navigationBar.isHidden = false
         nav.navigationBar.backgroundColor = .systemBlue
         nav.navigationBar.barTintColor = .systemBlue
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white, .font: UIFont.preferredFont(forTextStyle: .callout)]
+        nav.navigationBar.prefersLargeTitles = true
+        nav.navigationItem.largeTitleDisplayMode = .always
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         nav.navigationBar.largeTitleTextAttributes = textAttributes
         nav.navigationBar.titleTextAttributes = textAttributes
         return nav

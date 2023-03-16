@@ -17,10 +17,41 @@ final class TMLanguages {
     private let locale = Locale.current
         
     var allTranslateLanguages: [TranslateLanguage] {
-        TranslateLanguage.allLanguages().sorted {
-            return locale.localizedString(forLanguageCode: $0.rawValue)!
-            < locale.localizedString(forLanguageCode: $1.rawValue)!
-        }
+        return [
+            .arabic,
+            .bulgarian,
+            .catalan,
+            .czech,
+            .chinese,
+            .croatian,
+            .dutch,
+            .danish,
+            .english,
+            .french,
+            .finnish,
+            .greek,
+            .german,
+            .hungarian,
+            .hindi,
+            .hebrew,
+            .italian,
+            .indonesian,
+            .japanese,
+            .korean,
+            .malay,
+            .norwegian,
+            .polish,
+            .portuguese,
+            .russian,
+            .romanian,
+            .slovak,
+            .spanish,
+            .swedish,
+            .thai,
+            .turkish,
+            .ukrainian,
+            .vietnamese
+        ]
     }
     
     var allLanguages: [String] {

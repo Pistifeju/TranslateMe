@@ -30,7 +30,7 @@ final class TranslateTextViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(translateTextView)
-        navigationItem.title = "TranslateMe - Text"
+        navigationItem.title = "Text"
         NSLayoutConstraint.activate([
             translateTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             translateTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

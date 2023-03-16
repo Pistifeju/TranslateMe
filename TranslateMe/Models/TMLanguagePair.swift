@@ -8,6 +8,7 @@
 import Foundation
 import MLKitTranslate
 
+
 class TMLanguagePair {
     let locale = Locale.current
     var sourceLanguage: TranslateLanguage
@@ -18,6 +19,7 @@ class TMLanguagePair {
     var sourceLanguageString: String {
         return locale.localizedString(forLanguageCode: sourceLanguage.rawValue)?.capitalized ?? ""
     }
+    
     var targetLanguageString: String {
         return locale.localizedString(forLanguageCode: targetLanguage.rawValue)?.capitalized ?? ""
     }
@@ -31,6 +33,7 @@ class TMLanguagePair {
     
     public func switchLanguages() {
         (sourceLanguage, targetLanguage) = (targetLanguage, sourceLanguage)
+        (translationText, translatedText) = (translatedText, translationText)
     }
     
     public func translate(completion: @escaping () -> Void) {

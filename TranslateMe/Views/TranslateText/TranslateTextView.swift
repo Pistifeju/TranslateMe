@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import MLKitTranslate
+import JGProgressHUD
 
 protocol TranslateTextViewDelegate: AnyObject {
     func showPickerViewAlert(pickerView: UIPickerView, alert: UIAlertController)
@@ -21,16 +22,16 @@ final class TranslateTextView: UIView {
     
     private var viewModel = TranslateTextViewViewModel()
     
-    private let sourceTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate from")
-    private let targetTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate to", allowEditingTextView: false)
+    private lazy var sourceTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate from")
+    private lazy var targetTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate to", allowEditingTextView: false)
     private let translateBetweenTwoLanguageSelectorView = TranslateBetweenTwoLanguageSelectorView()
-    private let downloadActivityIndicatorView = ActivityLabelIndicatorView(title: "Downloading language")
     
     private let languagePickerView: UIPickerView = {
         let pickerView = UIPickerView(frame: .zero)
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         return pickerView
     }()
+    
     
     // MARK: - Lifecycle
     
@@ -41,6 +42,7 @@ final class TranslateTextView: UIView {
         languagePickerView.delegate = self
         languagePickerView.dataSource = self
         sourceTranslateTextTextView.delegate = self
+        targetTranslateTextTextView.delegate = self
         configureViews()
         configureUI()
     }
@@ -56,7 +58,6 @@ final class TranslateTextView: UIView {
         addSubview(translateBetweenTwoLanguageSelectorView)
         addSubview(sourceTranslateTextTextView)
         addSubview(targetTranslateTextTextView)
-        addSubview(downloadActivityIndicatorView)
         
         NSLayoutConstraint.activate([
             translateBetweenTwoLanguageSelectorView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
@@ -70,40 +71,17 @@ final class TranslateTextView: UIView {
             targetTranslateTextTextView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
             targetTranslateTextTextView.topAnchor.constraint(equalToSystemSpacingBelow: sourceTranslateTextTextView.bottomAnchor, multiplier: 2),
             trailingAnchor.constraint(equalToSystemSpacingAfter: targetTranslateTextTextView.trailingAnchor, multiplier: 2),
-            
-            downloadActivityIndicatorView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            downloadActivityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
     
     private func configureViews() {
         let languagePair = viewModel.languagePair
-        translateBetweenTwoLanguageSelectorView.configure(sourceLanguageString: languagePair.sourceLanguageString, targetLanguageString: languagePair.targetLanguageString)
-        sourceTranslateTextTextView.configure(languageString: languagePair.sourceLanguageString, textViewString: languagePair.translationText)
-        targetTranslateTextTextView.configure(languageString: languagePair.targetLanguageString, textViewString: languagePair.translationText)
+        self.translateBetweenTwoLanguageSelectorView.configure(sourceLanguageString: languagePair.sourceLanguageString, targetLanguageString: languagePair.targetLanguageString)
+        self.sourceTranslateTextTextView.configure(languageString: languagePair.sourceLanguageString, textViewString: languagePair.translationText)
+        self.targetTranslateTextTextView.configure(languageString: languagePair.targetLanguageString, textViewString: languagePair.translatedText)
     }
     
     // MARK: - Selectors
-    
-    public func downloadLanguageIfNeeded(sourceLanguage: TranslateLanguage, targetLanguage: TranslateLanguage, completion: @escaping(Error?) -> Void) {
-        let options = TranslatorOptions(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage)
-        let translator = Translator.translator(options: options)
-        
-        let conditions = ModelDownloadConditions(
-            allowsCellularAccess: false,
-            allowsBackgroundDownloading: true
-        )
-        
-        let task = translator.downloadModelIfNeeded(with: conditions) { error in
-            guard error == nil else {
-                completion(error)
-                return
-            }
-            completion(nil)
-            return
-        }
-    }
-    
 }
 
 // MARK: - UIPickerViewDelegate, UIPickerViewDataSource
@@ -129,7 +107,7 @@ extension TranslateTextView: UIPickerViewDelegate, UIPickerViewDataSource {
 // MARK: - TranslateBetweenTwoLanguageSelectorViewDelegate
 
 extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
-    func didPressSwapLanguagesButton() {
+    func didPressSwitchLanguagesButton() {
         viewModel.languagePair.switchLanguages()
         self.configureViews()
     }
@@ -149,19 +127,33 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
             } else {
                 self.viewModel.languagePair.targetLanguage = selectedLanguage
             }
-            self.configureViews()
             let languagePair = self.viewModel.languagePair
-            self.downloadActivityIndicatorView.startAnimating()
+            
+            let progressHud = JGProgressHUD(style: .light)
+            if #available(iOS 13.0, *) {
+                if UITraitCollection.current.userInterfaceStyle == .dark {
+                    progressHud.style = .dark
+                }
+            }
+            
+            progressHud.textLabel.text = "Downloading language..."
+            progressHud.animation = JGProgressHUDFadeZoomAnimation()
+            progressHud.show(in: self, animated: true)
+            
             TMLanguageModels.shared.downloadLanguageIfNeeded(sourceLanguage: languagePair.sourceLanguage, targetLanguage: languagePair.targetLanguage) { [weak self] error in
                 guard let strongSelf = self else { return }
+                
+                progressHud.dismiss(animated: true)
                 if let error = error {
-                    print(error.localizedDescription)
                     // TODO: - SHOW ERROR ALERT HERE
                     return
                 }
                 
-                strongSelf.downloadActivityIndicatorView.stopAnimating()
+                strongSelf.viewModel.languagePair.translate {}
+                strongSelf.configureViews()
             }
+            self.viewModel.languagePair.translate {}
+            self.configureViews()
         }))
         delegate?.showPickerViewAlert(pickerView: self.languagePickerView, alert: alert)
     }
@@ -170,6 +162,11 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
 // MARK: - TranslateTextViewDelegate
 
 extension TranslateTextView: TranslateTextTextViewDelegate {
+    func didTapVoiceButton(sourceTextViewString: String, sourceTextView: Bool) {
+        let language = sourceTextView ? viewModel.languagePair.sourceLanguage : viewModel.languagePair.targetLanguage
+        TMSpeaker.shared.speak(text: sourceTextViewString, language: language)
+    }
+    
     func textViewDidChange(sourceTextViewString: String) {
         viewModel.languagePair.translationText = sourceTextViewString
         viewModel.languagePair.translate { [weak self] in

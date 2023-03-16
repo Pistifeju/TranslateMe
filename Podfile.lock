@@ -31,6 +31,7 @@ PODS:
   - GoogleUtilitiesComponents (1.1.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.7.2)
+  - JGProgressHUD (2.2)
   - MLKitCommon (8.0.0):
     - GoogleDataTransport (~> 9.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
@@ -63,6 +64,7 @@ PODS:
 
 DEPENDENCIES:
   - GoogleMLKit/Translate (= 3.2.0)
+  - JGProgressHUD
   - SwiftLint
 
 SPEC REPOS:
@@ -73,6 +75,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GoogleUtilitiesComponents
     - GTMSessionFetcher
+    - JGProgressHUD
     - MLKitCommon
     - MLKitNaturalLanguage
     - MLKitTranslate
@@ -89,6 +92,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 1d20a6ad97ef46f67bbdec158ce00563a671ebb7
   GoogleUtilitiesComponents: 679b2c881db3b615a2777504623df6122dd20afe
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
+  JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
   MLKitCommon: f6da6c5659618c070b50a80db01248ebe2964175
   MLKitNaturalLanguage: 3350ebe7436046cd3146b8df9a2e06d6ba7a6439
   MLKitTranslate: e2998053668911b4de2cebe5ce072fd035189686
@@ -98,6 +102,6 @@ SPEC CHECKSUMS:
   SSZipArchive: 285b618a158ebc421039c22db5b77d345c7c03db
   SwiftLint: 77f7cb2b9bb81ab4a12fcc86448ba3f11afa50c6
 
-PODFILE CHECKSUM: 8a84a71154b086eeda559375bf39f3454d14deb3
+PODFILE CHECKSUM: 2f6685d84382be3423ab4ba4ac16a4ab5e919c94
 
 COCOAPODS: 1.11.3

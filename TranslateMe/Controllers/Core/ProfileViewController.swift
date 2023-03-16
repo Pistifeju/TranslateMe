@@ -1,14 +1,14 @@
 //
-//  TranslateConversationViewController.swift
+//  ProfileViewController.swift
 //  TranslateMe
 //
-//  Created by István Juhász on 2023. 03. 13..
+//  Created by István Juhász on 2023. 03. 15..
 //
 
 import Foundation
 import UIKit
 
-final class TranslateConversationViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -23,7 +23,7 @@ final class TranslateConversationViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .systemBackground
         
-        navigationItem.title = "Conversation"
+        navigationItem.title = "Profile"
         
         NSLayoutConstraint.activate([
             

@@ -10,7 +10,7 @@ import UIKit
 
 protocol TranslateBetweenTwoLanguageSelectorViewDelegate: AnyObject {
     func didPressSelectLanguage(languageLabel: MainLanguageNameLabelView)
-    func didPressSwapLanguagesButton()
+    func didPressSwitchLanguagesButton()
 }
 
 class TranslateBetweenTwoLanguageSelectorView: UIView {
@@ -84,7 +84,7 @@ class TranslateBetweenTwoLanguageSelectorView: UIView {
     // MARK: - Selectors
     
     @objc private func didTapSwitchLanguagesButton() {
-        delegate?.didPressSwapLanguagesButton()
+        delegate?.didPressSwitchLanguagesButton()
     }
 }
 

@@ -117,7 +117,7 @@ class TranslateTextTextView: UIView {
             textViewWrapperUIView.topAnchor.constraint(equalToSystemSpacingBelow: translateOrderLabel.bottomAnchor, multiplier: 1),
             textViewWrapperUIView.leadingAnchor.constraint(equalTo: leadingAnchor),
             textViewWrapperUIView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            textViewWrapperUIView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height*0.2),
+            textViewWrapperUIView.heightAnchor.constraint(equalTo: translateTextView.heightAnchor),
         ])
         
         layoutIfNeeded()

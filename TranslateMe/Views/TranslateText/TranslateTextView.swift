@@ -26,23 +26,25 @@ final class TranslateTextView: UIView {
     private lazy var targetTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate to", allowEditingTextView: false)
     private let translateBetweenTwoLanguageSelectorView = TranslateBetweenTwoLanguageSelectorView()
     
+    private let dividerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .secondaryLabel.withAlphaComponent(0.15)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let languagePickerView: UIPickerView = {
         let pickerView = UIPickerView(frame: .zero)
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         return pickerView
     }()
     
-    
     // MARK: - Lifecycle
     
     init() {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        translateBetweenTwoLanguageSelectorView.delegate = self
-        languagePickerView.delegate = self
-        languagePickerView.dataSource = self
-        sourceTranslateTextTextView.delegate = self
-        targetTranslateTextTextView.delegate = self
+        setupViewsDelegatesAndDataSource()
         configureViews()
         configureUI()
     }
@@ -53,11 +55,20 @@ final class TranslateTextView: UIView {
     
     // MARK: - Helpers
     
+    private func setupViewsDelegatesAndDataSource() {
+        translateBetweenTwoLanguageSelectorView.delegate = self
+        languagePickerView.delegate = self
+        languagePickerView.dataSource = self
+        sourceTranslateTextTextView.delegate = self
+        targetTranslateTextTextView.delegate = self
+    }
+
     private func configureUI() {
         backgroundColor = .systemBackground
         addSubview(translateBetweenTwoLanguageSelectorView)
         addSubview(sourceTranslateTextTextView)
         addSubview(targetTranslateTextTextView)
+        addSubview(dividerView)
         
         NSLayoutConstraint.activate([
             translateBetweenTwoLanguageSelectorView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
@@ -71,6 +82,12 @@ final class TranslateTextView: UIView {
             targetTranslateTextTextView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
             targetTranslateTextTextView.topAnchor.constraint(equalToSystemSpacingBelow: sourceTranslateTextTextView.bottomAnchor, multiplier: 2),
             trailingAnchor.constraint(equalToSystemSpacingAfter: targetTranslateTextTextView.trailingAnchor, multiplier: 2),
+            
+            dividerView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
+            trailingAnchor.constraint(equalToSystemSpacingAfter: dividerView.trailingAnchor, multiplier: 2),
+            dividerView.heightAnchor.constraint(equalToConstant: 2),
+            dividerView.topAnchor.constraint(equalToSystemSpacingBelow: targetTranslateTextTextView.bottomAnchor, multiplier: 2),
+            
         ])
     }
     

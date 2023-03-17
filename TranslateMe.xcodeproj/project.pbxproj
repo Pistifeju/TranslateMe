@@ -18,15 +18,27 @@
 		B70E48FB29BFD627000A9CD7 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70E48FA29BFD627000A9CD7 /* MainTabBarViewController.swift */; };
 		B70E48FD29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70E48FC29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift */; };
 		B720912429C0C73B00482563 /* TMLanguages.swift in Sources */ = {isa = PBXBuildFile; fileRef = B720912329C0C73A00482563 /* TMLanguages.swift */; };
+		B721AB1429C4E613000A6377 /* SettingsViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B721AB1329C4E613000A6377 /* SettingsViewControllerViewModel.swift */; };
+		B721AB1629C4E63D000A6377 /* SettingsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B721AB1529C4E63C000A6377 /* SettingsCellViewModel.swift */; };
+		B721AB1829C4E680000A6377 /* SettingsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B721AB1729C4E680000A6377 /* SettingsOption.swift */; };
+		B721AB1B29C50D14000A6377 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B721AB1A29C50D14000A6377 /* SettingsView.swift */; };
+		B758A48A29C5272900EFE0AD /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B758A48929C5272900EFE0AD /* UIFont+Extension.swift */; };
+		B758A48C29C5273500EFE0AD /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B758A48B29C5273500EFE0AD /* UIView+Extension.swift */; };
+		B758A48E29C5274300EFE0AD /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B758A48D29C5274300EFE0AD /* UIApplication+Extension.swift */; };
+		B758A49029C5274A00EFE0AD /* TranslateLanguage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B758A48F29C5274A00EFE0AD /* TranslateLanguage+Extension.swift */; };
+		B758A49229C5279300EFE0AD /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B758A49129C5279300EFE0AD /* UIDevice+Extension.swift */; };
+		B758A49429C528BD00EFE0AD /* DeviceModels.json in Resources */ = {isa = PBXBuildFile; fileRef = B758A49329C528BD00EFE0AD /* DeviceModels.json */; };
+		B758A49629C5294100EFE0AD /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B758A49529C5294000EFE0AD /* Bundle+Extension.swift */; };
+		B758A49829C52B4E00EFE0AD /* TMSupportEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B758A49729C52B4E00EFE0AD /* TMSupportEmail.swift */; };
+		B758A49A29C530DD00EFE0AD /* LanguagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B758A49929C530DD00EFE0AD /* LanguagesViewController.swift */; };
 		B79878A329C0EC0A00BF5938 /* TranslateTextViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79878A229C0EC0A00BF5938 /* TranslateTextViewViewModel.swift */; };
 		B79ED55529C08F5500361DA6 /* TranslateTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79ED55429C08F5500361DA6 /* TranslateTextView.swift */; };
 		B79ED55A29C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79ED55929C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift */; };
-		B79ED55D29C0945C00361DA6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79ED55C29C0945C00361DA6 /* Extensions.swift */; };
 		B79ED55F29C094F100361DA6 /* MainLanguageNameLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79ED55E29C094F100361DA6 /* MainLanguageNameLabelView.swift */; };
 		B79ED56129C0A99E00361DA6 /* TranslateTextTextViewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79ED56029C0A99E00361DA6 /* TranslateTextTextViewView.swift */; };
 		B7AB478A29C1F7040061D483 /* TMLanguagePair.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AB478929C1F7040061D483 /* TMLanguagePair.swift */; };
 		B7AB478C29C2080F0061D483 /* TMLanguageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AB478B29C2080F0061D483 /* TMLanguageModels.swift */; };
-		B7D9167F29C277A000BD9D02 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9167E29C277A000BD9D02 /* ProfileViewController.swift */; };
+		B7D9167F29C277A000BD9D02 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9167E29C277A000BD9D02 /* SettingsViewController.swift */; };
 		B7D9168129C2794100BD9D02 /* TMTextSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9168029C2794100BD9D02 /* TMTextSpeaker.swift */; };
 		B7D9168729C389FB00BD9D02 /* TMSpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9168629C389FB00BD9D02 /* TMSpeechRecognizer.swift */; };
 		B7D9168929C4A07500BD9D02 /* TMLanguageIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9168829C4A07500BD9D02 /* TMLanguageIdentifier.swift */; };
@@ -46,15 +58,27 @@
 		B70E48FA29BFD627000A9CD7 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		B70E48FC29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewControllerViewModel.swift; sourceTree = "<group>"; };
 		B720912329C0C73A00482563 /* TMLanguages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMLanguages.swift; sourceTree = "<group>"; };
+		B721AB1329C4E613000A6377 /* SettingsViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewControllerViewModel.swift; sourceTree = "<group>"; };
+		B721AB1529C4E63C000A6377 /* SettingsCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellViewModel.swift; sourceTree = "<group>"; };
+		B721AB1729C4E680000A6377 /* SettingsOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOption.swift; sourceTree = "<group>"; };
+		B721AB1A29C50D14000A6377 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B758A48929C5272900EFE0AD /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		B758A48B29C5273500EFE0AD /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		B758A48D29C5274300EFE0AD /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
+		B758A48F29C5274A00EFE0AD /* TranslateLanguage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TranslateLanguage+Extension.swift"; sourceTree = "<group>"; };
+		B758A49129C5279300EFE0AD /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
+		B758A49329C528BD00EFE0AD /* DeviceModels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DeviceModels.json; sourceTree = "<group>"; };
+		B758A49529C5294000EFE0AD /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
+		B758A49729C52B4E00EFE0AD /* TMSupportEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMSupportEmail.swift; sourceTree = "<group>"; };
+		B758A49929C530DD00EFE0AD /* LanguagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesViewController.swift; sourceTree = "<group>"; };
 		B79878A229C0EC0A00BF5938 /* TranslateTextViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateTextViewViewModel.swift; sourceTree = "<group>"; };
 		B79ED55429C08F5500361DA6 /* TranslateTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateTextView.swift; sourceTree = "<group>"; };
 		B79ED55929C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateBetweenTwoLanguageSelectorView.swift; sourceTree = "<group>"; };
-		B79ED55C29C0945C00361DA6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B79ED55E29C094F100361DA6 /* MainLanguageNameLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLanguageNameLabelView.swift; sourceTree = "<group>"; };
 		B79ED56029C0A99E00361DA6 /* TranslateTextTextViewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateTextTextViewView.swift; sourceTree = "<group>"; };
 		B7AB478929C1F7040061D483 /* TMLanguagePair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMLanguagePair.swift; sourceTree = "<group>"; };
 		B7AB478B29C2080F0061D483 /* TMLanguageModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMLanguageModels.swift; sourceTree = "<group>"; };
-		B7D9167E29C277A000BD9D02 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		B7D9167E29C277A000BD9D02 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B7D9168029C2794100BD9D02 /* TMTextSpeaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMTextSpeaker.swift; sourceTree = "<group>"; };
 		B7D9168629C389FB00BD9D02 /* TMSpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMSpeechRecognizer.swift; sourceTree = "<group>"; };
 		B7D9168829C4A07500BD9D02 /* TMLanguageIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMLanguageIdentifier.swift; sourceTree = "<group>"; };
@@ -131,6 +155,7 @@
 				B70E48DA29BFD557000A9CD7 /* SceneDelegate.swift */,
 				B70E48E129BFD559000A9CD7 /* Assets.xcassets */,
 				B70E48E329BFD559000A9CD7 /* LaunchScreen.storyboard */,
+				B758A49329C528BD00EFE0AD /* DeviceModels.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -145,6 +170,7 @@
 		B70E48EE29BFD57C000A9CD7 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				B721AB1229C4E5E8000A6377 /* Settings */,
 				B70E48FC29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift */,
 				B79878A229C0EC0A00BF5938 /* TranslateTextViewViewModel.swift */,
 			);
@@ -154,6 +180,7 @@
 		B70E48EF29BFD582000A9CD7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B721AB1929C50CFC000A6377 /* Settings */,
 				B79ED55829C090ED00361DA6 /* TranslateText */,
 			);
 			path = Views;
@@ -168,6 +195,7 @@
 				B7D9168029C2794100BD9D02 /* TMTextSpeaker.swift */,
 				B7D9168629C389FB00BD9D02 /* TMSpeechRecognizer.swift */,
 				B7D9168829C4A07500BD9D02 /* TMLanguageIdentifier.swift */,
+				B758A49729C52B4E00EFE0AD /* TMSupportEmail.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -176,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				B70E48F229BFD5CB000A9CD7 /* Core */,
+				B758A49929C530DD00EFE0AD /* LanguagesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -187,9 +216,40 @@
 				B70E48F629BFD5FE000A9CD7 /* TranslateConversationViewController.swift */,
 				B70E48F829BFD60F000A9CD7 /* TranslateCameraViewController.swift */,
 				B70E48FA29BFD627000A9CD7 /* MainTabBarViewController.swift */,
-				B7D9167E29C277A000BD9D02 /* ProfileViewController.swift */,
+				B7D9167E29C277A000BD9D02 /* SettingsViewController.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		B721AB1229C4E5E8000A6377 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B721AB1329C4E613000A6377 /* SettingsViewControllerViewModel.swift */,
+				B721AB1529C4E63C000A6377 /* SettingsCellViewModel.swift */,
+				B721AB1729C4E680000A6377 /* SettingsOption.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		B721AB1929C50CFC000A6377 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B721AB1A29C50D14000A6377 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		B758A48829C5271D00EFE0AD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B758A48929C5272900EFE0AD /* UIFont+Extension.swift */,
+				B758A48B29C5273500EFE0AD /* UIView+Extension.swift */,
+				B758A48D29C5274300EFE0AD /* UIApplication+Extension.swift */,
+				B758A48F29C5274A00EFE0AD /* TranslateLanguage+Extension.swift */,
+				B758A49129C5279300EFE0AD /* UIDevice+Extension.swift */,
+				B758A49529C5294000EFE0AD /* Bundle+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		B79ED55829C090ED00361DA6 /* TranslateText */ = {
@@ -206,7 +266,7 @@
 		B79ED55B29C0945500361DA6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				B79ED55C29C0945C00361DA6 /* Extensions.swift */,
+				B758A48829C5271D00EFE0AD /* Extensions */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -275,6 +335,7 @@
 			files = (
 				B70E48E529BFD559000A9CD7 /* LaunchScreen.storyboard in Resources */,
 				B70E48E229BFD559000A9CD7 /* Assets.xcassets in Resources */,
+				B758A49429C528BD00EFE0AD /* DeviceModels.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,24 +423,35 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7AB478A29C1F7040061D483 /* TMLanguagePair.swift in Sources */,
+				B758A49229C5279300EFE0AD /* UIDevice+Extension.swift in Sources */,
+				B721AB1829C4E680000A6377 /* SettingsOption.swift in Sources */,
 				B79ED55529C08F5500361DA6 /* TranslateTextView.swift in Sources */,
 				B70E48F729BFD5FE000A9CD7 /* TranslateConversationViewController.swift in Sources */,
+				B758A48E29C5274300EFE0AD /* UIApplication+Extension.swift in Sources */,
 				B70E48F429BFD5E8000A9CD7 /* TranslateTextViewController.swift in Sources */,
+				B758A49829C52B4E00EFE0AD /* TMSupportEmail.swift in Sources */,
+				B758A49029C5274A00EFE0AD /* TranslateLanguage+Extension.swift in Sources */,
 				B70E48F929BFD60F000A9CD7 /* TranslateCameraViewController.swift in Sources */,
 				B7D9168929C4A07500BD9D02 /* TMLanguageIdentifier.swift in Sources */,
 				B70E48D929BFD557000A9CD7 /* AppDelegate.swift in Sources */,
-				B7D9167F29C277A000BD9D02 /* ProfileViewController.swift in Sources */,
+				B7D9167F29C277A000BD9D02 /* SettingsViewController.swift in Sources */,
+				B721AB1B29C50D14000A6377 /* SettingsView.swift in Sources */,
 				B70E48DB29BFD557000A9CD7 /* SceneDelegate.swift in Sources */,
+				B758A49629C5294100EFE0AD /* Bundle+Extension.swift in Sources */,
+				B721AB1629C4E63D000A6377 /* SettingsCellViewModel.swift in Sources */,
 				B7D9168729C389FB00BD9D02 /* TMSpeechRecognizer.swift in Sources */,
 				B79878A329C0EC0A00BF5938 /* TranslateTextViewViewModel.swift in Sources */,
+				B758A48C29C5273500EFE0AD /* UIView+Extension.swift in Sources */,
 				B720912429C0C73B00482563 /* TMLanguages.swift in Sources */,
+				B758A49A29C530DD00EFE0AD /* LanguagesViewController.swift in Sources */,
 				B70E48FB29BFD627000A9CD7 /* MainTabBarViewController.swift in Sources */,
 				B7AB478C29C2080F0061D483 /* TMLanguageModels.swift in Sources */,
+				B721AB1429C4E613000A6377 /* SettingsViewControllerViewModel.swift in Sources */,
+				B758A48A29C5272900EFE0AD /* UIFont+Extension.swift in Sources */,
 				B79ED55F29C094F100361DA6 /* MainLanguageNameLabelView.swift in Sources */,
 				B79ED55A29C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift in Sources */,
 				B79ED56129C0A99E00361DA6 /* TranslateTextTextViewView.swift in Sources */,
 				B7D9168129C2794100BD9D02 /* TMTextSpeaker.swift in Sources */,
-				B79ED55D29C0945C00361DA6 /* Extensions.swift in Sources */,
 				B70E48FD29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -452,7 +524,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -508,7 +580,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";

@@ -1,14 +1,14 @@
 //
-//  ProfileViewController.swift
+//  LanguagesViewController.swift
 //  TranslateMe
 //
-//  Created by István Juhász on 2023. 03. 15..
+//  Created by István Juhász on 2023. 03. 18..
 //
 
 import Foundation
 import UIKit
 
-final class ProfileViewController: UIViewController {
+class LanguagesViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -22,8 +22,7 @@ final class ProfileViewController: UIViewController {
     // MARK: - Helpers
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        
-        navigationItem.title = "Profile"
+        navigationItem.title = "Languages"
         
         NSLayoutConstraint.activate([
             

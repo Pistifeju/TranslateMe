@@ -106,8 +106,9 @@ final class TranslateTextView: UIView {
     
     @objc private func transcriptionChanged() {
         viewModel.languagePair.translationText = viewModel.speechRecognizer.transcription ?? ""
-        viewModel.languagePair.translate {}
-        configureViews(speakButtonIsSelected: true)
+        viewModel.languagePair.translate {
+            self.configureViews(speakButtonIsSelected: true)
+        }
     }
 }
 

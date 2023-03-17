@@ -16,9 +16,9 @@ final class MainTabBarViewControllerViewModel {
         
         let translateCameraNav = templateNavigationController(image: UIImage(systemName: "camera.viewfinder")!, rootViewController: TranslateCameraViewController())
         
-        let profileNav = templateNavigationController(image: UIImage(systemName: "person")!, rootViewController: ProfileViewController())
+        let settingsNav = templateNavigationController(image: UIImage(systemName: "gear")!, rootViewController: SettingsViewController())
         
-        return [translateTextNav, translateConversationNav, translateCameraNav, profileNav]
+        return [translateTextNav, translateConversationNav, translateCameraNav, settingsNav]
     }
     
     private func templateNavigationController(image: UIImage, rootViewController: UIViewController) -> UINavigationController {

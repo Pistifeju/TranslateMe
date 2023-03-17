@@ -12,6 +12,7 @@ protocol TranslateTextTextViewDelegate: AnyObject {
     func textViewDidChange(sourceTextViewString: String)
     func didTapVoiceButton(sourceTextViewString: String, sourceTextView: Bool)
     func didTapSpeakButton(textView: UITextView, recording: Bool, ac: UIAlertController?)
+    func didTapIdentifiedLanguage(languageCode: String)
 }
 
 class TranslateTextTextView: UIView {
@@ -21,6 +22,8 @@ class TranslateTextTextView: UIView {
     weak var delegate: TranslateTextTextViewDelegate?
     
     private let sourceTextView: Bool
+    
+    private var languageCode: String?
     
     private let translateOrderLabel: UILabel = {
         let label = UILabel()
@@ -36,6 +39,19 @@ class TranslateTextTextView: UIView {
         label.textColor = .secondaryLabel
         label.font = UIFont.preferredFont(forTextStyle: .title3).bold()
         label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let identifiedLanguageLabel: UILabel = {
+        let label = UILabel()
+        label.text = "English"
+        label.textColor = .systemYellow.withAlphaComponent(0.5)
+        label.backgroundColor = .systemBackground
+        label.font = UIFont.preferredFont(forTextStyle: .title3).bold()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isHidden = true
+        label.alpha = 0
+        label.isUserInteractionEnabled = true
         return label
     }()
     
@@ -94,6 +110,7 @@ class TranslateTextTextView: UIView {
         translateTextView.delegate = self
         speakButton.addTarget(self, action: #selector(didTapSpeakButton), for: .touchUpInside)
         voiceButton.addTarget(self, action: #selector(didTapVoiceButton), for: .touchUpInside)
+        identifiedLanguageLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapIdentifiedLanguage)))
         configureUI()
     }
     
@@ -111,12 +128,15 @@ class TranslateTextTextView: UIView {
         addSubview(translateTextView)
         addSubview(voiceButton)
         addSubview(speakButton)
+        addSubview(identifiedLanguageLabel)
         
         NSLayoutConstraint.activate([
             translateOrderLabel.topAnchor.constraint(equalTo: topAnchor),
             translateOrderLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             languageLabel.topAnchor.constraint(equalTo: topAnchor),
             languageLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            identifiedLanguageLabel.topAnchor.constraint(equalTo: topAnchor),
+            languageLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: identifiedLanguageLabel.trailingAnchor, multiplier: 1),
             
             translateTextView.topAnchor.constraint(equalToSystemSpacingBelow: translateOrderLabel.bottomAnchor, multiplier: 1),
             translateTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -146,6 +166,26 @@ class TranslateTextTextView: UIView {
         }
     }
     
+    public func showIdentifiedLanguageLabel(with languageCode: String) {
+        self.languageCode = languageCode
+        let language = TMLanguages.shared.createLanguageStringWithLanguageCode(from: languageCode)
+        if language != languageLabel.text {
+            identifiedLanguageLabel.text = language + "?"
+            identifiedLanguageLabel.isHidden = false
+            UIView.animate(withDuration: 0.3) {
+                self.identifiedLanguageLabel.alpha = 1
+            }
+        }
+    }
+    
+    public func hideIdentifiedLanguageLabel() {
+        identifiedLanguageLabel.text = ""
+        identifiedLanguageLabel.isHidden = true
+        UIView.animate(withDuration: 0.3) {
+            self.identifiedLanguageLabel.alpha = 0
+        }
+    }
+    
     // MARK: - Selectors
     
     @objc private func didTapVoiceButton() {
@@ -165,6 +205,10 @@ class TranslateTextTextView: UIView {
                 strongSelf.delegate?.didTapSpeakButton(textView: strongSelf.translateTextView, recording: strongSelf.speakButton.isSelected, ac: ac)
             }
         }
+    }
+    
+    @objc private func didTapIdentifiedLanguage() {
+        delegate?.didTapIdentifiedLanguage(languageCode: languageCode ?? "")
     }
 }
 

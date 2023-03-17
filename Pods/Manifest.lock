@@ -3,6 +3,9 @@ PODS:
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleMLKit/LanguageID (3.2.0):
+    - GoogleMLKit/MLKitCore
+    - MLKitLanguageID (~> 3.2.0)
   - GoogleMLKit/MLKitCore (3.2.0):
     - MLKitCommon (~> 8.0.0)
   - GoogleMLKit/Translate (3.2.0):
@@ -41,6 +44,8 @@ PODS:
     - GoogleUtilitiesComponents (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
     - Protobuf (~> 3.12)
+  - MLKitLanguageID (3.2.0):
+    - MLKitNaturalLanguage (~> 4.2)
   - MLKitNaturalLanguage (4.2.0):
     - GoogleToolboxForMac/Logger (~> 2.1)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
@@ -63,6 +68,7 @@ PODS:
   - SwiftLint (0.50.3)
 
 DEPENDENCIES:
+  - GoogleMLKit/LanguageID (= 3.2.0)
   - GoogleMLKit/Translate (= 3.2.0)
   - JGProgressHUD
   - SwiftLint
@@ -77,6 +83,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - JGProgressHUD
     - MLKitCommon
+    - MLKitLanguageID
     - MLKitNaturalLanguage
     - MLKitTranslate
     - nanopb
@@ -94,6 +101,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
   MLKitCommon: f6da6c5659618c070b50a80db01248ebe2964175
+  MLKitLanguageID: 395b867dd9105709789c32b3bac8449cccd44332
   MLKitNaturalLanguage: 3350ebe7436046cd3146b8df9a2e06d6ba7a6439
   MLKitTranslate: e2998053668911b4de2cebe5ce072fd035189686
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
@@ -102,6 +110,6 @@ SPEC CHECKSUMS:
   SSZipArchive: 285b618a158ebc421039c22db5b77d345c7c03db
   SwiftLint: 77f7cb2b9bb81ab4a12fcc86448ba3f11afa50c6
 
-PODFILE CHECKSUM: 2f6685d84382be3423ab4ba4ac16a4ab5e919c94
+PODFILE CHECKSUM: 5b883313304eca83e2dcb07a31da652f69fbcfcd
 
 COCOAPODS: 1.11.3

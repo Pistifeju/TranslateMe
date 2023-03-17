@@ -43,6 +43,24 @@ final class TranslateTextViewController: UIViewController {
 }
 
 extension TranslateTextViewController: TranslateTextViewDelegate {
+    func handleShowIdentifiedLanguageNotDownloadedAlert(completion: @escaping (Bool) -> Void) {
+        let alert = UIAlertController(title: "Language Not Downloaded", message: "The language you selected is not currently downloaded. Do you want to download it?", preferredStyle: .alert)
+
+        let downloadAction = UIAlertAction(title: "Download", style: .default) { (_) in
+            completion(true)
+            return
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+            completion(false)
+            return
+        }
+
+        alert.addAction(downloadAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+    
     func handleShowErrorAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default))

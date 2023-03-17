@@ -36,4 +36,8 @@ final class TMLanguageModels {
             return
         }
     }
+    
+    public func checkIfLanguageInDownloadedLanguages(language: TranslateLanguage) -> Bool {
+        return localModels.contains { $0.language == language }
+    }
 }

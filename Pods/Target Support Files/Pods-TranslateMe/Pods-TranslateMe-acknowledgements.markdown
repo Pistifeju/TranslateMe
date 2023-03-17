@@ -1108,6 +1108,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 Copyright 2022 Google
 
+## MLKitLanguageID
+
+Copyright 2022 Google
+
 ## MLKitNaturalLanguage
 
 Copyright 2022 Google

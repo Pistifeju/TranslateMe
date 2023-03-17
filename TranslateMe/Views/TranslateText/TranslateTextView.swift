@@ -14,6 +14,7 @@ protocol TranslateTextViewDelegate: AnyObject {
     func showPickerViewAlert(pickerView: UIPickerView, alert: UIAlertController)
     func handleSpeechPermissionFailed(ac: UIAlertController)
     func handleShowErrorAlert(title: String, message: String)
+    func handleShowIdentifiedLanguageNotDownloadedAlert(completion: @escaping(Bool) -> Void)
 }
 
 final class TranslateTextView: UIView {
@@ -156,15 +157,7 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
             }
             let languagePair = self.viewModel.languagePair
             
-            let progressHud = JGProgressHUD(style: .light)
-            if #available(iOS 13.0, *) {
-                if UITraitCollection.current.userInterfaceStyle == .dark {
-                    progressHud.style = .dark
-                }
-            }
-            
-            progressHud.textLabel.text = "Downloading language..."
-            progressHud.animation = JGProgressHUDFadeZoomAnimation()
+            let progressHud = self.viewModel.createDownloadLanguageProgressHud()
             progressHud.show(in: self, animated: true)
             
             TMLanguageModels.shared.downloadLanguageIfNeeded(sourceLanguage: languagePair.sourceLanguage, targetLanguage: languagePair.targetLanguage) { [weak self] error in
@@ -190,6 +183,41 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
 // MARK: - TranslateTextViewDelegate
 
 extension TranslateTextView: TranslateTextTextViewDelegate {
+    func didTapIdentifiedLanguage(languageCode code: String) {
+        let language = TMLanguages.shared.createTranslateLanguageWithLanguageCode(from: code)
+        guard let language = language else { return }
+        if TMLanguageModels.shared.checkIfLanguageInDownloadedLanguages(language: language) {
+            viewModel.languagePair.sourceLanguage = language
+            viewModel.languagePair.translate {}
+            configureViews()
+            sourceTranslateTextTextView.hideIdentifiedLanguageLabel()
+        } else {
+            delegate?.handleShowIdentifiedLanguageNotDownloadedAlert(completion: { didPressDownload in
+                switch didPressDownload {
+                case true:
+                    let languagePair = self.viewModel.languagePair
+                    languagePair.sourceLanguage = language
+                    let progressHud = self.viewModel.createDownloadLanguageProgressHud()
+                    progressHud.show(in: self, animated: true)
+                    TMLanguageModels.shared.downloadLanguageIfNeeded(sourceLanguage: languagePair.sourceLanguage, targetLanguage: languagePair.targetLanguage) { [weak self] error in
+                        guard let strongSelf = self else { return }
+                        progressHud.dismiss(animated: true)
+                        if let error = error {
+                            strongSelf.delegate?.handleShowErrorAlert(title: "Error", message: error.localizedDescription)
+                            return
+                        }
+                        
+                        strongSelf.viewModel.languagePair.translate {}
+                        strongSelf.configureViews()
+                        strongSelf.sourceTranslateTextTextView.hideIdentifiedLanguageLabel()
+                    }
+                case false:
+                    break
+                }
+            })
+        }
+    }
+    
     func didTapSpeakButton(textView: UITextView, recording: Bool, ac: UIAlertController?) {
         if let ac = ac {
             delegate?.handleSpeechPermissionFailed(ac: ac)
@@ -212,6 +240,13 @@ extension TranslateTextView: TranslateTextTextViewDelegate {
     }
     
     func textViewDidChange(sourceTextViewString: String) {
+        sourceTranslateTextTextView.hideIdentifiedLanguageLabel()
+        TMLanguageIdentifier.shared.identifyLanguage(for: sourceTextViewString) { [weak self] languageCode, error in
+            if let languageCode {
+                self?.sourceTranslateTextTextView.showIdentifiedLanguageLabel(with: languageCode)
+            }
+        }
+        
         viewModel.languagePair.translationText = sourceTextViewString
         viewModel.languagePair.translate { [weak self] in
             guard let strongSelf = self else { return }

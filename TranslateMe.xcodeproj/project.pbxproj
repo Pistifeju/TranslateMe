@@ -29,6 +29,7 @@
 		B7D9167F29C277A000BD9D02 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9167E29C277A000BD9D02 /* ProfileViewController.swift */; };
 		B7D9168129C2794100BD9D02 /* TMTextSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9168029C2794100BD9D02 /* TMTextSpeaker.swift */; };
 		B7D9168729C389FB00BD9D02 /* TMSpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9168629C389FB00BD9D02 /* TMSpeechRecognizer.swift */; };
+		B7D9168929C4A07500BD9D02 /* TMLanguageIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9168829C4A07500BD9D02 /* TMLanguageIdentifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		B7D9167E29C277A000BD9D02 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B7D9168029C2794100BD9D02 /* TMTextSpeaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMTextSpeaker.swift; sourceTree = "<group>"; };
 		B7D9168629C389FB00BD9D02 /* TMSpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMSpeechRecognizer.swift; sourceTree = "<group>"; };
+		B7D9168829C4A07500BD9D02 /* TMLanguageIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMLanguageIdentifier.swift; sourceTree = "<group>"; };
 		DD18DE1FEBDF5FAAEFE63F13 /* Pods-TranslateMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TranslateMe.release.xcconfig"; path = "Target Support Files/Pods-TranslateMe/Pods-TranslateMe.release.xcconfig"; sourceTree = "<group>"; };
 		FC7CF7DE93DC00F01B5E1E3D /* Pods-TranslateMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TranslateMe.debug.xcconfig"; path = "Target Support Files/Pods-TranslateMe/Pods-TranslateMe.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,6 +167,7 @@
 				B7AB478B29C2080F0061D483 /* TMLanguageModels.swift */,
 				B7D9168029C2794100BD9D02 /* TMTextSpeaker.swift */,
 				B7D9168629C389FB00BD9D02 /* TMSpeechRecognizer.swift */,
+				B7D9168829C4A07500BD9D02 /* TMLanguageIdentifier.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				B70E48F729BFD5FE000A9CD7 /* TranslateConversationViewController.swift in Sources */,
 				B70E48F429BFD5E8000A9CD7 /* TranslateTextViewController.swift in Sources */,
 				B70E48F929BFD60F000A9CD7 /* TranslateCameraViewController.swift in Sources */,
+				B7D9168929C4A07500BD9D02 /* TMLanguageIdentifier.swift in Sources */,
 				B70E48D929BFD557000A9CD7 /* AppDelegate.swift in Sources */,
 				B7D9167F29C277A000BD9D02 /* ProfileViewController.swift in Sources */,
 				B70E48DB29BFD557000A9CD7 /* SceneDelegate.swift in Sources */,

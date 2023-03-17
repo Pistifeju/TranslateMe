@@ -240,10 +240,11 @@ extension TranslateTextView: TranslateTextTextViewDelegate {
     }
     
     func textViewDidChange(sourceTextViewString: String) {
-        sourceTranslateTextTextView.hideIdentifiedLanguageLabel()
         TMLanguageIdentifier.shared.identifyLanguage(for: sourceTextViewString) { [weak self] languageCode, error in
             if let languageCode {
                 self?.sourceTranslateTextTextView.showIdentifiedLanguageLabel(with: languageCode)
+            } else {
+                self?.sourceTranslateTextTextView.hideIdentifiedLanguageLabel()
             }
         }
         

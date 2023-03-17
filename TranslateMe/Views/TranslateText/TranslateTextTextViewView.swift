@@ -179,10 +179,11 @@ class TranslateTextTextView: UIView {
     }
     
     public func hideIdentifiedLanguageLabel() {
-        identifiedLanguageLabel.text = ""
-        identifiedLanguageLabel.isHidden = true
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.3, animations: {
             self.identifiedLanguageLabel.alpha = 0
+        }) { (complete) in
+            self.identifiedLanguageLabel.isHidden = true
+            self.identifiedLanguageLabel.text = ""
         }
     }
     

@@ -12,6 +12,8 @@ import JGProgressHUD
 
 protocol TranslateTextViewDelegate: AnyObject {
     func showPickerViewAlert(pickerView: UIPickerView, alert: UIAlertController)
+    func handleSpeechPermissionFailed(ac: UIAlertController)
+    func handleShowErrorAlert(title: String, message: String)
 }
 
 final class TranslateTextView: UIView {
@@ -44,6 +46,7 @@ final class TranslateTextView: UIView {
     init() {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
+        NotificationCenter.default.addObserver(self, selector: #selector(transcriptionChanged), name: Notification.Name("speechTranscription"), object: nil)
         setupViewsDelegatesAndDataSource()
         configureViews()
         configureUI()
@@ -91,14 +94,20 @@ final class TranslateTextView: UIView {
         ])
     }
     
-    private func configureViews() {
+    private func configureViews(speakButtonIsSelected: Bool = false) {
         let languagePair = viewModel.languagePair
         self.translateBetweenTwoLanguageSelectorView.configure(sourceLanguageString: languagePair.sourceLanguageString, targetLanguageString: languagePair.targetLanguageString)
-        self.sourceTranslateTextTextView.configure(languageString: languagePair.sourceLanguageString, textViewString: languagePair.translationText)
-        self.targetTranslateTextTextView.configure(languageString: languagePair.targetLanguageString, textViewString: languagePair.translatedText)
+        self.sourceTranslateTextTextView.configure(languageString: languagePair.sourceLanguageString, textViewString: languagePair.translationText, speakButtonIsSelected: speakButtonIsSelected)
+        self.targetTranslateTextTextView.configure(languageString: languagePair.targetLanguageString, textViewString: languagePair.translatedText, speakButtonIsSelected: speakButtonIsSelected)
     }
     
     // MARK: - Selectors
+    
+    @objc private func transcriptionChanged() {
+        viewModel.languagePair.translationText = viewModel.speechRecognizer.transcription ?? ""
+        viewModel.languagePair.translate {}
+        configureViews(speakButtonIsSelected: true)
+    }
 }
 
 // MARK: - UIPickerViewDelegate, UIPickerViewDataSource
@@ -127,6 +136,7 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
     func didPressSwitchLanguagesButton() {
         viewModel.languagePair.switchLanguages()
         self.configureViews()
+        viewModel.stopSpeechRecognizerListening()
     }
     
     func didPressSelectLanguage(languageLabel: MainLanguageNameLabelView) {
@@ -162,7 +172,7 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
                 
                 progressHud.dismiss(animated: true)
                 if let error = error {
-                    // TODO: - SHOW ERROR ALERT HERE
+                    strongSelf.delegate?.handleShowErrorAlert(title: "Error", message: error.localizedDescription)
                     return
                 }
                 
@@ -171,6 +181,7 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
             }
             self.viewModel.languagePair.translate {}
             self.configureViews()
+            self.viewModel.stopSpeechRecognizerListening()
         }))
         delegate?.showPickerViewAlert(pickerView: self.languagePickerView, alert: alert)
     }
@@ -179,6 +190,22 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
 // MARK: - TranslateTextViewDelegate
 
 extension TranslateTextView: TranslateTextTextViewDelegate {
+    func didTapSpeakButton(textView: UITextView, recording: Bool, ac: UIAlertController?) {
+        if let ac = ac {
+            delegate?.handleSpeechPermissionFailed(ac: ac)
+        }
+        
+        if recording {
+            do {
+                try viewModel.speechRecognizer.startListening(language: viewModel.languagePair.sourceLanguage)
+            } catch {
+                delegate?.handleShowErrorAlert(title: "Error", message: "There was an error starting speech recognition.")
+            }
+        } else {
+            viewModel.stopSpeechRecognizerListening()
+        }
+    }
+    
     func didTapVoiceButton(sourceTextViewString: String, sourceTextView: Bool) {
         let language = sourceTextView ? viewModel.languagePair.sourceLanguage : viewModel.languagePair.targetLanguage
         TMSpeaker.shared.speak(text: sourceTextViewString, language: language)
@@ -187,7 +214,9 @@ extension TranslateTextView: TranslateTextTextViewDelegate {
     func textViewDidChange(sourceTextViewString: String) {
         viewModel.languagePair.translationText = sourceTextViewString
         viewModel.languagePair.translate { [weak self] in
-            self?.targetTranslateTextTextView.configure(languageString: self?.viewModel.languagePair.targetLanguageString, textViewString: self?.viewModel.languagePair.translatedText)
+            guard let strongSelf = self else { return }
+            let languagePair = strongSelf.viewModel.languagePair
+            strongSelf.targetTranslateTextTextView.configure(languageString: languagePair.targetLanguageString, textViewString: languagePair.translatedText, speakButtonIsSelected: false)
         }
     }
 }

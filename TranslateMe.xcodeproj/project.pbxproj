@@ -28,7 +28,7 @@
 		B7AB478C29C2080F0061D483 /* TMLanguageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AB478B29C2080F0061D483 /* TMLanguageModels.swift */; };
 		B7D9167F29C277A000BD9D02 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9167E29C277A000BD9D02 /* ProfileViewController.swift */; };
 		B7D9168129C2794100BD9D02 /* TMTextSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9168029C2794100BD9D02 /* TMTextSpeaker.swift */; };
-		B7D9168329C3554400BD9D02 /* TranslateTextTextViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9168229C3554400BD9D02 /* TranslateTextTextViewViewModel.swift */; };
+		B7D9168729C389FB00BD9D02 /* TMSpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9168629C389FB00BD9D02 /* TMSpeechRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,7 +55,7 @@
 		B7AB478B29C2080F0061D483 /* TMLanguageModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMLanguageModels.swift; sourceTree = "<group>"; };
 		B7D9167E29C277A000BD9D02 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B7D9168029C2794100BD9D02 /* TMTextSpeaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMTextSpeaker.swift; sourceTree = "<group>"; };
-		B7D9168229C3554400BD9D02 /* TranslateTextTextViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateTextTextViewViewModel.swift; sourceTree = "<group>"; };
+		B7D9168629C389FB00BD9D02 /* TMSpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMSpeechRecognizer.swift; sourceTree = "<group>"; };
 		DD18DE1FEBDF5FAAEFE63F13 /* Pods-TranslateMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TranslateMe.release.xcconfig"; path = "Target Support Files/Pods-TranslateMe/Pods-TranslateMe.release.xcconfig"; sourceTree = "<group>"; };
 		FC7CF7DE93DC00F01B5E1E3D /* Pods-TranslateMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TranslateMe.debug.xcconfig"; path = "Target Support Files/Pods-TranslateMe/Pods-TranslateMe.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,7 +145,6 @@
 			children = (
 				B70E48FC29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift */,
 				B79878A229C0EC0A00BF5938 /* TranslateTextViewViewModel.swift */,
-				B7D9168229C3554400BD9D02 /* TranslateTextTextViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -165,6 +164,7 @@
 				B7AB478929C1F7040061D483 /* TMLanguagePair.swift */,
 				B7AB478B29C2080F0061D483 /* TMLanguageModels.swift */,
 				B7D9168029C2794100BD9D02 /* TMTextSpeaker.swift */,
+				B7D9168629C389FB00BD9D02 /* TMSpeechRecognizer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -366,12 +366,12 @@
 				B70E48D929BFD557000A9CD7 /* AppDelegate.swift in Sources */,
 				B7D9167F29C277A000BD9D02 /* ProfileViewController.swift in Sources */,
 				B70E48DB29BFD557000A9CD7 /* SceneDelegate.swift in Sources */,
+				B7D9168729C389FB00BD9D02 /* TMSpeechRecognizer.swift in Sources */,
 				B79878A329C0EC0A00BF5938 /* TranslateTextViewViewModel.swift in Sources */,
 				B720912429C0C73B00482563 /* TMLanguages.swift in Sources */,
 				B70E48FB29BFD627000A9CD7 /* MainTabBarViewController.swift in Sources */,
 				B7AB478C29C2080F0061D483 /* TMLanguageModels.swift in Sources */,
 				B79ED55F29C094F100361DA6 /* MainLanguageNameLabelView.swift in Sources */,
-				B7D9168329C3554400BD9D02 /* TranslateTextTextViewViewModel.swift in Sources */,
 				B79ED55A29C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift in Sources */,
 				B79ED56129C0A99E00361DA6 /* TranslateTextTextViewView.swift in Sources */,
 				B7D9168129C2794100BD9D02 /* TMTextSpeaker.swift in Sources */,

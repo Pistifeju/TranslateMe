@@ -11,6 +11,7 @@ import UIKit
 protocol TranslateTextTextViewDelegate: AnyObject {
     func textViewDidChange(sourceTextViewString: String)
     func didTapVoiceButton(sourceTextViewString: String, sourceTextView: Bool)
+    func didTapSpeakButton(textView: UITextView, recording: Bool, ac: UIAlertController?)
 }
 
 class TranslateTextTextView: UIView {
@@ -18,7 +19,7 @@ class TranslateTextTextView: UIView {
     // MARK: - Properties
     
     weak var delegate: TranslateTextTextViewDelegate?
-        
+    
     private let sourceTextView: Bool
     
     private let translateOrderLabel: UILabel = {
@@ -47,7 +48,6 @@ class TranslateTextTextView: UIView {
         textView.showsHorizontalScrollIndicator = false
         textView.layer.cornerRadius = 8
         textView.backgroundColor = .systemBackground
-        textView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         return textView
     }()
     
@@ -67,6 +67,16 @@ class TranslateTextTextView: UIView {
         return button
     }()
     
+    private lazy var speakButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "mic.slash.circle"), for: .normal)
+        button.setImage(UIImage(systemName: "mic.circle"), for: .selected)
+        button.setTitleColor(UIColor.clear, for: .selected)
+        button.isHidden = !sourceTextView
+        return button
+    }()
+    
     override var intrinsicContentSize: CGSize {
         layoutIfNeeded()
         let height = textViewWrapperUIView.bounds.height + languageLabel.bounds.height + 8 // Added +8 because of the anchor multiplier between the textView and labels
@@ -82,6 +92,7 @@ class TranslateTextTextView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         translateTextView.isUserInteractionEnabled = allowEditingTextView
         translateTextView.delegate = self
+        speakButton.addTarget(self, action: #selector(didTapSpeakButton), for: .touchUpInside)
         voiceButton.addTarget(self, action: #selector(didTapVoiceButton), for: .touchUpInside)
         configureUI()
     }
@@ -99,6 +110,7 @@ class TranslateTextTextView: UIView {
         addSubview(textViewWrapperUIView)
         addSubview(translateTextView)
         addSubview(voiceButton)
+        addSubview(speakButton)
         
         NSLayoutConstraint.activate([
             translateOrderLabel.topAnchor.constraint(equalTo: topAnchor),
@@ -113,6 +125,8 @@ class TranslateTextTextView: UIView {
             
             trailingAnchor.constraint(equalToSystemSpacingAfter: voiceButton.trailingAnchor, multiplier: 2),
             bottomAnchor.constraint(equalToSystemSpacingBelow: voiceButton.bottomAnchor, multiplier: 2),
+            speakButton.centerYAnchor.constraint(equalTo: voiceButton.centerYAnchor),
+            voiceButton.leadingAnchor.constraint(equalToSystemSpacingAfter: speakButton.trailingAnchor, multiplier: 2),
             
             textViewWrapperUIView.topAnchor.constraint(equalToSystemSpacingBelow: translateOrderLabel.bottomAnchor, multiplier: 1),
             textViewWrapperUIView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -121,13 +135,12 @@ class TranslateTextTextView: UIView {
         ])
         
         layoutIfNeeded()
-        translateTextView.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: voiceButton.frame.height + 8, right: 5)
+        translateTextView.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: voiceButton.frame.height + 12, right: 5)
     }
     
-    public func configure(languageString: String?, textViewString: String?) {
-        if let languageString {
-            languageLabel.text = languageString
-        }
+    public func configure(languageString: String, textViewString: String?, speakButtonIsSelected: Bool) {
+        languageLabel.text = languageString
+        speakButton.isSelected = speakButtonIsSelected
         if let textViewString {
             translateTextView.text = textViewString
         }
@@ -137,6 +150,21 @@ class TranslateTextTextView: UIView {
     
     @objc private func didTapVoiceButton() {
         delegate?.didTapVoiceButton(sourceTextViewString: translateTextView.text, sourceTextView: sourceTextView)
+    }
+    
+    @objc private func didTapSpeakButton() {
+        let speechRecognizer = TMSpeechRecognizer()
+        speechRecognizer.checkPermissions { [weak self] success in
+            guard let strongSelf = self else { return }
+            switch success {
+            case true:
+                strongSelf.speakButton.isSelected.toggle()
+                strongSelf.delegate?.didTapSpeakButton(textView: strongSelf.translateTextView, recording: strongSelf.speakButton.isSelected, ac: nil)
+            case false:
+                let ac = speechRecognizer.handlePermissionFailed()
+                strongSelf.delegate?.didTapSpeakButton(textView: strongSelf.translateTextView, recording: strongSelf.speakButton.isSelected, ac: ac)
+            }
+        }
     }
 }
 

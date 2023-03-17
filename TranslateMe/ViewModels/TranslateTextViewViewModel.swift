@@ -12,4 +12,11 @@ final class TranslateTextViewViewModel {
     
     public var languagePair = TMLanguagePair(sourceLanguage: .english, targetLanguage: .hungarian)
     
+    public var speechRecognizer = TMSpeechRecognizer()
+        
+    public func stopSpeechRecognizerListening() {
+        if speechRecognizer.isListening {
+            speechRecognizer.stopListening()
+        }
+    }
 }

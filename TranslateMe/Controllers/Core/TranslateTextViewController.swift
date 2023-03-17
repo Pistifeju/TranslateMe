@@ -43,6 +43,16 @@ final class TranslateTextViewController: UIViewController {
 }
 
 extension TranslateTextViewController: TranslateTextViewDelegate {
+    func handleShowErrorAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default))
+        present(alertController, animated: true)
+    }
+    
+    func handleSpeechPermissionFailed(ac: UIAlertController) {
+        present(ac, animated: true)
+    }
+    
     func showPickerViewAlert(pickerView: UIPickerView, alert: UIAlertController) {
         let vc = UIViewController()
         let height = UIScreen.main.bounds.height / 2

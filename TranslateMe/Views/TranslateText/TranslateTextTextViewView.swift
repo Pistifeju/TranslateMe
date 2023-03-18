@@ -225,4 +225,12 @@ extension TranslateTextTextView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         delegate?.textViewDidChange(sourceTextViewString: textView.text)
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
 }

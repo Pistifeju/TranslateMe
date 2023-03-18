@@ -9,10 +9,13 @@ import Foundation
 import StoreKit
 import UIKit
 
-struct SettingsViewControllerViewModel {
+struct SettingsViewControllerViewModel {    
     let cellViewModels: [SettingsCellViewModel]
     
+    public var email = SupportEmail(toAdress: "support@supportTranslateMe.com", subject: "Support Email", messageHeader: "Please describe your issue below")
+    
     public func rateApp(viewController: UIViewController) {
+
         if let windowScene = viewController.view.window?.windowScene {
             SKStoreReviewController.requestReview(in: windowScene)
         }

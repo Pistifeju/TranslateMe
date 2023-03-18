@@ -16,8 +16,13 @@ final class TMLanguageModels {
     
     private var translator: Translator!
     
-    public private(set) var localModels = ModelManager.modelManager().downloadedTranslateModels
-    
+    public var localModels: [TranslateLanguage] {
+        let models = ModelManager.modelManager().downloadedTranslateModels.compactMap({
+            return $0.language
+        })
+        return models
+    }
+        
     public func downloadLanguageIfNeeded(sourceLanguage: TranslateLanguage, targetLanguage: TranslateLanguage, completion: @escaping(Error?) -> Void) {
         let options = TranslatorOptions(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage)
         translator = Translator.translator(options: options)
@@ -38,6 +43,18 @@ final class TMLanguageModels {
     }
     
     public func checkIfLanguageInDownloadedLanguages(language: TranslateLanguage) -> Bool {
-        return localModels.contains { $0.language == language }
+        return localModels.contains { $0 == language }
+    }
+    
+    public func deleteLanguage(language: TranslateLanguage, completion: @escaping (Bool) -> Void) {
+        let model = TranslateRemoteModel.translateRemoteModel(language: language)
+        ModelManager.modelManager().deleteDownloadedModel(model) { error in
+            guard error == nil else {
+                completion(false)
+                return
+            }
+            
+            completion(true)
+        }
     }
 }

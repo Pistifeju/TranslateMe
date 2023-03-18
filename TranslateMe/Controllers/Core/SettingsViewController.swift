@@ -11,9 +11,9 @@ import UIKit
 import SwiftUI
 
 final class SettingsViewController: UIViewController {
-    @Environment(\.openURL) private var openURL
     
-    private var email = SupportEmail(toAdress: "support@supportTranslateMe.com", subject: "Support Email", messageHeader: "Please describe your issue below")
+    @Environment(\.openURL) private var openURL
+
     // MARK: - Properties
     
     private var settingsSwiftUIView: UIHostingController<SettingsView>?
@@ -76,7 +76,7 @@ final class SettingsViewController: UIViewController {
             let vc = LanguagesViewController()
             navigationController?.pushViewController(vc, animated: true)
         } else if option == .contactUs {
-            email.send(openURL: openURL)
+            viewModel.email.send(openURL: openURL)
         }
     }
     

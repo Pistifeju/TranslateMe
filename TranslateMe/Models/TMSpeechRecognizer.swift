@@ -68,30 +68,4 @@ final class TMSpeechRecognizer {
         recognitionTask?.cancel()
         isListening = false
     }
-    
-    // MARK: - Permissions
-    
-    public func checkPermissions(completion: @escaping(Bool) -> Void) {
-        SFSpeechRecognizer.requestAuthorization { authStatus in
-            DispatchQueue.main.async {
-                switch authStatus {
-                case .authorized:
-                    completion(true)
-                default:
-                    completion(false)
-                }
-            }
-        }
-    }
-    
-    public func handlePermissionFailed() -> UIAlertController {
-        let ac = UIAlertController(title: "The app must have access to speech recognition to work.",
-                                   message: "Please consider updating your settings.", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Open settings", style: .default) { _ in
-            let url = URL(string: UIApplication.openSettingsURLString)!
-            UIApplication.shared.open(url)
-        })
-        ac.addAction(UIAlertAction(title: "Close", style: .cancel))
-        return ac
-    }
 }

@@ -34,16 +34,20 @@ final class TranslateCameraViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let cameraModel = TMCamera()
-        cameraModel.checkPermissions { [weak self] success in
-            switch success {
-            case true:
-                DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                    self?.viewModel.startRunningCaptureSession()
+        if !viewModel.askedForCameraPermission {
+            viewModel.askedForCameraPermission = true
+            TMPermissions.shared.checkCameraPermission { [weak self] success in
+                switch success {
+                case true:
+                    DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                        self?.viewModel.startRunningCaptureSession()
+                    }
+                case false:
+                    let alert = TMPermissions.shared.handlePermissionFailed(
+                        title: "The app must have access to the camera to use the camera translating feature.",
+                        message: "Please consider updating your settings.")
+                    self?.present(alert, animated: true)
                 }
-            case false:
-                let alert = cameraModel.handlePermissionFailed()
-                self?.present(alert, animated: true)
             }
         }
     }
@@ -69,12 +73,29 @@ final class TranslateCameraViewController: UIViewController {
 // MARK: - CameraViewDelegate
 
 extension TranslateCameraViewController: CameraViewDelegate {
+    func showCameraNotAvailableAlert() {
+        let alert = TMPermissions.shared.handlePermissionFailed(
+            title: "The app must have access to the camera to use the camera translating feature.",
+            message: "Please consider updating your settings.")
+        present(alert, animated: true)
+    }
+    
     func showPhotoPickerView() {
-        let vc = UIImagePickerController()
-        vc.sourceType = .photoLibrary
-        vc.delegate = self
-        vc.allowsEditing = true
-        present(vc, animated: true)
+        TMPermissions.shared.checkPhotoLibraryPermission { [weak self] success in
+            switch success {
+            case true:
+                let vc = UIImagePickerController()
+                vc.sourceType = .photoLibrary
+                vc.delegate = self
+                vc.allowsEditing = true
+                self?.present(vc, animated: true)
+            case false:
+                let alert = TMPermissions.shared.handlePermissionFailed(
+                    title: "The app must have access to the photo library to load a photo.",
+                    message: "Please consider updating your settings.")
+                self?.present(alert, animated: true)
+            }
+        }
     }
 }
 

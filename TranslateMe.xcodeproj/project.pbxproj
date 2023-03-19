@@ -36,9 +36,9 @@
 		B7770F9429C670D00019892C /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7770F9329C670D00019892C /* CameraView.swift */; };
 		B7770F9629C673AD0019892C /* CameraViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7770F9529C673AD0019892C /* CameraViewViewModel.swift */; };
 		B7770F9829C673F50019892C /* TranslateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7770F9729C673F50019892C /* TranslateViewModel.swift */; };
-		B7868E0129C67986005976C1 /* TMCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E0029C67986005976C1 /* TMCamera.swift */; };
 		B7868E0329C67ED4005976C1 /* CameraToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E0229C67ED4005976C1 /* CameraToolbarView.swift */; };
 		B7868E0529C67EF4005976C1 /* CameraToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E0429C67EF4005976C1 /* CameraToolbarButton.swift */; };
+		B7868E0929C7B9D1005976C1 /* TMPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E0829C7B9D1005976C1 /* TMPermissions.swift */; };
 		B7981F6129C5E78600D392E9 /* DeleteLanguageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7981F6029C5E78600D392E9 /* DeleteLanguageButton.swift */; };
 		B7981F6329C5E78D00D392E9 /* DownloadLanguageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7981F6229C5E78D00D392E9 /* DownloadLanguageButton.swift */; };
 		B7981F6729C5ECA000D392E9 /* LanguagesViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7981F6629C5ECA000D392E9 /* LanguagesViewControllerViewModel.swift */; };
@@ -88,9 +88,9 @@
 		B7770F9329C670D00019892C /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		B7770F9529C673AD0019892C /* CameraViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewViewModel.swift; sourceTree = "<group>"; };
 		B7770F9729C673F50019892C /* TranslateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateViewModel.swift; sourceTree = "<group>"; };
-		B7868E0029C67986005976C1 /* TMCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMCamera.swift; sourceTree = "<group>"; };
 		B7868E0229C67ED4005976C1 /* CameraToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraToolbarView.swift; sourceTree = "<group>"; };
 		B7868E0429C67EF4005976C1 /* CameraToolbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraToolbarButton.swift; sourceTree = "<group>"; };
+		B7868E0829C7B9D1005976C1 /* TMPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMPermissions.swift; sourceTree = "<group>"; };
 		B7981F6029C5E78600D392E9 /* DeleteLanguageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLanguageButton.swift; sourceTree = "<group>"; };
 		B7981F6229C5E78D00D392E9 /* DownloadLanguageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadLanguageButton.swift; sourceTree = "<group>"; };
 		B7981F6629C5ECA000D392E9 /* LanguagesViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesViewControllerViewModel.swift; sourceTree = "<group>"; };
@@ -225,7 +225,7 @@
 				B7D9168629C389FB00BD9D02 /* TMSpeechRecognizer.swift */,
 				B7D9168829C4A07500BD9D02 /* TMLanguageIdentifier.swift */,
 				B758A49729C52B4E00EFE0AD /* TMSupportEmail.swift */,
-				B7868E0029C67986005976C1 /* TMCamera.swift */,
+				B7868E0829C7B9D1005976C1 /* TMPermissions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -485,6 +485,7 @@
 				B70E48F929BFD60F000A9CD7 /* TranslateCameraViewController.swift in Sources */,
 				B7D9168929C4A07500BD9D02 /* TMLanguageIdentifier.swift in Sources */,
 				B70E48D929BFD557000A9CD7 /* AppDelegate.swift in Sources */,
+				B7868E0929C7B9D1005976C1 /* TMPermissions.swift in Sources */,
 				B7D9167F29C277A000BD9D02 /* SettingsViewController.swift in Sources */,
 				B7770F9129C64A340019892C /* LanguagesSearchBar.swift in Sources */,
 				B721AB1B29C50D14000A6377 /* SettingsView.swift in Sources */,
@@ -507,7 +508,6 @@
 				B7770F9629C673AD0019892C /* CameraViewViewModel.swift in Sources */,
 				B79ED56129C0A99E00361DA6 /* TranslateTextTextViewView.swift in Sources */,
 				B7D9168129C2794100BD9D02 /* TMTextSpeaker.swift in Sources */,
-				B7868E0129C67986005976C1 /* TMCamera.swift in Sources */,
 				B70E48FD29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,6 +10,7 @@ import JGProgressHUD
 import AVFoundation
 
 final class CameraViewViewModel: TranslateViewModel {
+    public var askedForCameraPermission = false
     public let isCameraEnabled = AVCaptureDevice.authorizationStatus(for: .video) == .authorized
     public var captureSession: AVCaptureSession!
     public var videoPreviewLayer: AVCaptureVideoPreviewLayer!
@@ -31,8 +32,9 @@ final class CameraViewViewModel: TranslateViewModel {
                     }
                 }
                 backCamera.unlockForConfiguration()
-            } catch {
+            } catch let error {
                 // TODO: - Show error alert here
+                print(error)
             }
         }
     }

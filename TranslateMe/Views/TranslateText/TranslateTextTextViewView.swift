@@ -194,16 +194,17 @@ class TranslateTextTextView: UIView {
     }
     
     @objc private func didTapSpeakButton() {
-        let speechRecognizer = TMSpeechRecognizer()
-        speechRecognizer.checkPermissions { [weak self] success in
+        TMPermissions.shared.checkSpeechPermissions() { [weak self] success in
             guard let strongSelf = self else { return }
             switch success {
             case true:
                 strongSelf.speakButton.isSelected.toggle()
                 strongSelf.delegate?.didTapSpeakButton(textView: strongSelf.translateTextView, recording: strongSelf.speakButton.isSelected, ac: nil)
             case false:
-                let ac = speechRecognizer.handlePermissionFailed()
-                strongSelf.delegate?.didTapSpeakButton(textView: strongSelf.translateTextView, recording: strongSelf.speakButton.isSelected, ac: ac)
+                let alert = TMPermissions.shared.handlePermissionFailed(
+                    title: "The app must have access to speech recognition to work.",
+                    message: "Please consider updating your settings.")
+                strongSelf.delegate?.didTapSpeakButton(textView: strongSelf.translateTextView, recording: strongSelf.speakButton.isSelected, ac: alert)
             }
         }
     }

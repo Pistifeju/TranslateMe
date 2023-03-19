@@ -11,6 +11,7 @@ import AVFoundation
 
 protocol CameraViewDelegate: AnyObject {
     func showPhotoPickerView()
+    func showCameraNotAvailableAlert()
 }
 
 class CameraView: UIView {
@@ -48,12 +49,13 @@ class CameraView: UIView {
     public var imageViewImage: UIImage? {
         didSet {
             captureImageView.image = imageViewImage
-
             if imageViewImage != nil {
                 captureImageView.isHidden = false
+                cameraNotAvailableLabel.isHidden = true
                 toolbarView.configurePictureButton(isSelected: true)
             } else {
                 captureImageView.isHidden = true
+                cameraNotAvailableLabel.isHidden = false
                 toolbarView.configurePictureButton(isSelected: false)
             }
         }
@@ -162,9 +164,17 @@ extension CameraView: CameraToolbarViewDelegate {
                 imageViewImage = nil
                 viewModel.startRunningCaptureSession()
             } else {
-                let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
-                viewModel.stillImageOutput.capturePhoto(with: settings, delegate: self)
-                captureImageView.isHidden = false
+                TMPermissions.shared.checkCameraPermission { [weak self] success in
+                    guard let strongSelf = self else { return }
+                    switch success {
+                    case true:
+                        let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+                        strongSelf.viewModel.stillImageOutput.capturePhoto(with: settings, delegate: strongSelf)
+                        strongSelf.captureImageView.isHidden = false
+                    case false:
+                        strongSelf.delegate?.showCameraNotAvailableAlert()
+                    }
+                }
             }
         case .flashlight:
             viewModel.toggleFlash()

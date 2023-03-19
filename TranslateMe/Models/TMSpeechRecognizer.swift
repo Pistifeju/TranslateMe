@@ -77,10 +77,8 @@ final class TMSpeechRecognizer {
                 switch authStatus {
                 case .authorized:
                     completion(true)
-                    break
                 default:
                     completion(false)
-                    break
                 }
             }
         }

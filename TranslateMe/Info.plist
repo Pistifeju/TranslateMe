@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to the camera in order to take a picture.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>We need access to the microphone to hear what you have to say.</string>
 	<key>NSMicrophoneUsageDescription</key>

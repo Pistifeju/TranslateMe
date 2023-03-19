@@ -33,6 +33,12 @@
 		B758A49A29C530DD00EFE0AD /* LanguagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B758A49929C530DD00EFE0AD /* LanguagesViewController.swift */; };
 		B758A49C29C5E51E00EFE0AD /* LanguagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B758A49B29C5E51E00EFE0AD /* LanguagesView.swift */; };
 		B7770F9129C64A340019892C /* LanguagesSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7770F9029C64A340019892C /* LanguagesSearchBar.swift */; };
+		B7770F9429C670D00019892C /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7770F9329C670D00019892C /* CameraView.swift */; };
+		B7770F9629C673AD0019892C /* CameraViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7770F9529C673AD0019892C /* CameraViewViewModel.swift */; };
+		B7770F9829C673F50019892C /* TranslateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7770F9729C673F50019892C /* TranslateViewModel.swift */; };
+		B7868E0129C67986005976C1 /* TMCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E0029C67986005976C1 /* TMCamera.swift */; };
+		B7868E0329C67ED4005976C1 /* CameraToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E0229C67ED4005976C1 /* CameraToolbarView.swift */; };
+		B7868E0529C67EF4005976C1 /* CameraToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E0429C67EF4005976C1 /* CameraToolbarButton.swift */; };
 		B7981F6129C5E78600D392E9 /* DeleteLanguageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7981F6029C5E78600D392E9 /* DeleteLanguageButton.swift */; };
 		B7981F6329C5E78D00D392E9 /* DownloadLanguageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7981F6229C5E78D00D392E9 /* DownloadLanguageButton.swift */; };
 		B7981F6729C5ECA000D392E9 /* LanguagesViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7981F6629C5ECA000D392E9 /* LanguagesViewControllerViewModel.swift */; };
@@ -79,6 +85,12 @@
 		B758A49929C530DD00EFE0AD /* LanguagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesViewController.swift; sourceTree = "<group>"; };
 		B758A49B29C5E51E00EFE0AD /* LanguagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesView.swift; sourceTree = "<group>"; };
 		B7770F9029C64A340019892C /* LanguagesSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesSearchBar.swift; sourceTree = "<group>"; };
+		B7770F9329C670D00019892C /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		B7770F9529C673AD0019892C /* CameraViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewViewModel.swift; sourceTree = "<group>"; };
+		B7770F9729C673F50019892C /* TranslateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateViewModel.swift; sourceTree = "<group>"; };
+		B7868E0029C67986005976C1 /* TMCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMCamera.swift; sourceTree = "<group>"; };
+		B7868E0229C67ED4005976C1 /* CameraToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraToolbarView.swift; sourceTree = "<group>"; };
+		B7868E0429C67EF4005976C1 /* CameraToolbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraToolbarButton.swift; sourceTree = "<group>"; };
 		B7981F6029C5E78600D392E9 /* DeleteLanguageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLanguageButton.swift; sourceTree = "<group>"; };
 		B7981F6229C5E78D00D392E9 /* DownloadLanguageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadLanguageButton.swift; sourceTree = "<group>"; };
 		B7981F6629C5ECA000D392E9 /* LanguagesViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesViewControllerViewModel.swift; sourceTree = "<group>"; };
@@ -185,6 +197,8 @@
 				B721AB1229C4E5E8000A6377 /* Settings */,
 				B70E48FC29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift */,
 				B79878A229C0EC0A00BF5938 /* TranslateTextViewViewModel.swift */,
+				B7770F9529C673AD0019892C /* CameraViewViewModel.swift */,
+				B7770F9729C673F50019892C /* TranslateViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -192,6 +206,9 @@
 		B70E48EF29BFD582000A9CD7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B79ED55929C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift */,
+				B79ED55E29C094F100361DA6 /* MainLanguageNameLabelView.swift */,
+				B7770F9229C670A10019892C /* Camera */,
 				B721AB1929C50CFC000A6377 /* Settings */,
 				B79ED55829C090ED00361DA6 /* TranslateText */,
 			);
@@ -208,6 +225,7 @@
 				B7D9168629C389FB00BD9D02 /* TMSpeechRecognizer.swift */,
 				B7D9168829C4A07500BD9D02 /* TMLanguageIdentifier.swift */,
 				B758A49729C52B4E00EFE0AD /* TMSupportEmail.swift */,
+				B7868E0029C67986005976C1 /* TMCamera.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -270,11 +288,19 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		B7770F9229C670A10019892C /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				B7770F9329C670D00019892C /* CameraView.swift */,
+				B7868E0229C67ED4005976C1 /* CameraToolbarView.swift */,
+				B7868E0429C67EF4005976C1 /* CameraToolbarButton.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
 		B79ED55829C090ED00361DA6 /* TranslateText */ = {
 			isa = PBXGroup;
 			children = (
-				B79ED55929C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift */,
-				B79ED55E29C094F100361DA6 /* MainLanguageNameLabelView.swift */,
 				B79ED55429C08F5500361DA6 /* TranslateTextView.swift */,
 				B79ED56029C0A99E00361DA6 /* TranslateTextTextViewView.swift */,
 			);
@@ -441,6 +467,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B758A49C29C5E51E00EFE0AD /* LanguagesView.swift in Sources */,
+				B7868E0329C67ED4005976C1 /* CameraToolbarView.swift in Sources */,
 				B7AB478A29C1F7040061D483 /* TMLanguagePair.swift in Sources */,
 				B758A49229C5279300EFE0AD /* UIDevice+Extension.swift in Sources */,
 				B721AB1829C4E680000A6377 /* SettingsOption.swift in Sources */,
@@ -448,11 +475,13 @@
 				B7981F6129C5E78600D392E9 /* DeleteLanguageButton.swift in Sources */,
 				B70E48F729BFD5FE000A9CD7 /* TranslateConversationViewController.swift in Sources */,
 				B758A48E29C5274300EFE0AD /* UIApplication+Extension.swift in Sources */,
+				B7868E0529C67EF4005976C1 /* CameraToolbarButton.swift in Sources */,
 				B70E48F429BFD5E8000A9CD7 /* TranslateTextViewController.swift in Sources */,
 				B758A49829C52B4E00EFE0AD /* TMSupportEmail.swift in Sources */,
 				B7981F6929C5ECC100D392E9 /* LanguagesCellViewModel.swift in Sources */,
 				B758A49029C5274A00EFE0AD /* TranslateLanguage+Extension.swift in Sources */,
 				B7981F6329C5E78D00D392E9 /* DownloadLanguageButton.swift in Sources */,
+				B7770F9429C670D00019892C /* CameraView.swift in Sources */,
 				B70E48F929BFD60F000A9CD7 /* TranslateCameraViewController.swift in Sources */,
 				B7D9168929C4A07500BD9D02 /* TMLanguageIdentifier.swift in Sources */,
 				B70E48D929BFD557000A9CD7 /* AppDelegate.swift in Sources */,
@@ -468,14 +497,17 @@
 				B758A48C29C5273500EFE0AD /* UIView+Extension.swift in Sources */,
 				B720912429C0C73B00482563 /* TMLanguages.swift in Sources */,
 				B758A49A29C530DD00EFE0AD /* LanguagesViewController.swift in Sources */,
+				B7770F9829C673F50019892C /* TranslateViewModel.swift in Sources */,
 				B70E48FB29BFD627000A9CD7 /* MainTabBarViewController.swift in Sources */,
 				B7AB478C29C2080F0061D483 /* TMLanguageModels.swift in Sources */,
 				B721AB1429C4E613000A6377 /* SettingsViewControllerViewModel.swift in Sources */,
 				B758A48A29C5272900EFE0AD /* UIFont+Extension.swift in Sources */,
 				B79ED55F29C094F100361DA6 /* MainLanguageNameLabelView.swift in Sources */,
 				B79ED55A29C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift in Sources */,
+				B7770F9629C673AD0019892C /* CameraViewViewModel.swift in Sources */,
 				B79ED56129C0A99E00361DA6 /* TranslateTextTextViewView.swift in Sources */,
 				B7D9168129C2794100BD9D02 /* TMTextSpeaker.swift in Sources */,
+				B7868E0129C67986005976C1 /* TMCamera.swift in Sources */,
 				B70E48FD29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

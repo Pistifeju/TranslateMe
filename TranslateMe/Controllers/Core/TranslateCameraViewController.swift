@@ -22,6 +22,7 @@ final class TranslateCameraViewController: UIViewController {
         super.viewDidLoad()
         
         navigationController?.navigationBar.isHidden = true
+        cameraView.delegate = self
         
         configureUI()
     }
@@ -63,4 +64,30 @@ final class TranslateCameraViewController: UIViewController {
     }
     
     // MARK: - Selectors
+}
+
+// MARK: - CameraViewDelegate
+
+extension TranslateCameraViewController: CameraViewDelegate {
+    func showPhotoPickerView() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+    }
+}
+
+extension TranslateCameraViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
+            viewModel.stopRunningCaptureSession()
+            cameraView.imageViewImage = image
+        }
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
 }

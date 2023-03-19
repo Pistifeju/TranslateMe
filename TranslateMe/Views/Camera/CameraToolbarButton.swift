@@ -14,16 +14,20 @@ enum ToolbarButtonType {
     case flashlight
     
     var iconImage: UIImage? {
-        let size = self == .takePicture ? 25 : 20
-        let config = UIImage.SymbolConfiguration(pointSize: CGFloat(size), weight: .regular, scale: .large)
         switch self {
         case .photos:
-            return UIImage(systemName: "photo.on.rectangle", withConfiguration: config)
+            return UIImage(systemName: "photo.on.rectangle", withConfiguration: iconImageConfig)
         case .takePicture:
-            return UIImage(systemName: "camera", withConfiguration: config)
+            return UIImage(systemName: "camera", withConfiguration: iconImageConfig)
         case .flashlight:
-            return UIImage(systemName: "flashlight.off.fill", withConfiguration: config)
+            return UIImage(systemName: "flashlight.off.fill", withConfiguration: iconImageConfig)
         }
+    }
+    
+    var iconImageConfig: UIImage.SymbolConfiguration {
+        let size = self == .takePicture ? 25 : 20
+        let config = UIImage.SymbolConfiguration(pointSize: CGFloat(size), weight: .regular, scale: .large)
+        return config
     }
     
     var size: Double {
@@ -37,7 +41,19 @@ class CameraToolbarButton: UIButton {
     
     override var isSelected: Bool {
         didSet {
-            backgroundColor = isSelected ? .label : .secondarySystemBackground
+            switch toolbarType {
+            case .photos:
+                break
+            case .takePicture:
+                let pictureSelectedImage = UIImage(systemName: "x.circle", withConfiguration: toolbarType.iconImageConfig)
+                if isSelected {
+                    setImage(pictureSelectedImage, for: .normal)
+                } else {
+                    setImage(toolbarType.iconImage, for: .normal)
+                }
+            case .flashlight:
+                backgroundColor = isSelected ? .label : .secondarySystemBackground
+            }
         }
     }
     

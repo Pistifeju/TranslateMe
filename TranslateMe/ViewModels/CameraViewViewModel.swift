@@ -13,8 +13,7 @@ final class CameraViewViewModel: TranslateViewModel {
     public let isCameraEnabled = AVCaptureDevice.authorizationStatus(for: .video) == .authorized
     public var captureSession: AVCaptureSession!
     public var videoPreviewLayer: AVCaptureVideoPreviewLayer!
-    
-    private var stillImageOutput: AVCapturePhotoOutput!
+    public var stillImageOutput: AVCapturePhotoOutput!
     
     public func toggleFlash() {
         guard let backCamera = AVCaptureDevice.default(for: AVMediaType.video) else { return }
@@ -65,7 +64,7 @@ final class CameraViewViewModel: TranslateViewModel {
     private func setupCameraLivePreview(completion: @escaping() -> Void) {
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         
-        videoPreviewLayer.videoGravity = .resizeAspect
+        videoPreviewLayer.videoGravity = .resizeAspectFill
         videoPreviewLayer.connection?.videoOrientation = .portrait
         completion()
         return
@@ -73,11 +72,15 @@ final class CameraViewViewModel: TranslateViewModel {
     
     public func stopRunningCaptureSession() {
         guard captureSession != nil else { return }
-        captureSession.stopRunning()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.captureSession.startRunning()
+        }
     }
     
     public func startRunningCaptureSession() {
         guard captureSession != nil, !captureSession.isRunning else { return }
-        captureSession.startRunning()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.captureSession.startRunning()
+        }
     }
 }

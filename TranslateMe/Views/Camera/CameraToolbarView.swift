@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol CameraToolbarViewDelegate: AnyObject {
-    func didPressToolbarButton(option: ToolbarButtonType)
+    func didPressToolbarButton(button: CameraToolbarButton)
 }
 
 class CameraToolbarView: UIView {
@@ -49,7 +49,7 @@ class CameraToolbarView: UIView {
     
     private func configureUI() {
         backgroundColor = .systemBackground
-
+        
         let stackView = UIStackView(arrangedSubviews: [photosButton, takePictureButton, flashlightButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -64,13 +64,16 @@ class CameraToolbarView: UIView {
         ])
     }
     
+    public func configurePictureButton(isSelected: Bool) {
+        takePictureButton.isSelected = isSelected
+    }
+    
     // MARK: - Selectors
     
     @objc private func didTapToolbarButton(_ button: CameraToolbarButton) {
-        let type = button.toolbarType
-        delegate?.didPressToolbarButton(option: type)
-        if type == .flashlight {
-            flashlightButton.isSelected.toggle()
+        delegate?.didPressToolbarButton(button: button)
+        if button.toolbarType == .flashlight {
+            button.isSelected.toggle()
         }
     }
 }

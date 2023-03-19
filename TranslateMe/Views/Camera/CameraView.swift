@@ -9,9 +9,15 @@ import Foundation
 import UIKit
 import AVFoundation
 
+protocol CameraViewDelegate: AnyObject {
+    func showPhotoPickerView()
+}
+
 class CameraView: UIView {
     
     // MARK: - Properties
+    
+    weak var delegate: CameraViewDelegate?
     
     private var viewModel: CameraViewViewModel
     
@@ -29,6 +35,29 @@ class CameraView: UIView {
         label.isHidden = true
         return label
     }()
+    
+    public let captureImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        iv.isHidden = true
+        return iv
+    }()
+    
+    public var imageViewImage: UIImage? {
+        didSet {
+            captureImageView.image = imageViewImage
+
+            if imageViewImage != nil {
+                captureImageView.isHidden = false
+                toolbarView.configurePictureButton(isSelected: true)
+            } else {
+                captureImageView.isHidden = true
+                toolbarView.configurePictureButton(isSelected: false)
+            }
+        }
+    }
     
     // MARK: - Lifecycle
     
@@ -51,6 +80,7 @@ class CameraView: UIView {
     
     private func configureUI() {
         backgroundColor = .systemBackground
+        addSubview(captureImageView)
         addSubview(translateBetweenTwoLanguageSelectorView)
         addSubview(toolbarView)
         addSubview(cameraNotAvailableLabel)
@@ -67,6 +97,11 @@ class CameraView: UIView {
             cameraNotAvailableLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             cameraNotAvailableLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
             trailingAnchor.constraint(equalToSystemSpacingAfter: cameraNotAvailableLabel.trailingAnchor, multiplier: 2),
+            
+            captureImageView.topAnchor.constraint(equalToSystemSpacingBelow: translateBetweenTwoLanguageSelectorView.bottomAnchor, multiplier: 2),
+            captureImageView.bottomAnchor.constraint(equalTo: toolbarView.topAnchor),
+            captureImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            captureImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
         ])
     }
     
@@ -85,13 +120,11 @@ class CameraView: UIView {
                 } else {
                     strongSelf.layer.addSublayer(strongSelf.viewModel.videoPreviewLayer)
                     
-                    let width = UIScreen.main.bounds.width
-                    let height = UIScreen.main.bounds.height
-                    
                     DispatchQueue.global(qos: .userInitiated).async {
                         strongSelf.viewModel.captureSession.startRunning()
                         DispatchQueue.main.async {
-                            strongSelf.viewModel.videoPreviewLayer.frame = CGRect(x: 0, y: 0, width: width, height: height)
+                            strongSelf.layoutIfNeeded()
+                            strongSelf.viewModel.videoPreviewLayer.frame = strongSelf.captureImageView.frame
                         }
                     }
                 }
@@ -105,15 +138,34 @@ class CameraView: UIView {
     
 }
 
+extension CameraView: AVCapturePhotoCaptureDelegate {
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        guard error == nil else { return }
+        guard let imageData = photo.fileDataRepresentation()
+        else { return }
+        
+        let image = UIImage(data: imageData)
+        imageViewImage = image
+        viewModel.stopRunningCaptureSession()
+    }
+}
+
 // MARK: - CameraToolbarViewDelegate
 
 extension CameraView: CameraToolbarViewDelegate {
-    func didPressToolbarButton(option: ToolbarButtonType) {
-        switch option {
+    func didPressToolbarButton(button: CameraToolbarButton) {
+        switch button.toolbarType {
         case .photos:
-            break
+            delegate?.showPhotoPickerView()
         case .takePicture:
-            break
+            if button.isSelected {
+                imageViewImage = nil
+                viewModel.startRunningCaptureSession()
+            } else {
+                let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+                viewModel.stillImageOutput.capturePhoto(with: settings, delegate: self)
+                captureImageView.isHidden = false
+            }
         case .flashlight:
             viewModel.toggleFlash()
         }

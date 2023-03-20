@@ -73,6 +73,10 @@ final class TranslateCameraViewController: UIViewController {
 // MARK: - CameraViewDelegate
 
 extension TranslateCameraViewController: CameraViewDelegate {
+    func showPickerViewAlert(pickerView: UIPickerView, alert: UIAlertController) {
+        self.showLanguagePickerView(pickerView: pickerView, alert: alert)
+    }
+    
     func showCameraNotAvailableAlert() {
         let alert = TMPermissions.shared.handlePermissionFailed(
             title: "The app must have access to the camera to use the camera translating feature.",
@@ -98,6 +102,8 @@ extension TranslateCameraViewController: CameraViewDelegate {
         }
     }
 }
+
+// MARK: - UIImagePickerControllerDelegate & UINavigationControllerDelegate
 
 extension TranslateCameraViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

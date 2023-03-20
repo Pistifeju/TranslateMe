@@ -39,6 +39,7 @@
 		B7868E0329C67ED4005976C1 /* CameraToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E0229C67ED4005976C1 /* CameraToolbarView.swift */; };
 		B7868E0529C67EF4005976C1 /* CameraToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E0429C67EF4005976C1 /* CameraToolbarButton.swift */; };
 		B7868E0929C7B9D1005976C1 /* TMPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E0829C7B9D1005976C1 /* TMPermissions.swift */; };
+		B7868E0B29C89FB0005976C1 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E0A29C89FB0005976C1 /* UIViewController+Extension.swift */; };
 		B7981F6129C5E78600D392E9 /* DeleteLanguageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7981F6029C5E78600D392E9 /* DeleteLanguageButton.swift */; };
 		B7981F6329C5E78D00D392E9 /* DownloadLanguageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7981F6229C5E78D00D392E9 /* DownloadLanguageButton.swift */; };
 		B7981F6729C5ECA000D392E9 /* LanguagesViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7981F6629C5ECA000D392E9 /* LanguagesViewControllerViewModel.swift */; };
@@ -91,6 +92,7 @@
 		B7868E0229C67ED4005976C1 /* CameraToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraToolbarView.swift; sourceTree = "<group>"; };
 		B7868E0429C67EF4005976C1 /* CameraToolbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraToolbarButton.swift; sourceTree = "<group>"; };
 		B7868E0829C7B9D1005976C1 /* TMPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMPermissions.swift; sourceTree = "<group>"; };
+		B7868E0A29C89FB0005976C1 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		B7981F6029C5E78600D392E9 /* DeleteLanguageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLanguageButton.swift; sourceTree = "<group>"; };
 		B7981F6229C5E78D00D392E9 /* DownloadLanguageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadLanguageButton.swift; sourceTree = "<group>"; };
 		B7981F6629C5ECA000D392E9 /* LanguagesViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesViewControllerViewModel.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				B758A48F29C5274A00EFE0AD /* TranslateLanguage+Extension.swift */,
 				B758A49129C5279300EFE0AD /* UIDevice+Extension.swift */,
 				B758A49529C5294000EFE0AD /* Bundle+Extension.swift */,
+				B7868E0A29C89FB0005976C1 /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -478,6 +481,7 @@
 				B7868E0529C67EF4005976C1 /* CameraToolbarButton.swift in Sources */,
 				B70E48F429BFD5E8000A9CD7 /* TranslateTextViewController.swift in Sources */,
 				B758A49829C52B4E00EFE0AD /* TMSupportEmail.swift in Sources */,
+				B7868E0B29C89FB0005976C1 /* UIViewController+Extension.swift in Sources */,
 				B7981F6929C5ECC100D392E9 /* LanguagesCellViewModel.swift in Sources */,
 				B758A49029C5274A00EFE0AD /* TranslateLanguage+Extension.swift in Sources */,
 				B7981F6329C5E78D00D392E9 /* DownloadLanguageButton.swift in Sources */,

@@ -42,6 +42,8 @@ final class TranslateTextViewController: UIViewController {
     // MARK: - Selectors
 }
 
+// MARK: - TranslateTextViewDelegate
+
 extension TranslateTextViewController: TranslateTextViewDelegate {
     func handleShowIdentifiedLanguageNotDownloadedAlert(completion: @escaping (Bool) -> Void) {
         let alert = UIAlertController(title: "Language Not Downloaded", message: "The language you selected is not currently downloaded. Do you want to download it?", preferredStyle: .alert)
@@ -72,16 +74,6 @@ extension TranslateTextViewController: TranslateTextViewDelegate {
     }
     
     func showPickerViewAlert(pickerView: UIPickerView, alert: UIAlertController) {
-        let vc = UIViewController()
-        let height = UIScreen.main.bounds.height / 2
-        let width = UIScreen.main.bounds.width - 16
-        vc.preferredContentSize = CGSize(width: width, height: height)
-        vc.view.addSubview(pickerView)
-        pickerView.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
-        pickerView.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor).isActive = true
-        pickerView.topAnchor.constraint(equalTo: vc.view.topAnchor).isActive = true
-        pickerView.bottomAnchor.constraint(equalTo: vc.view.bottomAnchor).isActive = true
-        alert.setValue(vc, forKey: "contentViewController")
-        navigationController?.present(alert, animated: true)
+        self.showLanguagePickerView(pickerView: pickerView, alert: alert)
     }
 }

@@ -88,6 +88,8 @@ class TranslateBetweenTwoLanguageSelectorView: UIView {
     }
 }
 
+// MARK: - MainLanguageNameLabelViewDelegate
+
 extension TranslateBetweenTwoLanguageSelectorView: MainLanguageNameLabelViewDelegate {
     func didPressLanguageLabel(sender: MainLanguageNameLabelView) {
         delegate?.didPressSelectLanguage(languageLabel: sender)

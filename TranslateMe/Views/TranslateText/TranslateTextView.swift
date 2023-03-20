@@ -120,11 +120,11 @@ extension TranslateTextView: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return TMLanguages.shared.allTranslateLanguages.count
+        return TMLanguageModels.shared.localModels.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return TMLanguages.shared.allLanguages[row]
+        return TMLanguages.shared.createLanguageStringWithTranslateLanguage(from: TMLanguageModels.shared.localModels[row])
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
@@ -142,14 +142,15 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
     }
     
     func didPressSelectLanguage(languageLabel: MainLanguageNameLabelView) {
-        let alert = UIAlertController(title: "Select Language", message: "", preferredStyle: .actionSheet)
+        languagePickerView.reloadAllComponents()
+        let alert = UIAlertController(title: "Downloaded Languages", message: "", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
             
         }))
         alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { action in
             let selectedIndex = self.languagePickerView.selectedRow(inComponent: 0)
-            let selectedLanguage = TMLanguages.shared.allTranslateLanguages[selectedIndex]
-            let selectedLanguageString = TMLanguages.shared.allLanguages[selectedIndex]
+            let selectedLanguage = TMLanguageModels.shared.localModels[selectedIndex]
+            let selectedLanguageString = TMLanguages.shared.createLanguageStringWithTranslateLanguage(from: selectedLanguage)
             languageLabel.configure(withLanguage: selectedLanguageString)
             if languageLabel.source {
                 self.viewModel.languagePair.sourceLanguage = selectedLanguage
@@ -157,24 +158,9 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
                 self.viewModel.languagePair.targetLanguage = selectedLanguage
             }
             let languagePair = self.viewModel.languagePair
-            
-            let progressHud = self.viewModel.createDownloadLanguageProgressHud()
-            progressHud.show(in: self, animated: true)
-            
-            TMLanguageModels.shared.downloadLanguageIfNeeded(sourceLanguage: languagePair.sourceLanguage, targetLanguage: languagePair.targetLanguage) { [weak self] error in
-                guard let strongSelf = self else { return }
-                
-                progressHud.dismiss(animated: true)
-                if let error = error {
-                    strongSelf.delegate?.handleShowErrorAlert(title: "Error", message: error.localizedDescription)
-                    return
-                }
-                
-                strongSelf.viewModel.languagePair.translate {}
-                strongSelf.configureViews()
+            self.viewModel.languagePair.translate {
+                self.configureViews()
             }
-            self.viewModel.languagePair.translate {}
-            self.configureViews()
             self.viewModel.stopSpeechRecognizerListening()
         }))
         delegate?.showPickerViewAlert(pickerView: self.languagePickerView, alert: alert)

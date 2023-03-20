@@ -214,6 +214,8 @@ class TranslateTextTextView: UIView {
     }
 }
 
+// MARK: - UITextViewDelegate
+
 extension TranslateTextTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         delegate?.textViewDidChange(sourceTextViewString: textView.text)

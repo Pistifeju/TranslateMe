@@ -8,10 +8,12 @@
 import Foundation
 import UIKit
 import AVFoundation
+import VisionKit
 
 protocol CameraViewDelegate: AnyObject {
     func showPhotoPickerView()
     func showCameraNotAvailableAlert()
+    func showPickerViewAlert(pickerView: UIPickerView, alert: UIAlertController)
 }
 
 class CameraView: UIView {
@@ -19,6 +21,9 @@ class CameraView: UIView {
     // MARK: - Properties
     
     weak var delegate: CameraViewDelegate?
+    
+    private let liveTextInteraction = ImageAnalysisInteraction()
+    private let liveTextAnalyzer = ImageAnalyzer()
     
     private var viewModel: CameraViewViewModel
     
@@ -37,7 +42,13 @@ class CameraView: UIView {
         return label
     }()
     
-    public let captureImageView: UIImageView = {
+    private let languagePickerView: UIPickerView = {
+        let pickerView = UIPickerView(frame: .zero)
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
+        return pickerView
+    }()
+    
+    public lazy var captureImageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
@@ -48,14 +59,17 @@ class CameraView: UIView {
     
     public var imageViewImage: UIImage? {
         didSet {
+            liveTextInteraction.preferredInteractionTypes = []
+            liveTextInteraction.analysis = nil
             captureImageView.image = imageViewImage
-            if imageViewImage != nil {
+            if let imageViewImage {
                 captureImageView.isHidden = false
-                cameraNotAvailableLabel.isHidden = true
                 toolbarView.configurePictureButton(isSelected: true)
+                Task.init {
+                    await setupLiveText(image: imageViewImage)
+                }
             } else {
                 captureImageView.isHidden = true
-                cameraNotAvailableLabel.isHidden = false
                 toolbarView.configurePictureButton(isSelected: false)
             }
         }
@@ -69,6 +83,9 @@ class CameraView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         translateBetweenTwoLanguageSelectorView.delegate = self
         toolbarView.delegate = self
+        languagePickerView.delegate = self
+        captureImageView.addInteraction(liveTextInteraction)
+        liveTextInteraction.delegate = self
         setupCamera()
         configureUI()
         configureViews()
@@ -82,10 +99,10 @@ class CameraView: UIView {
     
     private func configureUI() {
         backgroundColor = .systemBackground
+        addSubview(cameraNotAvailableLabel)
         addSubview(captureImageView)
         addSubview(translateBetweenTwoLanguageSelectorView)
         addSubview(toolbarView)
-        addSubview(cameraNotAvailableLabel)
         
         NSLayoutConstraint.activate([
             translateBetweenTwoLanguageSelectorView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
@@ -136,9 +153,33 @@ class CameraView: UIView {
         }
     }
     
+    
+    private func setupLiveText(image: UIImage) async {
+        liveTextInteraction.preferredInteractionTypes = .textSelection
+        
+        let liveTextConfiguration = ImageAnalyzer.Configuration([.text])
+        print(liveTextConfiguration.locales)
+        do {
+            let analysis = try await liveTextAnalyzer.analyze(image, configuration: liveTextConfiguration)
+
+            liveTextInteraction.analysis = analysis
+        } catch let error {
+            print(error)
+        }
+        
+    }
+    
     // MARK: - Selectors
     
 }
+
+// MARK: - ImageAnalysisInteractionDelegate
+
+extension CameraView: ImageAnalysisInteractionDelegate {
+
+}
+
+// MARK: - AVCapturePhotoCaptureDelegate
 
 extension CameraView: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
@@ -149,6 +190,26 @@ extension CameraView: AVCapturePhotoCaptureDelegate {
         let image = UIImage(data: imageData)
         imageViewImage = image
         viewModel.stopRunningCaptureSession()
+    }
+}
+
+// MARK: - UIPickerViewDelegate, UIPickerViewDataSource
+
+extension CameraView: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return TMLanguageModels.shared.localModels.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return TMLanguages.shared.createLanguageStringWithTranslateLanguage(from: TMLanguageModels.shared.localModels[row])
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 50
     }
 }
 
@@ -186,7 +247,26 @@ extension CameraView: CameraToolbarViewDelegate {
 
 extension CameraView: TranslateBetweenTwoLanguageSelectorViewDelegate {
     func didPressSelectLanguage(languageLabel: MainLanguageNameLabelView) {
-        // TODO: Implement
+        let alert = UIAlertController(title: "Downloaded Languages", message: "", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { action in
+            let selectedIndex = self.languagePickerView.selectedRow(inComponent: 0)
+            let selectedLanguage = TMLanguageModels.shared.localModels[selectedIndex]
+            let selectedLanguageString = TMLanguages.shared.createLanguageStringWithTranslateLanguage(from: selectedLanguage)
+            languageLabel.configure(withLanguage: selectedLanguageString)
+            if languageLabel.source {
+                self.viewModel.languagePair.sourceLanguage = selectedLanguage
+            } else {
+                self.viewModel.languagePair.targetLanguage = selectedLanguage
+            }
+            let languagePair = self.viewModel.languagePair
+            self.viewModel.languagePair.translate {
+                self.configureViews()
+            }
+        }))
+        delegate?.showPickerViewAlert(pickerView: self.languagePickerView, alert: alert)
     }
     
     func didPressSwitchLanguagesButton() {

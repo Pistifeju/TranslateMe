@@ -9,24 +9,30 @@ import Foundation
 import SwiftUI
 
 struct DownloadButtonView: View {
-    @State private var isDownloading = false
+    var isDownloading: Bool {
+        controllerViewModel.downloadStates[cellViewModel.language] ?? false
+    }
+
+    @ObservedObject private var controllerViewModel: LanguagesViewControllerViewModel
     
     private let cellViewModel: LanguagesCellViewModel
     
-    init(cellViewModel: LanguagesCellViewModel) {
+    init(cellViewModel: LanguagesCellViewModel, controllerViewModel: LanguagesViewControllerViewModel) {
         self.cellViewModel = cellViewModel
+        self.controllerViewModel = controllerViewModel
     }
+
     
     var body: some View {
         Button(action: {
-            isDownloading = true
+            controllerViewModel.updateDownloadState(for: cellViewModel.language, isDownloading: true)
             TXLanguageModels.shared.downloadLanguageIfNeeded(sourceLanguage: .english, targetLanguage: cellViewModel.language) { error in
                 if let error {
                     // TODO: Show error alert here.
                 }
                 
                 cellViewModel.onTapHandler(cellViewModel.option)
-                isDownloading = false
+                controllerViewModel.updateDownloadState(for: cellViewModel.language, isDownloading: false)
             }
         }) {
             HStack {

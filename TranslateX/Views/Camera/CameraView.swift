@@ -62,15 +62,14 @@ class CameraView: UIView {
             liveTextInteraction.preferredInteractionTypes = []
             liveTextInteraction.analysis = nil
             captureImageView.image = imageViewImage
+            toolbarView.configurePictureButton()
             if let imageViewImage {
                 captureImageView.isHidden = false
-                toolbarView.configurePictureButton(isSelected: true)
                 Task.init {
                     await setupLiveText(image: imageViewImage)
                 }
             } else {
                 captureImageView.isHidden = true
-                toolbarView.configurePictureButton(isSelected: false)
             }
         }
     }
@@ -226,7 +225,6 @@ extension CameraView: CameraToolbarViewDelegate {
                     let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
                     strongSelf.viewModel.stillImageOutput.capturePhoto(with: settings, delegate: strongSelf)
                     strongSelf.captureImageView.isHidden = false
-                    button.toolbarType = .reset
                 case false:
                     strongSelf.delegate?.showCameraNotAvailableAlert()
                 }
@@ -236,7 +234,6 @@ extension CameraView: CameraToolbarViewDelegate {
         case .reset:
             imageViewImage = nil
             viewModel.stopRunningCaptureSession()
-            button.toolbarType = .takePicture
         default:
             break
         }

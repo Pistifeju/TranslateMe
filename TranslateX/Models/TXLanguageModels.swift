@@ -28,7 +28,7 @@ final class TXLanguageModels {
         translator = Translator.translator(options: options)
         
         let conditions = ModelDownloadConditions(
-            allowsCellularAccess: false,
+            allowsCellularAccess: true,
             allowsBackgroundDownloading: true
         )
         

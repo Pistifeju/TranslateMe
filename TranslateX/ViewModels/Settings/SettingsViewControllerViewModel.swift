@@ -15,7 +15,6 @@ struct SettingsViewControllerViewModel {
     public var email = TXSupportEmail(toAdress: "support@supportTranslateX.com", subject: "Support Email", messageHeader: "Please describe your issue below")
     
     public func rateApp(viewController: UIViewController) {
-
         if let windowScene = viewController.view.window?.windowScene {
             SKStoreReviewController.requestReview(in: windowScene)
         }

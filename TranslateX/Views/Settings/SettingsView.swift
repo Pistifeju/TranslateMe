@@ -15,7 +15,7 @@ struct SettingsView: View {
     
     init(viewModel: SettingsViewControllerViewModel) {
         self.viewModel = viewModel
-        self.isDarkModeOn = UIScreen.main.traitCollection.userInterfaceStyle == .dark
+        self.isDarkModeOn = UserDefaults.standard.bool(forKey: "isDarkModeOn")
     }
     
     var body: some View {
@@ -58,11 +58,8 @@ struct SettingsView: View {
     
     private func darkModeToggleChanged(isOn: Bool) {
         if let currentWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
-            if isOn {
-                currentWindow.overrideUserInterfaceStyle = .dark
-            } else {
-                currentWindow.overrideUserInterfaceStyle = .light
-            }
+            currentWindow.overrideUserInterfaceStyle = isOn ? .dark : .light
+            UserDefaults.standard.set(isOn, forKey: "isDarkModeOn")
         }
     }
 }

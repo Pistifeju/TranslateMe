@@ -68,8 +68,9 @@ class CameraToolbarView: UIView {
         ])
     }
     
-    public func configurePictureButton(isSelected: Bool) {
-        middleButton.isSelected = isSelected
+    public func configurePictureButton() {
+        middleButton.isSelected.toggle()
+        middleButton.toolbarType = middleButton.toolbarType == .takePicture ? .reset : .takePicture
     }
     
     // MARK: - Selectors

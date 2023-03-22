@@ -16,7 +16,6 @@ struct LanguagesView: View {
             Section(header: Text("").font(.headline)) {
                 LanguagesSearchBar(searchText: $searchText)
                     .cornerRadius(12)
-    //                .padding(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 20))
                     .onChange(of: searchText) { newValue in
                         controllerViewModel.updateFilteredCellViewModels(with: newValue)
                     }
@@ -47,7 +46,7 @@ struct LanguagesView: View {
                         
                         Spacer()
                         
-                        DownloadButtonView(cellViewModel: viewModel)
+                        DownloadButtonView(cellViewModel: viewModel, controllerViewModel: controllerViewModel)
                     }
                 }
             }

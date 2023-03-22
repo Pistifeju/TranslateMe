@@ -17,7 +17,6 @@ final class ConversationViewViewModel: TranslateViewModel {
     public let targetSpeechNotificationName = "targetConversationTranscription"
     
     public func stopSpeechRecognizerListening() {
-        
         if speechRecognizer.isListening {
             speechRecognizer.stopListening()
             guard let lastConversation = conversations.last else { return }

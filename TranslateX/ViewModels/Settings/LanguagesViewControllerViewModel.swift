@@ -10,6 +10,7 @@ import MLKitTranslate
 import SwiftUI
 
 class LanguagesViewControllerViewModel: Hashable, Equatable, ObservableObject {
+    @Published var downloadStates: [TranslateLanguage: Bool] = [:]
     @Published var downloadedCellViewModels: [LanguagesCellViewModel]
     @Published var notDownloadedCellViewModels: [LanguagesCellViewModel]
     @Published var filteredDownloadedCellViewModels: [LanguagesCellViewModel]
@@ -22,6 +23,10 @@ class LanguagesViewControllerViewModel: Hashable, Equatable, ObservableObject {
         self.filteredDownloadedCellViewModels = []
         self.filteredNotDownloadedCellViewModels = []
         self.updateCellViewModels()
+    }
+    
+    func updateDownloadState(for language: TranslateLanguage, isDownloading: Bool) {
+        downloadStates[language] = isDownloading
     }
     
     public func updateCellViewModels() {

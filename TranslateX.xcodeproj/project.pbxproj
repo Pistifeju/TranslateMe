@@ -120,8 +120,6 @@
 		B7D9168629C389FB00BD9D02 /* TXSpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXSpeechRecognizer.swift; sourceTree = "<group>"; };
 		B7D9168829C4A07500BD9D02 /* TXLanguageIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXLanguageIdentifier.swift; sourceTree = "<group>"; };
 		D3F91CC662440D12B0533923 /* Pods-TranslateX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TranslateX.release.xcconfig"; path = "Target Support Files/Pods-TranslateX/Pods-TranslateX.release.xcconfig"; sourceTree = "<group>"; };
-		DD18DE1FEBDF5FAAEFE63F13 /* Pods-TranslateMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TranslateMe.release.xcconfig"; path = "Target Support Files/Pods-TranslateMe/Pods-TranslateMe.release.xcconfig"; sourceTree = "<group>"; };
-		FC7CF7DE93DC00F01B5E1E3D /* Pods-TranslateMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TranslateMe.debug.xcconfig"; path = "Target Support Files/Pods-TranslateMe/Pods-TranslateMe.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,8 +145,6 @@
 		507A93795F83C14E725CAFE3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FC7CF7DE93DC00F01B5E1E3D /* Pods-TranslateMe.debug.xcconfig */,
-				DD18DE1FEBDF5FAAEFE63F13 /* Pods-TranslateMe.release.xcconfig */,
 				B5956BBF4CF47D2DDE830E8C /* Pods-TranslateX.debug.xcconfig */,
 				D3F91CC662440D12B0533923 /* Pods-TranslateX.release.xcconfig */,
 			);

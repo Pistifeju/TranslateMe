@@ -35,6 +35,7 @@ final class SettingsViewController: UIViewController {
     
     // MARK: - Helpers
     private func configureUI() {
+        self.navigationController?.navigationBar.tintColor = .white
         view.backgroundColor = .systemBackground
         navigationItem.title = "Settings"
         addSwiftUISettingsView()

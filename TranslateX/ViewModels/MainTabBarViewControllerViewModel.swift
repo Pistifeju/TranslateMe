@@ -11,12 +11,16 @@ import UIKit
 final class MainTabBarViewControllerViewModel {
     public func createNavigationControllers() -> [UIViewController] {
         let translateTextNav = templateNavigationController(image: UIImage(systemName: "textformat")!, rootViewController: TranslateTextViewController())
+        translateTextNav.title = "Text"
         
         let translateConversationNav = templateNavigationController(image: UIImage(systemName: "text.bubble")!, rootViewController: TranslateConversationViewController())
+        translateConversationNav.title = "Conversation"
         
         let translateCameraNav = templateNavigationController(image: UIImage(systemName: "camera.viewfinder")!, rootViewController: TranslateCameraViewController())
+        translateCameraNav.title = "Camera"
         
         let settingsNav = templateNavigationController(image: UIImage(systemName: "gear")!, rootViewController: SettingsViewController())
+        settingsNav.title = "Settings"
         
         return [translateTextNav, translateConversationNav, translateCameraNav, settingsNav]
     }
@@ -34,6 +38,7 @@ final class MainTabBarViewControllerViewModel {
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         nav.navigationBar.largeTitleTextAttributes = textAttributes
         nav.navigationBar.titleTextAttributes = textAttributes
+        
         return nav
     }
 }

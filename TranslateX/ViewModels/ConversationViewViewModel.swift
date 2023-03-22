@@ -8,7 +8,7 @@
 import Foundation
 import MLKitTranslate
 
-final class ConversationViewViewModel: TranslateViewModel {    
+final class ConversationViewViewModel: TranslateViewModel {
     var conversations: [TXLanguagePair] = []
     
     let speechRecognizer = TXSpeechRecognizer()

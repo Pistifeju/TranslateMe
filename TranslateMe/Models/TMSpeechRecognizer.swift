@@ -23,7 +23,7 @@ final class TMSpeechRecognizer {
     
     // MARK: - Speech
     
-    func startListening(language: TranslateLanguage) throws {
+    func startListening(language: TranslateLanguage, notificationName: String) throws {
         speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: language.createLanguageCode()))
         guard let recognizer = speechRecognizer, recognizer.isAvailable else {
             throw NSError(domain: "com.example.speechrecognition", code: 1, userInfo: nil)
@@ -49,8 +49,8 @@ final class TMSpeechRecognizer {
             }
             
             self?.transcription = result.bestTranscription.formattedString
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "speechTranscription"), object: nil)
-        })
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: notificationName), object: nil)
+        }) 
         
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: inputNode.outputFormat(forBus: 0)) { buffer, time in
             recognitionRequest.append(buffer)

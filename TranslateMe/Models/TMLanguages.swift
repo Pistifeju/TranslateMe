@@ -10,7 +10,7 @@ import MLKitTranslate
 
 final class TMLanguages {
     
-    public static let shared = TMLanguages()
+    static let shared = TMLanguages()
     
     private init () {}
     

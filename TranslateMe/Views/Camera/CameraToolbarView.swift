@@ -18,9 +18,9 @@ class CameraToolbarView: UIView {
     
     weak var delegate: CameraToolbarViewDelegate?
     
-    private let photosButton = CameraToolbarButton(toolbarType: .photos)
-    private let takePictureButton = CameraToolbarButton(toolbarType: .takePicture)
-    private let flashlightButton = CameraToolbarButton(toolbarType: .flashlight)
+    private let leftButton: CameraToolbarButton
+    private let middleButton: CameraToolbarButton
+    private let rightButton: CameraToolbarButton
     
     // MARK: - Lifecycle
     
@@ -30,13 +30,17 @@ class CameraToolbarView: UIView {
         return CGSize(width: width, height: height / 7)
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(toolBarButtonTypes: [ToolbarButtonType]) {
+        self.leftButton = CameraToolbarButton(toolbarType: toolBarButtonTypes[0])
+        self.middleButton = CameraToolbarButton(toolbarType: toolBarButtonTypes[1])
+        self.rightButton = CameraToolbarButton(toolbarType: toolBarButtonTypes[2])
+        super.init(frame: .zero)
+        
         translatesAutoresizingMaskIntoConstraints = false
         
-        photosButton.addTarget(self, action: #selector(didTapToolbarButton(_:)), for: .touchUpInside)
-        takePictureButton.addTarget(self, action: #selector(didTapToolbarButton(_:)), for: .touchUpInside)
-        flashlightButton.addTarget(self, action: #selector(didTapToolbarButton(_:)), for: .touchUpInside)
+        leftButton.addTarget(self, action: #selector(didTapToolbarButton(_:)), for: .touchUpInside)
+        middleButton.addTarget(self, action: #selector(didTapToolbarButton(_:)), for: .touchUpInside)
+        rightButton.addTarget(self, action: #selector(didTapToolbarButton(_:)), for: .touchUpInside)
         
         configureUI()
     }
@@ -50,7 +54,7 @@ class CameraToolbarView: UIView {
     private func configureUI() {
         backgroundColor = .systemBackground
         
-        let stackView = UIStackView(arrangedSubviews: [photosButton, takePictureButton, flashlightButton])
+        let stackView = UIStackView(arrangedSubviews: [leftButton, middleButton, rightButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
@@ -65,16 +69,26 @@ class CameraToolbarView: UIView {
     }
     
     public func configurePictureButton(isSelected: Bool) {
-        takePictureButton.isSelected = isSelected
+        middleButton.isSelected = isSelected
     }
     
     // MARK: - Selectors
     
     @objc private func didTapToolbarButton(_ button: CameraToolbarButton) {
-        delegate?.didPressToolbarButton(button: button)
-        if button.toolbarType == .flashlight {
-            button.isSelected.toggle()
+        switch button.toolbarType {
+        case .leftSpeech:
+            rightButton.isSelected = false
+        case .rightSpeech:
+            leftButton.isSelected = false
+        case .reset where leftButton.toolbarType == .leftSpeech:
+            leftButton.isSelected = false
+            rightButton.isSelected = false
+        default:
+            break
         }
+        
+        button.isSelected.toggle()
+        delegate?.didPressToolbarButton(button: button)
     }
 }
 

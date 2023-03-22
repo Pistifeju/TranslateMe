@@ -40,6 +40,11 @@
 		B7868E0529C67EF4005976C1 /* CameraToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E0429C67EF4005976C1 /* CameraToolbarButton.swift */; };
 		B7868E0929C7B9D1005976C1 /* TMPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E0829C7B9D1005976C1 /* TMPermissions.swift */; };
 		B7868E0B29C89FB0005976C1 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E0A29C89FB0005976C1 /* UIViewController+Extension.swift */; };
+		B7868E1229C913E5005976C1 /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E1129C913E5005976C1 /* ConversationView.swift */; };
+		B7868E1429C914AC005976C1 /* ConversationViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E1329C914AC005976C1 /* ConversationViewViewModel.swift */; };
+		B7868E1629C9192B005976C1 /* ConversationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E1529C9192B005976C1 /* ConversationCollectionViewCell.swift */; };
+		B7868E1B29C9E653005976C1 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E1A29C9E653005976C1 /* UILabel+Extension.swift */; };
+		B7868E1D29CA27B6005976C1 /* ConversationToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7868E1C29CA27B6005976C1 /* ConversationToolbarView.swift */; };
 		B7981F6129C5E78600D392E9 /* DeleteLanguageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7981F6029C5E78600D392E9 /* DeleteLanguageButton.swift */; };
 		B7981F6329C5E78D00D392E9 /* DownloadLanguageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7981F6229C5E78D00D392E9 /* DownloadLanguageButton.swift */; };
 		B7981F6729C5ECA000D392E9 /* LanguagesViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7981F6629C5ECA000D392E9 /* LanguagesViewControllerViewModel.swift */; };
@@ -93,6 +98,11 @@
 		B7868E0429C67EF4005976C1 /* CameraToolbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraToolbarButton.swift; sourceTree = "<group>"; };
 		B7868E0829C7B9D1005976C1 /* TMPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMPermissions.swift; sourceTree = "<group>"; };
 		B7868E0A29C89FB0005976C1 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		B7868E1129C913E5005976C1 /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
+		B7868E1329C914AC005976C1 /* ConversationViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewViewModel.swift; sourceTree = "<group>"; };
+		B7868E1529C9192B005976C1 /* ConversationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCollectionViewCell.swift; sourceTree = "<group>"; };
+		B7868E1A29C9E653005976C1 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		B7868E1C29CA27B6005976C1 /* ConversationToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationToolbarView.swift; sourceTree = "<group>"; };
 		B7981F6029C5E78600D392E9 /* DeleteLanguageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLanguageButton.swift; sourceTree = "<group>"; };
 		B7981F6229C5E78D00D392E9 /* DownloadLanguageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadLanguageButton.swift; sourceTree = "<group>"; };
 		B7981F6629C5ECA000D392E9 /* LanguagesViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesViewControllerViewModel.swift; sourceTree = "<group>"; };
@@ -201,6 +211,7 @@
 				B79878A229C0EC0A00BF5938 /* TranslateTextViewViewModel.swift */,
 				B7770F9529C673AD0019892C /* CameraViewViewModel.swift */,
 				B7770F9729C673F50019892C /* TranslateViewModel.swift */,
+				B7868E1329C914AC005976C1 /* ConversationViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -208,6 +219,7 @@
 		B70E48EF29BFD582000A9CD7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B7868E1029C913DE005976C1 /* Conversation */,
 				B79ED55929C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift */,
 				B79ED55E29C094F100361DA6 /* MainLanguageNameLabelView.swift */,
 				B7770F9229C670A10019892C /* Camera */,
@@ -287,6 +299,7 @@
 				B758A49129C5279300EFE0AD /* UIDevice+Extension.swift */,
 				B758A49529C5294000EFE0AD /* Bundle+Extension.swift */,
 				B7868E0A29C89FB0005976C1 /* UIViewController+Extension.swift */,
+				B7868E1A29C9E653005976C1 /* UILabel+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -299,6 +312,16 @@
 				B7868E0429C67EF4005976C1 /* CameraToolbarButton.swift */,
 			);
 			path = Camera;
+			sourceTree = "<group>";
+		};
+		B7868E1029C913DE005976C1 /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				B7868E1129C913E5005976C1 /* ConversationView.swift */,
+				B7868E1529C9192B005976C1 /* ConversationCollectionViewCell.swift */,
+				B7868E1C29CA27B6005976C1 /* ConversationToolbarView.swift */,
+			);
+			path = Conversation;
 			sourceTree = "<group>";
 		};
 		B79ED55829C090ED00361DA6 /* TranslateText */ = {
@@ -472,6 +495,7 @@
 				B758A49C29C5E51E00EFE0AD /* LanguagesView.swift in Sources */,
 				B7868E0329C67ED4005976C1 /* CameraToolbarView.swift in Sources */,
 				B7AB478A29C1F7040061D483 /* TMLanguagePair.swift in Sources */,
+				B7868E1B29C9E653005976C1 /* UILabel+Extension.swift in Sources */,
 				B758A49229C5279300EFE0AD /* UIDevice+Extension.swift in Sources */,
 				B721AB1829C4E680000A6377 /* SettingsOption.swift in Sources */,
 				B79ED55529C08F5500361DA6 /* TranslateTextView.swift in Sources */,
@@ -480,11 +504,13 @@
 				B758A48E29C5274300EFE0AD /* UIApplication+Extension.swift in Sources */,
 				B7868E0529C67EF4005976C1 /* CameraToolbarButton.swift in Sources */,
 				B70E48F429BFD5E8000A9CD7 /* TranslateTextViewController.swift in Sources */,
+				B7868E1629C9192B005976C1 /* ConversationCollectionViewCell.swift in Sources */,
 				B758A49829C52B4E00EFE0AD /* TMSupportEmail.swift in Sources */,
 				B7868E0B29C89FB0005976C1 /* UIViewController+Extension.swift in Sources */,
 				B7981F6929C5ECC100D392E9 /* LanguagesCellViewModel.swift in Sources */,
 				B758A49029C5274A00EFE0AD /* TranslateLanguage+Extension.swift in Sources */,
 				B7981F6329C5E78D00D392E9 /* DownloadLanguageButton.swift in Sources */,
+				B7868E1429C914AC005976C1 /* ConversationViewViewModel.swift in Sources */,
 				B7770F9429C670D00019892C /* CameraView.swift in Sources */,
 				B70E48F929BFD60F000A9CD7 /* TranslateCameraViewController.swift in Sources */,
 				B7D9168929C4A07500BD9D02 /* TMLanguageIdentifier.swift in Sources */,
@@ -507,12 +533,14 @@
 				B7AB478C29C2080F0061D483 /* TMLanguageModels.swift in Sources */,
 				B721AB1429C4E613000A6377 /* SettingsViewControllerViewModel.swift in Sources */,
 				B758A48A29C5272900EFE0AD /* UIFont+Extension.swift in Sources */,
+				B7868E1D29CA27B6005976C1 /* ConversationToolbarView.swift in Sources */,
 				B79ED55F29C094F100361DA6 /* MainLanguageNameLabelView.swift in Sources */,
 				B79ED55A29C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift in Sources */,
 				B7770F9629C673AD0019892C /* CameraViewViewModel.swift in Sources */,
 				B79ED56129C0A99E00361DA6 /* TranslateTextTextViewView.swift in Sources */,
 				B7D9168129C2794100BD9D02 /* TMTextSpeaker.swift in Sources */,
 				B70E48FD29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift in Sources */,
+				B7868E1229C913E5005976C1 /* ConversationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,13 +29,6 @@ final class TranslateTextView: UIView {
     private lazy var targetTranslateTextTextView = TranslateTextTextView(translateOrderLabel: "Translate to", allowEditingTextView: false)
     private let translateBetweenTwoLanguageSelectorView = TranslateBetweenTwoLanguageSelectorView()
     
-    private let dividerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .secondaryLabel.withAlphaComponent(0.15)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private let languagePickerView: UIPickerView = {
         let pickerView = UIPickerView(frame: .zero)
         pickerView.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +40,7 @@ final class TranslateTextView: UIView {
     init() {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        NotificationCenter.default.addObserver(self, selector: #selector(transcriptionChanged), name: Notification.Name("speechTranscription"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(transcriptionChanged), name: Notification.Name(viewModel.speechNotificationName), object: nil)
         setupViewsDelegatesAndDataSource()
         configureViews()
         configureUI()
@@ -72,7 +65,6 @@ final class TranslateTextView: UIView {
         addSubview(translateBetweenTwoLanguageSelectorView)
         addSubview(sourceTranslateTextTextView)
         addSubview(targetTranslateTextTextView)
-        addSubview(dividerView)
         
         NSLayoutConstraint.activate([
             translateBetweenTwoLanguageSelectorView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
@@ -86,28 +78,22 @@ final class TranslateTextView: UIView {
             targetTranslateTextTextView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
             targetTranslateTextTextView.topAnchor.constraint(equalToSystemSpacingBelow: sourceTranslateTextTextView.bottomAnchor, multiplier: 2),
             trailingAnchor.constraint(equalToSystemSpacingAfter: targetTranslateTextTextView.trailingAnchor, multiplier: 2),
-            
-            dividerView.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
-            trailingAnchor.constraint(equalToSystemSpacingAfter: dividerView.trailingAnchor, multiplier: 2),
-            dividerView.heightAnchor.constraint(equalToConstant: 2),
-            dividerView.topAnchor.constraint(equalToSystemSpacingBelow: targetTranslateTextTextView.bottomAnchor, multiplier: 2),
-            
         ])
     }
     
     private func configureViews(speakButtonIsSelected: Bool = false) {
         let languagePair = viewModel.languagePair
         self.translateBetweenTwoLanguageSelectorView.configure(sourceLanguageString: languagePair.sourceLanguageString, targetLanguageString: languagePair.targetLanguageString)
-        self.sourceTranslateTextTextView.configure(languageString: languagePair.sourceLanguageString, textViewString: languagePair.translationText, speakButtonIsSelected: speakButtonIsSelected)
-        self.targetTranslateTextTextView.configure(languageString: languagePair.targetLanguageString, textViewString: languagePair.translatedText, speakButtonIsSelected: speakButtonIsSelected)
+        self.sourceTranslateTextTextView.configure(languageString: languagePair.sourceLanguageString, textViewString: languagePair.sourceText, speakButtonIsSelected: speakButtonIsSelected)
+        self.targetTranslateTextTextView.configure(languageString: languagePair.targetLanguageString, textViewString: languagePair.targetText, speakButtonIsSelected: speakButtonIsSelected)
     }
     
     // MARK: - Selectors
     
     @objc private func transcriptionChanged() {
-        viewModel.languagePair.translationText = viewModel.speechRecognizer.transcription ?? ""
-        viewModel.languagePair.translate {
-            self.configureViews(speakButtonIsSelected: true)
+        viewModel.languagePair.sourceText = viewModel.speechRecognizer.transcription ?? ""
+        viewModel.languagePair.translate(from: viewModel.languagePair.sourceLanguage, to: viewModel.languagePair.targetLanguage, translateFromTarget: false) { [weak self] in
+            self?.configureViews(speakButtonIsSelected: true)
         }
     }
 }
@@ -128,7 +114,7 @@ extension TranslateTextView: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 50
+        return UIScreen.main.bounds.height / 10
     }
 }
 
@@ -143,28 +129,33 @@ extension TranslateTextView: TranslateBetweenTwoLanguageSelectorViewDelegate {
     
     func didPressSelectLanguage(languageLabel: MainLanguageNameLabelView) {
         languagePickerView.reloadAllComponents()
+        
         let alert = UIAlertController(title: "Downloaded Languages", message: "", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { [weak self] _ in
+            guard let strongSelf = self else { return }
             
-        }))
-        alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { action in
-            let selectedIndex = self.languagePickerView.selectedRow(inComponent: 0)
+            let selectedIndex = strongSelf.languagePickerView.selectedRow(inComponent: 0)
             let selectedLanguage = TMLanguageModels.shared.localModels[selectedIndex]
             let selectedLanguageString = TMLanguages.shared.createLanguageStringWithTranslateLanguage(from: selectedLanguage)
+            
             languageLabel.configure(withLanguage: selectedLanguageString)
+            
             if languageLabel.source {
-                self.viewModel.languagePair.sourceLanguage = selectedLanguage
+                strongSelf.viewModel.languagePair.sourceLanguage = selectedLanguage
             } else {
-                self.viewModel.languagePair.targetLanguage = selectedLanguage
+                strongSelf.viewModel.languagePair.targetLanguage = selectedLanguage
             }
-            let languagePair = self.viewModel.languagePair
-            self.viewModel.languagePair.translate {
-                self.configureViews()
+            
+            let languagePair = strongSelf.viewModel.languagePair
+            languagePair.translate(from: languagePair.targetLanguage, to: languagePair.sourceLanguage, translateFromTarget: false) {
+                strongSelf.configureViews()
             }
-            self.viewModel.stopSpeechRecognizerListening()
         }))
-        delegate?.showPickerViewAlert(pickerView: self.languagePickerView, alert: alert)
+        
+        delegate?.showPickerViewAlert(pickerView: languagePickerView, alert: alert)
     }
+
 }
 
 // MARK: - TranslateTextViewDelegate
@@ -175,9 +166,11 @@ extension TranslateTextView: TranslateTextTextViewDelegate {
         guard let language = language else { return }
         if TMLanguageModels.shared.checkIfLanguageInDownloadedLanguages(language: language) {
             viewModel.languagePair.sourceLanguage = language
-            viewModel.languagePair.translate {}
-            configureViews()
-            sourceTranslateTextTextView.hideIdentifiedLanguageLabel()
+            let languagePair = viewModel.languagePair
+            languagePair.translate(from: languagePair.targetLanguage, to: languagePair.sourceLanguage, translateFromTarget: false) { [weak self] in
+                self?.configureViews()
+                self?.sourceTranslateTextTextView.hideIdentifiedLanguageLabel()
+            }
         } else {
             delegate?.handleShowIdentifiedLanguageNotDownloadedAlert(completion: { didPressDownload in
                 switch didPressDownload {
@@ -194,9 +187,11 @@ extension TranslateTextView: TranslateTextTextViewDelegate {
                             return
                         }
                         
-                        strongSelf.viewModel.languagePair.translate {}
-                        strongSelf.configureViews()
-                        strongSelf.sourceTranslateTextTextView.hideIdentifiedLanguageLabel()
+                        let languagePair = strongSelf.viewModel.languagePair
+                        languagePair.translate(from: languagePair.targetLanguage, to: languagePair.sourceLanguage, translateFromTarget: false) {
+                            strongSelf.configureViews()
+                            strongSelf.sourceTranslateTextTextView.hideIdentifiedLanguageLabel()
+                        }
                     }
                 case false:
                     break
@@ -212,7 +207,7 @@ extension TranslateTextView: TranslateTextTextViewDelegate {
         
         if recording {
             do {
-                try viewModel.speechRecognizer.startListening(language: viewModel.languagePair.sourceLanguage)
+                try viewModel.speechRecognizer.startListening(language: viewModel.languagePair.sourceLanguage, notificationName: viewModel.speechNotificationName)
             } catch {
                 delegate?.handleShowErrorAlert(title: "Error", message: "There was an error starting speech recognition.")
             }
@@ -235,11 +230,10 @@ extension TranslateTextView: TranslateTextTextViewDelegate {
             }
         }
         
-        viewModel.languagePair.translationText = sourceTextViewString
-        viewModel.languagePair.translate { [weak self] in
-            guard let strongSelf = self else { return }
-            let languagePair = strongSelf.viewModel.languagePair
-            strongSelf.targetTranslateTextTextView.configure(languageString: languagePair.targetLanguageString, textViewString: languagePair.translatedText, speakButtonIsSelected: false)
+        viewModel.languagePair.sourceText = sourceTextViewString
+        let languagePair = viewModel.languagePair
+        languagePair.translate(from: languagePair.sourceLanguage, to: languagePair.targetLanguage, translateFromTarget: false) { [weak self] in
+            self?.targetTranslateTextTextView.configure(languageString: languagePair.targetLanguageString, textViewString: languagePair.targetText, speakButtonIsSelected: false)
         }
     }
 }

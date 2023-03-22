@@ -8,13 +8,12 @@
 import Foundation
 import MLKitTranslate
 
-
 class TMLanguagePair {
     let locale = Locale.current
     var sourceLanguage: TranslateLanguage
     var targetLanguage: TranslateLanguage
-    var translationText: String
-    var translatedText: String
+    var sourceText: String
+    var targetText: String
     
     var sourceLanguageString: String {
         return locale.localizedString(forLanguageCode: sourceLanguage.rawValue)?.capitalized ?? ""
@@ -27,27 +26,40 @@ class TMLanguagePair {
     init(sourceLanguage: TranslateLanguage, targetLanguage: TranslateLanguage, translationText: String = "") {
         self.sourceLanguage = sourceLanguage
         self.targetLanguage = targetLanguage
-        self.translationText = translationText
-        self.translatedText = ""
+        self.sourceText = translationText
+        self.targetText = ""
     }
     
     public func switchLanguages() {
         (sourceLanguage, targetLanguage) = (targetLanguage, sourceLanguage)
-        (translationText, translatedText) = (translatedText, translationText)
+        (sourceText, targetText) = (targetText, sourceText)
     }
     
-    public func translate(completion: @escaping () -> Void) {
+    public func translate(from: TranslateLanguage, to: TranslateLanguage, translateFromTarget: Bool, completion: @escaping () -> Void) {
+        let sourceLanguage = translateFromTarget ? to : from
+        let targetLanguage = translateFromTarget ? from : to
+        
         let options = TranslatorOptions(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage)
         let translator = Translator.translator(options: options)
-        translator.translate(translationText) { translatedText, error in
-            guard error == nil, let translatedText = translatedText else {
-                self.translatedText = ""
-                completion()
-                return
+        
+        let textToTranslate = translateFromTarget ? targetText : sourceText
+        
+        translator.translate(textToTranslate) { translatedText, error in
+            if translateFromTarget {
+                if let translatedText = translatedText {
+                    self.sourceText = translatedText
+                } else {
+                    self.sourceText = ""
+                }
+            } else {
+                if let translatedText = translatedText {
+                    self.targetText = translatedText
+                } else {
+                    self.targetText = ""
+                }
             }
-            self.translatedText = translatedText
+            
             completion()
-            return
         }
     }
 }

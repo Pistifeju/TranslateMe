@@ -13,6 +13,8 @@ final class TranslateTextViewViewModel: TranslateViewModel {
     
     public var speechRecognizer = TMSpeechRecognizer()
         
+    public let speechNotificationName = "translateTextTranscription"
+    
     public func stopSpeechRecognizerListening() {
         if speechRecognizer.isListening {
             speechRecognizer.stopListening()

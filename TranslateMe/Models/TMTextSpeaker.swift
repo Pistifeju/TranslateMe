@@ -10,7 +10,7 @@ import AVFoundation
 import MLKitTranslate
 
 final class TMSpeaker {
-    public static let shared = TMSpeaker()
+    static let shared = TMSpeaker()
     
     private init () {}
     

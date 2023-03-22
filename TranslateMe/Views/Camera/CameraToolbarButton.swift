@@ -12,6 +12,9 @@ enum ToolbarButtonType {
     case photos
     case takePicture
     case flashlight
+    case leftSpeech
+    case rightSpeech
+    case reset
     
     var iconImage: UIImage? {
         switch self {
@@ -21,12 +24,15 @@ enum ToolbarButtonType {
             return UIImage(systemName: "camera", withConfiguration: iconImageConfig)
         case .flashlight:
             return UIImage(systemName: "flashlight.off.fill", withConfiguration: iconImageConfig)
+        case .reset:
+            return UIImage(systemName: "arrow.clockwise", withConfiguration: iconImageConfig)
+        default:
+            return UIImage(systemName: "mic", withConfiguration: iconImageConfig)
         }
     }
     
     var iconImageConfig: UIImage.SymbolConfiguration {
-        let size = self == .takePicture ? 25 : 20
-        let config = UIImage.SymbolConfiguration(pointSize: CGFloat(size), weight: .regular, scale: .large)
+        let config = UIImage.SymbolConfiguration(pointSize: CGFloat(20), weight: .regular, scale: .large)
         return config
     }
     
@@ -36,23 +42,21 @@ enum ToolbarButtonType {
 }
 
 class CameraToolbarButton: UIButton {
-    
-    public let toolbarType: ToolbarButtonType
+    public var toolbarType: ToolbarButtonType {
+        didSet {
+            setImage(toolbarType.iconImage, for: .normal)
+        }
+    }
     
     override var isSelected: Bool {
         didSet {
             switch toolbarType {
-            case .photos:
-                break
-            case .takePicture:
-                let pictureSelectedImage = UIImage(systemName: "x.circle", withConfiguration: toolbarType.iconImageConfig)
-                if isSelected {
-                    setImage(pictureSelectedImage, for: .normal)
-                } else {
-                    setImage(toolbarType.iconImage, for: .normal)
-                }
             case .flashlight:
                 backgroundColor = isSelected ? .label : .secondarySystemBackground
+            case .rightSpeech, .leftSpeech:
+                backgroundColor = isSelected ? .label : .secondarySystemBackground
+            default:
+                break
             }
         }
     }
@@ -69,7 +73,7 @@ class CameraToolbarButton: UIButton {
     }
     
     private func configureUI() {
-        backgroundColor = isSelected ? .label : .secondarySystemBackground
+        backgroundColor = .secondarySystemBackground
         layer.cornerRadius = toolbarType.size / 2
         setImage(toolbarType.iconImage, for: .normal)
     }

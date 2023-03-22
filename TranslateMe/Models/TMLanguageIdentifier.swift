@@ -10,7 +10,7 @@ import NaturalLanguage
 import MLKitLanguageID
 
 final class TMLanguageIdentifier {
-    public static let shared = TMLanguageIdentifier()
+    static let shared = TMLanguageIdentifier()
     
     private init () {}
     

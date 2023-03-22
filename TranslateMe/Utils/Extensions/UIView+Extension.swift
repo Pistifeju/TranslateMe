@@ -10,7 +10,7 @@ import UIKit
 
 extension UIView {
     func addBasicShadow() {
-        layer.shadowColor = UIColor.secondaryLabel.cgColor
+        layer.shadowColor = UIColor.systemGray.cgColor
         layer.shadowOpacity = 1
         layer.shadowOffset = CGSize(width: 0, height: 0)
         layer.shadowRadius = 1

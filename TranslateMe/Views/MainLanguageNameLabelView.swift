@@ -20,10 +20,10 @@ class MainLanguageNameLabelView: UIView {
     
     public let source: Bool
     
-    private let languageLabel: UILabel = {
+    private lazy var languageLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .left
+        label.textAlignment = source ? .left : .right
         label.textColor = .systemBlue
         label.font = UIFont.preferredFont(forTextStyle: .headline).bold()
         return label

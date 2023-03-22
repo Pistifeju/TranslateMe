@@ -3,7 +3,7 @@
 This is an app I created for learning purposes. TranslateX supports translating for over 30 languages. It is using Google's MLKit API to translate, identify between languages.
 
 <p align="center">
-<img src="https://github.com/Pistifeju/TranslateX/blob/main/screenshots.PNG" width="1080"/>
+<img src="https://github.com/Pistifeju/TranslateX/blob/main/screenshots.png" width="1080"/>
 </p>
 
 ## Features

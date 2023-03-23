@@ -73,6 +73,17 @@ final class TranslateCameraViewController: UIViewController {
 // MARK: - CameraViewDelegate
 
 extension TranslateCameraViewController: CameraViewDelegate {
+    func showTranslatePhotoOutputViewController() {
+        let vcViewModel = TranslatePhotoOutputViewViewModel(languagePair: viewModel.languagePair)
+        vcViewModel.createTargetText { [weak self] targetText in
+            vcViewModel.languagePair.targetText = targetText
+            let vc = TranslatePhotoOutputViewController(viewModel: vcViewModel)
+            vc.title = "Translation"
+            let nav = UINavigationController(rootViewController: vc)
+            self?.present(nav, animated: true)
+        }
+    }
+    
     func showPickerViewAlert(pickerView: UIPickerView, alert: UIAlertController) {
         self.showLanguagePickerView(pickerView: pickerView, alert: alert)
     }
@@ -108,7 +119,9 @@ extension TranslateCameraViewController: CameraViewDelegate {
 extension TranslateCameraViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
-            viewModel.stopRunningCaptureSession()
+            if cameraView.imageViewImage != nil {
+                cameraView.imageViewImage = nil
+            }
             cameraView.imageViewImage = image
         }
         picker.dismiss(animated: true)

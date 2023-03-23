@@ -14,6 +14,7 @@ protocol CameraViewDelegate: AnyObject {
     func showPhotoPickerView()
     func showCameraNotAvailableAlert()
     func showPickerViewAlert(pickerView: UIPickerView, alert: UIAlertController)
+    func showTranslatePhotoOutputViewController()
 }
 
 class CameraView: UIView {
@@ -65,11 +66,13 @@ class CameraView: UIView {
             toolbarView.configurePictureButton()
             if let imageViewImage {
                 captureImageView.isHidden = false
+                viewModel.stopRunningCaptureSession()
                 Task.init {
                     await setupLiveText(image: imageViewImage)
                 }
             } else {
                 captureImageView.isHidden = true
+                viewModel.startRunningCaptureSession()
             }
         }
     }
@@ -173,7 +176,12 @@ class CameraView: UIView {
 // MARK: - ImageAnalysisInteractionDelegate
 
 extension CameraView: ImageAnalysisInteractionDelegate {
-    
+    func interaction(_ interaction: ImageAnalysisInteraction, highlightSelectedItemsDidChange highlightSelectedItems: Bool) {
+        guard imageViewImage != nil else { return }
+        interaction.allowLongPressForDataDetectorsInTextMode = false
+        viewModel.languagePair.sourceText = interaction.analysis?.transcript ?? ""
+        delegate?.showTranslatePhotoOutputViewController()
+    }
 }
 
 // MARK: - AVCapturePhotoCaptureDelegate

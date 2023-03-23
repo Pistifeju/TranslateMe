@@ -73,9 +73,9 @@ final class CameraViewViewModel: TranslateViewModel {
     }
     
     public func stopRunningCaptureSession() {
-        guard captureSession != nil else { return }
+        guard captureSession != nil, captureSession.isRunning else { return }
         DispatchQueue.global(qos: .userInitiated).async {
-            self.captureSession.startRunning()
+            self.captureSession.stopRunning()
         }
     }
     

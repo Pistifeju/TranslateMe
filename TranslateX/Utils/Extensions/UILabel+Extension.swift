@@ -22,3 +22,18 @@ extension UILabel {
         return CGSize(width: UIScreen.main.bounds.width, height: height)
     }
 }
+
+extension String {
+    func calculateLabelHeight(with width: CGFloat, for font: UIFont) -> CGSize {
+        let label = UILabel()
+        label.text = self
+        let font = font
+        let size = self.boundingRect(with: CGSize(width: width, height: .greatestFiniteMagnitude),
+                                     options: [.usesLineFragmentOrigin, .usesFontLeading],
+                                     attributes: [.font: font],
+                                     context: nil).size
+        
+        let height = ceil(size.height)
+        return CGSize(width: UIScreen.main.bounds.width, height: height)
+    }
+}

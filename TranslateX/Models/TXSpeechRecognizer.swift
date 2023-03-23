@@ -41,12 +41,7 @@ final class TXSpeechRecognizer {
         recognitionRequest.shouldReportPartialResults = true
         
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest, resultHandler: { [weak self] result, error in
-            guard let result = result else {
-                if let error = error {
-                    return
-                }
-                return
-            }
+            guard let result = result, error == nil else { return }
             
             self?.transcription = result.bestTranscription.formattedString
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: notificationName), object: nil)

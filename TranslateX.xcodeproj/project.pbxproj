@@ -17,6 +17,10 @@
 		B70E48F929BFD60F000A9CD7 /* TranslateCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70E48F829BFD60F000A9CD7 /* TranslateCameraViewController.swift */; };
 		B70E48FB29BFD627000A9CD7 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70E48FA29BFD627000A9CD7 /* MainTabBarViewController.swift */; };
 		B70E48FD29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70E48FC29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift */; };
+		B71729AF29CBD115001C6CA7 /* TranslatePhotoOutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71729AE29CBD115001C6CA7 /* TranslatePhotoOutputViewController.swift */; };
+		B71729B429CC92DB001C6CA7 /* TranslatePhotoOutputViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71729B329CC92DB001C6CA7 /* TranslatePhotoOutputViewViewModel.swift */; };
+		B71729B829CCA5C0001C6CA7 /* PhotoOutputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71729B729CCA5C0001C6CA7 /* PhotoOutputView.swift */; };
+		B71729BA29CCA73D001C6CA7 /* UITextViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71729B929CCA73D001C6CA7 /* UITextViewWrapper.swift */; };
 		B720912429C0C73B00482563 /* TXLanguages.swift in Sources */ = {isa = PBXBuildFile; fileRef = B720912329C0C73A00482563 /* TXLanguages.swift */; };
 		B721AB1429C4E613000A6377 /* SettingsViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B721AB1329C4E613000A6377 /* SettingsViewControllerViewModel.swift */; };
 		B721AB1629C4E63D000A6377 /* SettingsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B721AB1529C4E63C000A6377 /* SettingsCellViewModel.swift */; };
@@ -76,6 +80,10 @@
 		B70E48F829BFD60F000A9CD7 /* TranslateCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateCameraViewController.swift; sourceTree = "<group>"; };
 		B70E48FA29BFD627000A9CD7 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		B70E48FC29BFD83A000A9CD7 /* MainTabBarViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewControllerViewModel.swift; sourceTree = "<group>"; };
+		B71729AE29CBD115001C6CA7 /* TranslatePhotoOutputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatePhotoOutputViewController.swift; sourceTree = "<group>"; };
+		B71729B329CC92DB001C6CA7 /* TranslatePhotoOutputViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatePhotoOutputViewViewModel.swift; sourceTree = "<group>"; };
+		B71729B729CCA5C0001C6CA7 /* PhotoOutputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOutputView.swift; sourceTree = "<group>"; };
+		B71729B929CCA73D001C6CA7 /* UITextViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewWrapper.swift; sourceTree = "<group>"; };
 		B720912329C0C73A00482563 /* TXLanguages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXLanguages.swift; sourceTree = "<group>"; };
 		B721AB1329C4E613000A6377 /* SettingsViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewControllerViewModel.swift; sourceTree = "<group>"; };
 		B721AB1529C4E63C000A6377 /* SettingsCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellViewModel.swift; sourceTree = "<group>"; };
@@ -212,6 +220,7 @@
 				B7770F9529C673AD0019892C /* CameraViewViewModel.swift */,
 				B7770F9729C673F50019892C /* TranslateViewModel.swift */,
 				B7868E1329C914AC005976C1 /* ConversationViewViewModel.swift */,
+				B71729B329CC92DB001C6CA7 /* TranslatePhotoOutputViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -219,9 +228,10 @@
 		B70E48EF29BFD582000A9CD7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B7868E1029C913DE005976C1 /* Conversation */,
+				B71729B029CC91F3001C6CA7 /* TranslatePhotoOutput */,
 				B79ED55929C0912600361DA6 /* TranslateBetweenTwoLanguageSelectorView.swift */,
 				B79ED55E29C094F100361DA6 /* MainLanguageNameLabelView.swift */,
+				B7868E1029C913DE005976C1 /* Conversation */,
 				B7770F9229C670A10019892C /* Camera */,
 				B721AB1929C50CFC000A6377 /* Settings */,
 				B79ED55829C090ED00361DA6 /* TranslateText */,
@@ -249,6 +259,7 @@
 			children = (
 				B70E48F229BFD5CB000A9CD7 /* Core */,
 				B758A49929C530DD00EFE0AD /* LanguagesViewController.swift */,
+				B71729AE29CBD115001C6CA7 /* TranslatePhotoOutputViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -263,6 +274,15 @@
 				B7D9167E29C277A000BD9D02 /* SettingsViewController.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		B71729B029CC91F3001C6CA7 /* TranslatePhotoOutput */ = {
+			isa = PBXGroup;
+			children = (
+				B71729B729CCA5C0001C6CA7 /* PhotoOutputView.swift */,
+				B71729B929CCA73D001C6CA7 /* UITextViewWrapper.swift */,
+			);
+			path = TranslatePhotoOutput;
 			sourceTree = "<group>";
 		};
 		B721AB1229C4E5E8000A6377 /* Settings */ = {
@@ -501,6 +521,7 @@
 				B79ED55529C08F5500361DA6 /* TranslateTextView.swift in Sources */,
 				B7981F6129C5E78600D392E9 /* DeleteLanguageButton.swift in Sources */,
 				B70E48F729BFD5FE000A9CD7 /* TranslateConversationViewController.swift in Sources */,
+				B71729AF29CBD115001C6CA7 /* TranslatePhotoOutputViewController.swift in Sources */,
 				B758A48E29C5274300EFE0AD /* UIApplication+Extension.swift in Sources */,
 				B7868E0529C67EF4005976C1 /* CameraToolbarButton.swift in Sources */,
 				B70E48F429BFD5E8000A9CD7 /* TranslateTextViewController.swift in Sources */,
@@ -517,13 +538,16 @@
 				B70E48D929BFD557000A9CD7 /* AppDelegate.swift in Sources */,
 				B7868E0929C7B9D1005976C1 /* TXPermission.swift in Sources */,
 				B7D9167F29C277A000BD9D02 /* SettingsViewController.swift in Sources */,
+				B71729B429CC92DB001C6CA7 /* TranslatePhotoOutputViewViewModel.swift in Sources */,
 				B7770F9129C64A340019892C /* LanguagesSearchBar.swift in Sources */,
 				B721AB1B29C50D14000A6377 /* SettingsView.swift in Sources */,
 				B70E48DB29BFD557000A9CD7 /* SceneDelegate.swift in Sources */,
 				B758A49629C5294100EFE0AD /* Bundle+Extension.swift in Sources */,
 				B721AB1629C4E63D000A6377 /* SettingsCellViewModel.swift in Sources */,
 				B7D9168729C389FB00BD9D02 /* TXSpeechRecognizer.swift in Sources */,
+				B71729BA29CCA73D001C6CA7 /* UITextViewWrapper.swift in Sources */,
 				B7981F6729C5ECA000D392E9 /* LanguagesViewControllerViewModel.swift in Sources */,
+				B71729B829CCA5C0001C6CA7 /* PhotoOutputView.swift in Sources */,
 				B79878A329C0EC0A00BF5938 /* TranslateTextViewViewModel.swift in Sources */,
 				B758A48C29C5273500EFE0AD /* UIView+Extension.swift in Sources */,
 				B720912429C0C73B00482563 /* TXLanguages.swift in Sources */,

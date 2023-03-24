@@ -18,6 +18,10 @@ class MainTabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let isDarkModeOn = UserDefaults.standard.object(forKey: "isDarkModeOn") as? Bool {
+            let window = UIApplication.shared.windows.first
+            window?.overrideUserInterfaceStyle = isDarkModeOn ? .dark : .light
+        }
         viewControllers = viewModel.createNavigationControllers()
         configureUI()
     }

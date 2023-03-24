@@ -52,7 +52,7 @@ class CameraView: UIView {
     public lazy var captureImageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleAspectFill
+        iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
         iv.isHidden = true
         return iv
@@ -66,12 +66,18 @@ class CameraView: UIView {
             toolbarView.configurePictureButton()
             if let imageViewImage {
                 captureImageView.isHidden = false
+                DispatchQueue.main.async {
+                    self.viewModel.videoPreviewLayer.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+                }
                 viewModel.stopRunningCaptureSession()
                 Task.init {
                     await setupLiveText(image: imageViewImage)
                 }
             } else {
                 captureImageView.isHidden = true
+                DispatchQueue.main.async {
+                    self.viewModel.videoPreviewLayer.frame = self.captureImageView.frame
+                }
                 viewModel.startRunningCaptureSession()
             }
         }

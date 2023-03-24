@@ -66,6 +66,16 @@
 		B7D9168929C4A07500BD9D02 /* TXLanguageIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9168829C4A07500BD9D02 /* TXLanguageIdentifier.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B7DB86F229CDEE280052652C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B70E48CD29BFD557000A9CD7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B70E48D429BFD557000A9CD7;
+			remoteInfo = TranslateX;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		76CE302C41B7A685E8F9BB1B /* Pods_TranslateX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TranslateX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5956BBF4CF47D2DDE830E8C /* Pods-TranslateX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TranslateX.debug.xcconfig"; path = "Target Support Files/Pods-TranslateX/Pods-TranslateX.debug.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +137,7 @@
 		B7D9168029C2794100BD9D02 /* TXSpeaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXSpeaker.swift; sourceTree = "<group>"; };
 		B7D9168629C389FB00BD9D02 /* TXSpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXSpeechRecognizer.swift; sourceTree = "<group>"; };
 		B7D9168829C4A07500BD9D02 /* TXLanguageIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXLanguageIdentifier.swift; sourceTree = "<group>"; };
+		B7DB86EE29CDEE280052652C /* TranslateXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TranslateXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F91CC662440D12B0533923 /* Pods-TranslateX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TranslateX.release.xcconfig"; path = "Target Support Files/Pods-TranslateX/Pods-TranslateX.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +147,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				986F75789B3221B318B5FF3D /* Pods_TranslateX.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7DB86EB29CDEE280052652C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				B70E48D729BFD557000A9CD7 /* TranslateX */,
+				B7DB86EF29CDEE280052652C /* TranslateXTests */,
 				B70E48D629BFD557000A9CD7 /* Products */,
 				507A93795F83C14E725CAFE3 /* Pods */,
 				263A175ED7AD626B8B684533 /* Frameworks */,
@@ -173,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				B70E48D529BFD557000A9CD7 /* TranslateX.app */,
+				B7DB86EE29CDEE280052652C /* TranslateXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -361,6 +381,13 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		B7DB86EF29CDEE280052652C /* TranslateXTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TranslateXTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -375,6 +402,7 @@
 				B79ED55329BFDE6C00361DA6 /* ShellScript */,
 				1B1FB0719292ABC50EC2C440 /* [CP] Embed Pods Frameworks */,
 				E64C0C862C0FEEE66CBB66F3 /* [CP] Copy Pods Resources */,
+				B71729BB29CDD578001C6CA7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -384,6 +412,24 @@
 			productName = TranslateMe;
 			productReference = B70E48D529BFD557000A9CD7 /* TranslateX.app */;
 			productType = "com.apple.product-type.application";
+		};
+		B7DB86ED29CDEE280052652C /* TranslateXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B7DB86F629CDEE280052652C /* Build configuration list for PBXNativeTarget "TranslateXTests" */;
+			buildPhases = (
+				B7DB86EA29CDEE280052652C /* Sources */,
+				B7DB86EB29CDEE280052652C /* Frameworks */,
+				B7DB86EC29CDEE280052652C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B7DB86F329CDEE280052652C /* PBXTargetDependency */,
+			);
+			name = TranslateXTests;
+			productName = TranslateXTests;
+			productReference = B7DB86EE29CDEE280052652C /* TranslateXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -397,6 +443,11 @@
 				TargetAttributes = {
 					B70E48D429BFD557000A9CD7 = {
 						CreatedOnToolsVersion = 14.0;
+					};
+					B7DB86ED29CDEE280052652C = {
+						CreatedOnToolsVersion = 14.0;
+						LastSwiftMigration = 1400;
+						TestTargetID = B70E48D429BFD557000A9CD7;
 					};
 				};
 			};
@@ -414,6 +465,7 @@
 			projectRoot = "";
 			targets = (
 				B70E48D429BFD557000A9CD7 /* TranslateX */,
+				B7DB86ED29CDEE280052652C /* TranslateXTests */,
 			);
 		};
 /* End PBXProject section */
@@ -426,6 +478,13 @@
 				B70E48E529BFD559000A9CD7 /* LaunchScreen.storyboard in Resources */,
 				B70E48E229BFD559000A9CD7 /* Assets.xcassets in Resources */,
 				B758A49429C528BD00EFE0AD /* DeviceModels.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7DB86EC29CDEE280052652C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +507,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TranslateX/Pods-TranslateX-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		B71729BB29CDD578001C6CA7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"${CONFIGURATION}\" == \"Debug\" ]]; then\n    APP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n    find \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\n    do\n        FRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\n        FRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\n        echo \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n        EXTRACTED_ARCHS=()\n        for ARCH in $ARCHS\n        do\n            echo \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\n            lipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\n            EXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\n        done\n        echo \"Merging extracted architectures: ${ARCHS}\"\n        lipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\n        rm \"${EXTRACTED_ARCHS[@]}\"\n        echo \"Replacing original executable with thinned version\"\n        rm \"$FRAMEWORK_EXECUTABLE_PATH\"\n        mv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n    done\nfi\n\n";
 		};
 		B79ED55329BFDE6C00361DA6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -568,7 +644,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B7DB86EA29CDEE280052652C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B7DB86F329CDEE280052652C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B70E48D429BFD557000A9CD7 /* TranslateX */;
+			targetProxy = B7DB86F229CDEE280052652C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B70E48E329BFD559000A9CD7 /* LaunchScreen.storyboard */ = {
@@ -780,6 +871,65 @@
 			};
 			name = Release;
 		};
+		B7DB86F429CDEE280052652C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2V54FBNXT7;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = juhaszIstvan.TranslateXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "TranslateXTests/TranslateXTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TranslateX.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TranslateX";
+			};
+			name = Debug;
+		};
+		B7DB86F529CDEE280052652C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2V54FBNXT7;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = juhaszIstvan.TranslateXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "TranslateXTests/TranslateXTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TranslateX.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TranslateX";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -797,6 +947,15 @@
 			buildConfigurations = (
 				B70E48EA29BFD559000A9CD7 /* Debug */,
 				B70E48EB29BFD559000A9CD7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B7DB86F629CDEE280052652C /* Build configuration list for PBXNativeTarget "TranslateXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B7DB86F429CDEE280052652C /* Debug */,
+				B7DB86F529CDEE280052652C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

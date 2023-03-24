@@ -3662,6 +3662,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -3677,6 +3678,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -3994,7 +3996,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=*]" = arm64;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -4421,7 +4423,7 @@
 				7D8A2D20D5052D9D1EBCE7CF02C80443 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		0DB37583FAED811061E5608B06821B5D /* Build configuration list for PBXAggregateTarget "MLKitLanguageID" */ = {
 			isa = XCConfigurationList;
@@ -4430,7 +4432,7 @@
 				A36291469300F1118379A323036F3F5B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		1B5362C4677CC01E25770DB27CA97F3E /* Build configuration list for PBXAggregateTarget "MLKitNaturalLanguage" */ = {
 			isa = XCConfigurationList;
@@ -4439,7 +4441,7 @@
 				06EB3E1E4A741C2530347DB12101A218 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		45826A0D34284004450A97DBFD9A96E6 /* Build configuration list for PBXAggregateTarget "MLKitTranslate" */ = {
 			isa = XCConfigurationList;
@@ -4448,7 +4450,7 @@
 				06D923941D139E5AEEFAA5DDDB5EE180 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
@@ -4457,7 +4459,7 @@
 				903A0004D3E6651EFD5D2E16214D101B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		6B2A0F29CE868FB0CED043439BFCB45F /* Build configuration list for PBXNativeTarget "GoogleDataTransport" */ = {
 			isa = XCConfigurationList;
@@ -4466,7 +4468,7 @@
 				69788341A98AC9942C82360E32CF0E2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7EEF5BE268F1B45020E206CBDE5B1095 /* Build configuration list for PBXNativeTarget "GoogleUtilitiesComponents" */ = {
 			isa = XCConfigurationList;
@@ -4475,7 +4477,7 @@
 				ABFFF05182DC6B45C122565900B7058B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F5FBA5DA89626020AFB97E4EFBD7AE7 /* Build configuration list for PBXNativeTarget "nanopb" */ = {
 			isa = XCConfigurationList;
@@ -4484,7 +4486,7 @@
 				9187CF37999DA85B35956CE376CA30A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		84D7C40D4A58FEFF4F1A79CE11BF199F /* Build configuration list for PBXNativeTarget "SSZipArchive" */ = {
 			isa = XCConfigurationList;
@@ -4493,7 +4495,7 @@
 				EC3E8EEC2A140F6E70ED695D5EEE54C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		9D773FF394FF5992127A4E676929FBAE /* Build configuration list for PBXNativeTarget "GoogleUtilities" */ = {
 			isa = XCConfigurationList;
@@ -4502,7 +4504,7 @@
 				BC89B02AEFA66BF0C43B46DDBA3E6C92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		9E26F37E84B556A0600ACAC7E80D7E4C /* Build configuration list for PBXAggregateTarget "GoogleMLKit" */ = {
 			isa = XCConfigurationList;
@@ -4511,7 +4513,7 @@
 				5DFD222C991979EBD71BE9C3C106629A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		A5A51F1E884264F59AA9BDC7FFC2F146 /* Build configuration list for PBXNativeTarget "PromisesObjC" */ = {
 			isa = XCConfigurationList;
@@ -4520,7 +4522,7 @@
 				E0F380E4A6A63373905543A2E4BE2BB2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		A5D9E943DC4572F9639A7E926631175B /* Build configuration list for PBXAggregateTarget "MLKitCommon" */ = {
 			isa = XCConfigurationList;
@@ -4529,7 +4531,7 @@
 				8A0E4F9EB85B88EADC5E62F376E0F12C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		AE7B4FB01588B9E6DF09CB79FC7CE7BD /* Build configuration list for PBXAggregateTarget "SwiftLint" */ = {
 			isa = XCConfigurationList;
@@ -4538,7 +4540,7 @@
 				6832144546B1F1DDED54031103FEC1A6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		BCE82DBA96E7FFFC104E28C98C0C7809 /* Build configuration list for PBXNativeTarget "Protobuf" */ = {
 			isa = XCConfigurationList;
@@ -4547,7 +4549,7 @@
 				B354568766490447A2E2BC358567454A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		C1015DD149AEC4AB56A4398A2132C09D /* Build configuration list for PBXNativeTarget "GoogleToolboxForMac" */ = {
 			isa = XCConfigurationList;
@@ -4556,7 +4558,7 @@
 				8F556440BB95C326B25A47E57B544163 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		DB2EB400B78434244D55FD9DE8CA160C /* Build configuration list for PBXNativeTarget "Pods-TranslateX" */ = {
 			isa = XCConfigurationList;
@@ -4565,7 +4567,7 @@
 				D6BBC6003FC554F5CD6FAC86F78F9EF2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		DE75CCA520AC01D62E1B8CE74F62E4E1 /* Build configuration list for PBXNativeTarget "GTMSessionFetcher" */ = {
 			isa = XCConfigurationList;
@@ -4574,7 +4576,7 @@
 				D996D51E04C6DAA9FC370872FCC4158C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		FEA22F5602334CD61D63B46AE7F1D9B6 /* Build configuration list for PBXNativeTarget "JGProgressHUD" */ = {
 			isa = XCConfigurationList;
@@ -4583,7 +4585,7 @@
 				99F544A0F0A68430CEF3E84062859B31 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

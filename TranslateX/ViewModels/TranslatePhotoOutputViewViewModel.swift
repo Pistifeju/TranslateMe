@@ -32,7 +32,8 @@ final class TranslatePhotoOutputViewViewModel: TranslateViewModel {
             let lineLanguagePair = TXLanguagePair(sourceLanguage: languagePair.sourceLanguage, targetLanguage: languagePair.targetLanguage)
             lineLanguagePair.sourceText = line
             dispatchGroup.enter()
-            lineLanguagePair.translate(from: lineLanguagePair.sourceLanguage, to: lineLanguagePair.targetLanguage, translateFromTarget: false) {
+            lineLanguagePair.translate(from: lineLanguagePair.sourceLanguage, to: lineLanguagePair.targetLanguage, translateFromTarget: false) { [weak self] in
+                guard self != nil else { return }
                 translatedLines.append(lineLanguagePair.targetText)
                 dispatchGroup.leave()
             }

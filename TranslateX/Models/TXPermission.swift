@@ -16,7 +16,8 @@ final class TXPermission {
     private init() {}
     
     public func checkCameraPermission(completion: @escaping(Bool) -> Void) {
-        AVCaptureDevice.requestAccess(for: AVMediaType.video) { authStatus in
+        AVCaptureDevice.requestAccess(for: AVMediaType.video) { [weak self] authStatus in
+            guard self != nil else { return }
             DispatchQueue.main.async {
                 switch authStatus {
                 case true:
@@ -29,7 +30,8 @@ final class TXPermission {
     }
 
     public func checkPhotoLibraryPermission(completion: @escaping(Bool) -> Void) {
-        PHPhotoLibrary.requestAuthorization(for: .readWrite) { authStatus in
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] authStatus in
+            guard self != nil else { return }
             DispatchQueue.main.async {
                 switch authStatus {
                 case .authorized:
@@ -46,7 +48,8 @@ final class TXPermission {
     }
     
     public func checkSpeechPermissions(completion: @escaping(Bool) -> Void) {
-        SFSpeechRecognizer.requestAuthorization { authStatus in
+        SFSpeechRecognizer.requestAuthorization { [weak self] authStatus in
+            guard self != nil else { return }
             DispatchQueue.main.async {
                 switch authStatus {
                 case .authorized:

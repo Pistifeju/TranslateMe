@@ -15,6 +15,7 @@ protocol CameraViewDelegate: AnyObject {
     func showCameraNotAvailableAlert()
     func showPickerViewAlert(pickerView: UIPickerView, alert: UIAlertController)
     func showTranslatePhotoOutputViewController()
+    func showErrorAlert(title: String, message: String)
 }
 
 class CameraView: UIView {
@@ -141,9 +142,8 @@ class CameraView: UIView {
         if viewModel.isCameraEnabled {
             viewModel.setupCameraPreviewLayer { [weak self] error in
                 guard let strongSelf = self else { return }
-                if let error {
-                    // TODO: - Show error alert here
-                    print(error)
+                if error != nil {
+                    strongSelf.delegate?.showErrorAlert(title: "Error happened", message: "Error happened while trying to setup the camera.")
                 } else {
                     strongSelf.layer.addSublayer(strongSelf.viewModel.videoPreviewLayer)
                     
@@ -169,10 +169,9 @@ class CameraView: UIView {
         do {
             let analysis = try await liveTextAnalyzer.analyze(image, configuration: liveTextConfiguration)
             liveTextInteraction.analysis = analysis
-        } catch let error {
-            print(error)
+        } catch _ {
+            delegate?.showErrorAlert(title: "Error happened", message: "Error happened while trying to setup the image analyzer.")
         }
-        
     }
     
     // MARK: - Selectors
@@ -244,7 +243,12 @@ extension CameraView: CameraToolbarViewDelegate {
                 }
             }
         case .flashlight:
-            viewModel.toggleFlash()
+            do {
+                try viewModel.toggleFlash()
+            } catch _ {
+                delegate?.showErrorAlert(title: "Error happened", message: "Error happened while trying to use the flashlight.")
+            }
+            
         case .reset:
             imageViewImage = nil
             viewModel.stopRunningCaptureSession()

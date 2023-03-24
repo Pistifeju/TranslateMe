@@ -47,7 +47,8 @@ final class TXSpeechRecognizer {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: notificationName), object: nil)
         }) 
         
-        inputNode.installTap(onBus: 0, bufferSize: 1024, format: inputNode.outputFormat(forBus: 0)) { buffer, time in
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: inputNode.outputFormat(forBus: 0)) { [weak self] buffer, time in
+            guard self != nil else { return }
             recognitionRequest.append(buffer)
         }
         

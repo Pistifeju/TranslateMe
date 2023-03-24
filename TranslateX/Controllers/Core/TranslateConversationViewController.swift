@@ -43,6 +43,10 @@ final class TranslateConversationViewController: UIViewController {
 // MARK: - ConversationViewDelegate
 
 extension TranslateConversationViewController: ConversationViewDelegate {
+    func showCreatedAlertControllerError(ac: UIAlertController) {
+        present(ac, animated: true)
+    }
+    
     func handleShowErrorAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default))

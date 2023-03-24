@@ -19,7 +19,8 @@ final class TXLanguageIdentifier {
     public func identifyLanguage(for text: String, completion: @escaping (String?, Error?) -> Void) {
         let options = LanguageIdentificationOptions(confidenceThreshold: 0.8)
         languageIdentifier = MLKitLanguageID.LanguageIdentification.languageIdentification(options: options)
-        languageIdentifier.identifyPossibleLanguages(for: text) { languageCodes, error in
+        languageIdentifier.identifyPossibleLanguages(for: text) { [weak self] languageCodes, error in
+            guard self != nil else { return }
             if let error = error {
                 completion(nil, error)
                 return

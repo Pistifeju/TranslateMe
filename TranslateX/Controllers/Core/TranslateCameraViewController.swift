@@ -73,6 +73,13 @@ final class TranslateCameraViewController: UIViewController {
 // MARK: - CameraViewDelegate
 
 extension TranslateCameraViewController: CameraViewDelegate {
+    func showErrorAlert(title: String, message: String) {
+        let ac = UIAlertController(title: title,
+                                   message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Close", style: .cancel))
+        present(ac, animated: true)
+    }
+    
     func showTranslatePhotoOutputViewController() {
         let vcViewModel = TranslatePhotoOutputViewViewModel(languagePair: viewModel.languagePair)
         vcViewModel.createTargetText { [weak self] targetText in

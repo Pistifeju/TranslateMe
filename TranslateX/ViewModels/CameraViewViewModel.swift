@@ -16,7 +16,7 @@ final class CameraViewViewModel: TranslateViewModel {
     public var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     public var stillImageOutput: AVCapturePhotoOutput!
     
-    public func toggleFlash() {
+    public func toggleFlash() throws {
         guard let backCamera = AVCaptureDevice.default(for: AVMediaType.video) else { return }
         if (backCamera.hasTorch) {
             do {
@@ -26,15 +26,13 @@ final class CameraViewViewModel: TranslateViewModel {
                 } else {
                     do {
                         try backCamera.setTorchModeOn(level: 1.0)
-                    } catch {
-                        print(error)
-                        // TODO: - Show error alert here
+                    } catch let error {
+                        throw error
                     }
                 }
                 backCamera.unlockForConfiguration()
             } catch let error {
-                // TODO: - Show error alert here
-                print(error)
+                throw error
             }
         }
     }

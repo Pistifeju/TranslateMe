@@ -88,7 +88,6 @@ class CameraToolbarView: UIView {
             break
         }
         
-        button.isSelected.toggle()
         delegate?.didPressToolbarButton(button: button)
     }
 }

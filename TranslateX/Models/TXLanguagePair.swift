@@ -44,18 +44,19 @@ class TXLanguagePair {
         
         let textToTranslate = translateFromTarget ? targetText : sourceText
         
-        translator.translate(textToTranslate) { translatedText, error in
+        translator.translate(textToTranslate) { [weak self] translatedText, error in
+            guard let strongSelf = self else { return }
             if translateFromTarget {
                 if let translatedText = translatedText {
-                    self.sourceText = translatedText
+                    strongSelf.sourceText = translatedText
                 } else {
-                    self.sourceText = ""
+                    strongSelf.sourceText = ""
                 }
             } else {
                 if let translatedText = translatedText {
-                    self.targetText = translatedText
+                    strongSelf.targetText = translatedText
                 } else {
-                    self.targetText = ""
+                    strongSelf.targetText = ""
                 }
             }
             

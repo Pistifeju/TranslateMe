@@ -9,7 +9,7 @@ import Foundation
 import JGProgressHUD
 
 class TranslateViewModel {
-    public var languagePair = TXLanguagePair(sourceLanguage: .english, targetLanguage: .hungarian)
+    public var languagePair = TXLanguagePair(sourceLanguage: .english, targetLanguage: .english)
     
     public func createDownloadLanguageProgressHud() -> JGProgressHUD {
         let progressHud = JGProgressHUD(style: .light)

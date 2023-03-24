@@ -11,6 +11,7 @@ import UIKit
 protocol ConversationViewDelegate: AnyObject {
     func showPickerViewAlert(pickerView: UIPickerView, alert: UIAlertController)
     func handleShowErrorAlert(title: String, message: String)
+    func showCreatedAlertControllerError(ac: UIAlertController)
 }
 
 class ConversationView: UIView {
@@ -125,17 +126,33 @@ extension ConversationView: CameraToolbarViewDelegate {
         viewModel.stopSpeechRecognizerListening()
         
         switch button.toolbarType {
-        case .leftSpeech where button.isSelected, .rightSpeech where button.isSelected:
-            do {
-                let notificationName = button.toolbarType == .leftSpeech ? viewModel.sourceSpeechNotificationName : viewModel.targetSpeechNotificationName
-                let language = button.toolbarType == .leftSpeech ? viewModel.languagePair.sourceLanguage : viewModel.languagePair.targetLanguage
-                try viewModel.startSpeechListening(notificationName: notificationName, toLanguage: language)
-            } catch {
-                delegate?.handleShowErrorAlert(title: "Error", message: "There was an error starting speech recognition.")
+        case .leftSpeech, .rightSpeech:
+            if button.isSelected {
+                button.isSelected.toggle()
+            } else {
+                TXPermission.shared.checkSpeechPermissions { [weak self] success in
+                    guard let strongSelf = self else { return }
+                    switch success {
+                    case true:
+                        button.isSelected.toggle()
+                        do {
+                            let notificationName = button.toolbarType == .leftSpeech ? strongSelf.viewModel.sourceSpeechNotificationName : strongSelf.viewModel.targetSpeechNotificationName
+                            let language = button.toolbarType == .leftSpeech ? strongSelf.viewModel.languagePair.sourceLanguage : strongSelf.viewModel.languagePair.targetLanguage
+                            try strongSelf.viewModel.startSpeechListening(notificationName: notificationName, toLanguage: language)
+                        } catch {
+                            strongSelf.delegate?.handleShowErrorAlert(title: "Error", message: "There was an error starting speech recognition.")
+                        }
+                    case false:
+                        let ac = TXPermission.shared.handlePermissionFailed(title: "The app must have access to the speech featrue to record a conversation", message: "Please consider updating your settings.")
+                        strongSelf.delegate?.showCreatedAlertControllerError(ac: ac)
+                    }
+                }
             }
         case .reset:
+            button.isSelected.toggle()
             viewModel.conversations = []
         default:
+            button.isSelected.toggle()
             break
         }
 

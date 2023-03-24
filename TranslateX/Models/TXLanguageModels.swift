@@ -32,7 +32,8 @@ final class TXLanguageModels {
             allowsBackgroundDownloading: true
         )
         
-        translator.downloadModelIfNeeded(with: conditions) { error in
+        translator.downloadModelIfNeeded(with: conditions) { [weak self] error in
+            guard self != nil else { return }
             guard error == nil else {
                 completion(error)
                 return
@@ -48,7 +49,8 @@ final class TXLanguageModels {
     
     public func deleteLanguage(language: TranslateLanguage, completion: @escaping (Bool) -> Void) {
         let model = TranslateRemoteModel.translateRemoteModel(language: language)
-        ModelManager.modelManager().deleteDownloadedModel(model) { error in
+        ModelManager.modelManager().deleteDownloadedModel(model) { [weak self] error in
+            guard self != nil else { return }
             guard error == nil else {
                 completion(false)
                 return

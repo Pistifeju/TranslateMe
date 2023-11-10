@@ -1,4 +1,4 @@
-# TranslateX (Under Development)
+# TranslateX
 
 This is an app I created for learning purposes. TranslateX supports translating for over 30 languages. It is using Google's MLKit API to translate, identify between languages.
 
